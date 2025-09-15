@@ -4,7 +4,9 @@ const nextConfig = {
   devIndicators: {
     autoPrerender: false,
   },
-  output: "export", // GitHub Pages ke liye static export
+  output: "export",
+  basePath: "", // Root ke liye empty
+  assetPrefix: "", // Root ke liye empty
   images: {
     unoptimized: true,
   },
