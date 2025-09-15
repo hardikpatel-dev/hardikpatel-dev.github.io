@@ -6,18 +6,16 @@ on:
       - main
 
 permissions:
-  contents: write  # 'write' permission chahiye taaki main branch update ho
+  contents: read  # Sirf read chahiye, deploy-pages branch push nahi karta
   pages: write
   id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}  # Ensure token has write access
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,13 +29,24 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Create .nojekyll
         run: touch out/.nojekyll
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
-          publish_branch: main  # Yeh line add karo taaki main branch pe publish ho
-          force_orphan: true   # Optional: New commit ke liye clean slate
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
