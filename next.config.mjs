@@ -4,8 +4,10 @@ const nextConfig = {
   devIndicators: {
     autoPrerender: false,
   },
+  output: "export", // GitHub Pages ke liye static export
   images: {
-    domains: ["picsum.photos"],
+    // domains: ["picsum.photos"],
+    // unoptimized: true,
   },
 };
 
