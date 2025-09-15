@@ -1,0 +1,10 @@
+[
+  { "type": "mobile", "src": "/assets/designs/humaanized-mobile.png" },
+  { "type": "desktop", "src": "/assets/designs/humaanized-desktop.png" },
+  { "type": "desktop", "src": "/assets/designs/rcmpronetwork-desktop.png" },
+  { "type": "mobile", "src": "/assets/designs/rcmpronetwork-mobile.png" },
+  { "type": "mobile", "src": "/assets/designs/teamchatx-mobile.png" },
+  { "type": "desktop", "src": "/assets/designs/teamchatx-desktop.png" }
+]
+
+

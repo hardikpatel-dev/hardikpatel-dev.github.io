@@ -1,0 +1,42 @@
+export const fields = [
+    {
+      id: "name",
+      number: "01",
+      label: "What's your name?",
+      placeholder: "John Doe *",
+      type: "text",
+      required: true,
+    },
+    {
+      id: "email",
+      number: "02",
+      label: "What's your email?",
+      placeholder: "john@doe.com *",
+      type: "email",
+      required: true,
+    },
+    {
+      id: "organization",
+      number: "03",
+      label: "What's the name of your organization?",
+      placeholder: "John & Doe ®",
+      type: "text",
+      required: false,
+    },
+    {
+      id: "service",
+      number: "04",
+      label: "What services are you looking for?",
+      placeholder: "Web Design, Web Development...",
+      type: "text",
+      required: false,
+    },
+    {
+      id: "message",
+      number: "05",
+      label: "Your message",
+      placeholder: "Hello Hardik, can you help me with...",
+      type: "textarea",
+      required: true,
+    },
+  ];

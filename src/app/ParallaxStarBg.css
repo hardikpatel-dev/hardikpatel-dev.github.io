@@ -1,0 +1,85 @@
+
+:root {
+  --bg-star-inverse : #ffdd3388;
+}
+
+.dark {
+  --bg-star-inverse : #8000b2;
+}
+
+#stars, #stars2, #stars3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: repeat;
+  background-size: contain;
+  z-index: -1;
+  border-radius: 50%;
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+  
+}
+
+#stars {
+  width: 8px;
+  height: 8px;
+  
+  background: transparent;
+  box-shadow: 1239px 119px var(--bg-star-inverse) , 737px 674px var(--bg-star-inverse) , 944px 818px var(--bg-star-inverse) , 1074px 390px var(--bg-star-inverse) , 1503px 844px var(--bg-star-inverse) , 166px 188px var(--bg-star-inverse) , 1089px 61px var(--bg-star-inverse) , 1065px 1116px var(--bg-star-inverse) , 1885px 1819px var(--bg-star-inverse) , 378px 880px var(--bg-star-inverse) , 567px 799px var(--bg-star-inverse) , 1251px 757px var(--bg-star-inverse) , 258px 380px var(--bg-star-inverse) , 1029px 1056px var(--bg-star-inverse) , 1395px 1424px var(--bg-star-inverse) , 915px 1998px var(--bg-star-inverse) , 1917px 541px var(--bg-star-inverse) , 751px 457px var(--bg-star-inverse) , 1994px 1274px var(--bg-star-inverse) , 468px 648px var(--bg-star-inverse) , 1895px 1013px var(--bg-star-inverse) , 806px 276px var(--bg-star-inverse);
+  animation: animStar 50s linear infinite;
+}
+#stars:after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: 1239px 119px var(--bg-star-inverse) , 737px 674px var(--bg-star-inverse) , 944px 818px var(--bg-star-inverse) , 1074px 390px var(--bg-star-inverse) , 1503px 844px var(--bg-star-inverse) , 166px 188px var(--bg-star-inverse) , 1089px 61px var(--bg-star-inverse) , 1065px 1116px var(--bg-star-inverse) , 1885px 1819px var(--bg-star-inverse) , 468px 648px var(--bg-star-inverse) , 1895px 1013px var(--bg-star-inverse) , 806px 276px var(--bg-star-inverse);
+}
+
+#stars2 {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  box-shadow: 1545px 518px var(--bg-star-inverse) , 1544px 1399px var(--bg-star-inverse) , 1712px 1185px var(--bg-star-inverse) , 1824px 477px var(--bg-star-inverse) , 434px 924px var(--bg-star-inverse) , 120px 766px var(--bg-star-inverse) , 640px 609px var(--bg-star-inverse) , 170px 1109px var(--bg-star-inverse) , 281px 1031px var(--bg-star-inverse) , 771px 214px var(--bg-star-inverse) , 1875px 343px var(--bg-star-inverse) , 615px 989px var(--bg-star-inverse) , 616px 1575px var(--bg-star-inverse) , 183px 1793px var(--bg-star-inverse) , 1159px 1848px var(--bg-star-inverse) , 394px 798px var(--bg-star-inverse) , 250px 173px var(--bg-star-inverse) , 1688px 593px var(--bg-star-inverse) , 204px 672px var(--bg-star-inverse) , 919px 1416px var(--bg-star-inverse);
+  animation: animStar 100s linear infinite;
+}
+#stars2:after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: 1545px 518px var(--bg-star-inverse) , 1544px 1399px var(--bg-star-inverse) , 1712px 1185px var(--bg-star-inverse) , 1824px 477px var(--bg-star-inverse) , 434px 924px var(--bg-star-inverse) , 120px 766px var(--bg-star-inverse) , 640px 609px var(--bg-star-inverse) , 1099px 1965px var(--bg-star-inverse) , 1697px 417px var(--bg-star-inverse) , 866px 161px var(--bg-star-inverse) , 1492px 1983px var(--bg-star-inverse) , 1591px 745px var(--bg-star-inverse) , 572px 1685px var(--bg-star-inverse) , 1010px 1289px var(--bg-star-inverse) , 309px 721px var(--bg-star-inverse) , 1797px 61px var(--bg-star-inverse) , 731px 1656px var(--bg-star-inverse) , 919px 1416px var(--bg-star-inverse);
+}
+
+#stars3 {
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  box-shadow: 31px 750px var(--bg-star-inverse) , 1027px 1659px var(--bg-star-inverse) , 487px 1028px var(--bg-star-inverse) , 1094px 1872px var(--bg-star-inverse) , 1781px 1760px var(--bg-star-inverse) , 629px 1463px var(--bg-star-inverse) , 1000px 1517px va16(--bg-star-inverse) , 20px 1298px var(--bg-star-inverse) , 1684px 1245px var(--bg-star-inverse) , 510px 731px var(--bg-star-inverse);
+  animation: animStar 150s linear infinite;
+}
+#stars3:after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow: 31px 750px var(--bg-star-inverse) , 1027px 1659px var(--bg-star-inverse) , 487px 1028px var(--bg-star-inverse) , 1094px 1872px var(--bg-star-inverse) , 1781px 1760px var(--bg-star-inverse) , 629px 1463px var(--bg-star-inverse) , 1000px 1517px var(--bg-star-inverse) , 1252px 1459px var(--bg-star-inverse) , 923px 1536px var(--bg-star-inverse) , 183px 1054px var(--bg-star-inverse) , 27px 1122px var(--bg-star-inverse) , 1347px 550px var(--bg-star-inverse) , 1178px 290px var(--bg-star-inverse) , 20px 1298px var(--bg-star-inverse) , 1684px 1245px var(--bg-star-inverse) , 510px 731px var(--bg-star-inverse);
+}
+
+
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}
