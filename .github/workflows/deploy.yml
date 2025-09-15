@@ -5,27 +5,32 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci  # Clean install for better reliability
 
       - name: Build Next.js app
-        run: npm run build
+        run: npm run build  # Builds the app and creates ./out folder
 
-      - name: Export static files
-        run: npm run export
+      - name: Create .nojekyll
+        run: touch out/.nojekyll  # Prevents GitHub Pages from processing with Jekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

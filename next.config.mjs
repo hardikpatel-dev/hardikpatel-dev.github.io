@@ -6,8 +6,7 @@ const nextConfig = {
   },
   output: "export", // GitHub Pages ke liye static export
   images: {
-    // domains: ["picsum.photos"],
-    // unoptimized: true,
+    unoptimized: true,
   },
 };
 
