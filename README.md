@@ -43,6 +43,19 @@ npm run build && npm run export
 
 
 
+## 🚀 Deployment
+
+### Vercel (Main Branch)
+- Runs `npm run build`
+- Uses full Next.js features (Image Optimization, ISR, SSR)
+
+### GitHub Pages (gh-pages Branch)
+- Runs `npm run build:export`
+- Generates static `out/` folder
+- Limited features (no image optimization, no SSR)
+
+
+
 # How to Push Changes (Quick Note for README)
 # Edit files in your local folder (e.g., E:\Personal Work\hardikportfolio).
 # Test locally: 
