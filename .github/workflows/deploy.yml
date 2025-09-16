@@ -6,7 +6,7 @@ on:
       - main
 
 permissions:
-  contents: read  # Sirf read chahiye, deploy-pages branch push nahi karta
+  contents: read
   pages: write
   id-token: write
 
@@ -26,8 +26,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Set ENV for export
+        run: echo "EXPORT=true" >> .env
+
       - name: Build Next.js app
-        run: echo "EXPORT=true" >> .env npm run build
+        run: npm run build && npx next export
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
