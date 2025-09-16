@@ -30,7 +30,7 @@ jobs:
         run: echo "EXPORT=true" >> .env
 
       - name: Build Next.js app
-        run: npm run build && npx next export
+        run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
