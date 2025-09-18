@@ -20,8 +20,8 @@ export default function MockupGrid() {
           ".mockup-item",
           {
             y:50,
-            duration: 1,
-            stagger: 0.6,
+            duration: 0.6,
+            stagger: 0.2,
             ease:"power1.inOut",
             scrollTrigger: {
               trigger: root.current,
@@ -40,7 +40,7 @@ export default function MockupGrid() {
         // auto loop
         const tl = gsap.to(track, {
           x: () => -(track.scrollWidth - window.innerWidth),
-          duration: 50,
+          duration: 30,
           ease: "none",
           repeat: -1,
           yoyo: true,

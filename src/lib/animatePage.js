@@ -1,6 +1,6 @@
 import gsap from "gsap";
 
-// Only banners animation
+// Page In (jab naye page ka content aa raha hai)
 export const animatePageIn = () => {
   const banners = [
     document.getElementById("banner-1"),
@@ -19,6 +19,7 @@ export const animatePageIn = () => {
   }
 };
 
+// Page Out (jab hum dusre page pe ja rahe hain)
 export const animatePageOut = (href, router) => {
   const banners = [
     document.getElementById("banner-1"),
@@ -31,7 +32,9 @@ export const animatePageOut = (href, router) => {
     gsap
       .timeline({
         onComplete: () => {
+          // 👇 out animation complete hote hi navigate karo
           if (router && href) router.push(href);
+          // Suspense fallback ab turant visible ho jayega
         },
       })
       .set(banners, { yPercent: -100 })

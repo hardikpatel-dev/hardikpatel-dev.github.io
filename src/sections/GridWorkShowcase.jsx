@@ -85,9 +85,7 @@ export default function GridWorkShowcase() {
             {col.map((src, j) => (
               <div
                 key={j}
-                className={`relative w-full overflow-hidden bg-gray-800 border-amber-200 shadow-md ${
-                  j % 2 === 0 ? "border-x-1" : "border-y-1"
-                }`}
+                className={`relative w-full overflow-hidden bg-gray-200 shadow-md `}
               >
                 <Image
                   src={src}
@@ -95,8 +93,10 @@ export default function GridWorkShowcase() {
                   width={800}
                   height={1200}
                   className="w-full h-auto object-contain"
-                  quality={50}
-                  priority
+                  quality={40}
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
                 />
               </div>
             ))}

@@ -1,4 +1,4 @@
-"use client";
+
 import { fields } from "@/data/form-input";
 import {
   IconArrowDownLeft,
@@ -112,7 +112,7 @@ export default function ContactPage() {
                 <div className="absolute top-0 right-0 transform -translate-x-1/3 sm:-translate-x-1/2 -translate-y-1/2">
                   <button
                     type="submit"
-                    className="magnetic-hover inline-flex  w-30 sm:w-40 h-30 sm:h-40 justify-center items-center rounded-full bg-inverse text-inverse text-shadow-lg cursor-pointer"
+                    className="relative magnetic-hover inline-flex  w-30 sm:w-40 h-30 sm:h-40 justify-center items-center rounded-full bg-inverse text-inverse text-shadow-lg cursor-pointer z-10"
                   >
                     Send it!
                   </button>
@@ -134,7 +134,10 @@ export default function ContactPage() {
               <span className="absolute left-1/2 bottom-0 h-[1px] w-0 bg-inverse transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
             </Link>
 
-            <Link href="tel:+916386921922" className="relative group text-md w-fit">
+            <Link
+              href="tel:+916386921922"
+              className="relative group text-md w-fit"
+            >
               +91 6386 921 922
               <span className="absolute left-1/2 bottom-0 h-[1px] w-0 bg-inverse transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
             </Link>
@@ -152,8 +155,9 @@ export default function ContactPage() {
               Socials
             </span>
             <Link
-              href="tel:+916386921922"
+              href="https://wa.me/916386921922"
               className="text-md flex items-center gap-2 relative group w-fit"
+              target="_blank"
             >
               <IconBrandWhatsapp size={20} />
               Whatsapp
@@ -162,6 +166,7 @@ export default function ContactPage() {
             <Link
               href="https://www.linkedin.com/in/hardik-kumar-patel-564798227"
               className="text-md flex items-center gap-2 relative group w-fit"
+              target="_blank"
             >
               <IconBrandLinkedin size={20} />
               LinkedIn
@@ -170,6 +175,7 @@ export default function ContactPage() {
             <Link
               href="https://github.com/hardikpatel-dev"
               className="text-md flex items-center gap-2 relative group w-fit"
+              target="_blank"
             >
               <IconBrandGithub size={20} />
               Github

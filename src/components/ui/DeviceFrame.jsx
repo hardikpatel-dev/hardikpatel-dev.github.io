@@ -18,12 +18,16 @@ export default function DeviceFrame({ type, src }) {
       }`}
     >
       {src && (
-        <img
-        width={85}
-        height={52}
+        <Image
           src={src}
           alt={`${type} mockup`}
+          width={85}
+          height={52}
           className="w-full h-full object-cover rounded-lg"
+          quality={100}
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
         />
       )}
     </div>

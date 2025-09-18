@@ -1,7 +1,7 @@
-import WorkTile from "@/components/WorkTile";
+import React from "react";
 import projects from "@/data/projects";
 import { IconCircleArrowDownRight, IconCopyright } from "@tabler/icons-react";
-import React from "react";
+import WorkTile from "@/components/WorkTile";
 
 const Work = () => {
   return (

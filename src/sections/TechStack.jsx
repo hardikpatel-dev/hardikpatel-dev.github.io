@@ -95,7 +95,10 @@ const TechStack = () => {
   }, [active]);
 
   return (
-    <div id="tech-stack" className="wrapper bg-secondary border-t-2 z-1 relative">
+    <div
+      id="tech-stack"
+      className="wrapper bg-secondary border-t-2 z-1 relative"
+    >
       <h2 className="heading uppercase text-center my-8 md:my-10 lg:my-20">
         Modern <span className="text-nowrap">Tech stack</span>
       </h2>
@@ -130,6 +133,8 @@ const TechStack = () => {
                     height={60}
                     quality={50}
                     loading="lazy"
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
                     className={`h-18 w-auto object-contain  ${
                       active === tech.id ? "filter-invert" : "svg-invert"
                     }`}

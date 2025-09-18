@@ -128,6 +128,8 @@ const WorkTile = ({ project }) => {
               src={video}
               muted
               loop
+              preload="metadata"
+              poster={thumbnail}
               playsInline
               className={`
                 absolute inset-0 w-full h-full object-cover transition-all duration-300 z-10
@@ -154,7 +156,10 @@ const WorkTile = ({ project }) => {
           {/* Logo + Name */}
           <div className="flex gap-2 items-center">
             <div className="h-10 w-10 rounded-full bg-secondary overflow-hidden">
-              <img
+              <Image
+              width={40}
+              height={40}
+              loading="lazy"
                 src={favicon}
                 alt={`${name} favicon`}
                 className="w-full h-full object-contain rounded-full bg-white p-0.5"

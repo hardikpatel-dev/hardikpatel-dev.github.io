@@ -29,7 +29,7 @@ export default function Header() {
   const navLinks = [
     { id: "home", label: "Home", href: "/" },
     { id: "work", label: "Work", href: "/#work" },
-    { id: "tech-stack", label: "Tech Stack", href: "#tech-stack" },
+    { id: "tech-stack", label: "Tech Stack", href: "/#tech-stack" },
     { id: "about", label: "About", href: "/#about" },
     { id: "testimonials", label: "Testimonials", href: "/#testimonials" },
     { id: "connect", label: "Connect", href: "/contact" },
