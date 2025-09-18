@@ -3,10 +3,9 @@ const isExport = process.env.EXPORT === "true";
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: isExport
     ? { unoptimized: true }
-    : {
+    : { 
         formats: ["image/avif", "image/webp"],
         remotePatterns: [
           {

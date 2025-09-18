@@ -1,8 +1,8 @@
-import Header from "@/components/Header";
-import { WhyteInktrap, poppins, instrumentSerif } from "./fonts";
 import "./globals.css";
+import { WhyteInktrap, poppins, instrumentSerif } from "./fonts";
 import TitleChanger from "@/components/TitleChanger";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 export const metadata = {
   title: "Hardik Patel | FrontEnd Developer",

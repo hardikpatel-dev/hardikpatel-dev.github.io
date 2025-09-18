@@ -1,6 +1,5 @@
-import Header from "@/components/Header";
+
 import About from "@/sections/About";
-import Footer from "@/components/Footer";
 import GridWorkShowcase from "@/sections/GridWorkShowcase";
 import Hero from "@/sections/Hero";
 import TechStack from "@/sections/TechStack";

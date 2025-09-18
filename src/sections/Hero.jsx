@@ -1,4 +1,4 @@
-"use client";
+
 import {
   IconArrowDownRight,
   IconBrandVscode,
@@ -10,8 +10,7 @@ import {
   IconWorld,
 } from "@tabler/icons-react";
 import Link from "next/link";
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
+import React from "react";
 import MockupGrid from "../components/MockupGrid";
 import HeroTagLineSlideUp from "../components/ui/HeroTagLineSlideUp";
 import HeroBlob from "../components/ui/HeroBlob";

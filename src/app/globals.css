@@ -182,7 +182,7 @@ body {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  color: var(--bg-primary);
+  color: var(--text-inverse);
   padding: 0.7em 1.7em;
   cursor: pointer;
   font-size: 16px;
