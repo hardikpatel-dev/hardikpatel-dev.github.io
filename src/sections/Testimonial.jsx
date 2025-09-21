@@ -1,10 +1,47 @@
+"use client";
 import testimonials from "@/data/testimonials";
 import { IconBrandLinkedinFilled } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
+import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
+import FlipOnScroll from "@/app/animations/FlipOnScroll";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Testimonial = () => {
+  const feedbackRefs = useRef([]);
+
+  
+
+  useEffect(() => {
+    feedbackRefs.current.forEach((el) => {
+      if (!el) return;
+
+      // Split text into words
+      const split = new SplitType(el, {
+        types: "words",
+        tagName: "span",
+      });
+
+      gsap.from(split.words, {
+        opacity: 0.3,
+        duration: 1,
+        ease: "power1.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          end: "bottom 80%",
+          scrub: true, // scroll ke saath smooth
+        },
+      });
+    });
+  }, []);
+
   return (
     <div id="testimonials" className=" py-20 bg-primary">
       <div className="text-center container-fluid">
@@ -12,7 +49,9 @@ const Testimonial = () => {
           Testimonials
         </span>
         <h2 className="font-whyte font-bold text-center text-[12vw] text-nowrap leading-[70%]  pb-20 z-1">
-          <em className="font-serif font-medium">Voices</em> of Trust
+          <FadeUpTextScroll>
+            <em className="font-serif font-medium">Voices</em> of Trust
+          </FadeUpTextScroll>
         </h2>
         <div className="flex items-center justify-between font-whyte px-2 z-1 text-text-muted">
           <span className="text-xs sm:text-sm uppercase font-bold hidden sm:inline">
@@ -44,7 +83,11 @@ const Testimonial = () => {
                     ${index % 2 === 1 ? "rotate-2" : "-rotate-2"}
                      shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:rotate-0 box-shadow`}
                 >
-                  <Link href={t.linkedin} target="_blank" className="block w-full h-50">
+                  <Link
+                    href={t.linkedin}
+                    target="_blank"
+                    className="block w-full h-50 overflow-hidden"
+                  >
                     <Image
                       src={t.image}
                       alt={t.name}
@@ -57,7 +100,7 @@ const Testimonial = () => {
                   </Link>
                   <div className="flex justify-between items-center gap-2 pt-2">
                     <p className="text-xs font-medium capitalize  text-black">
-                      {t.name}
+                      <FadeUpTextScroll>{t.name}</FadeUpTextScroll>
                     </p>
                     {/* LinkedIn Link */}
                     {t.linkedin && (
@@ -67,17 +110,22 @@ const Testimonial = () => {
                         rel="noopener noreferrer"
                         className="flex items-center text-blue-600"
                       >
-                        <IconBrandLinkedinFilled size={20} />
+                        <FlipOnScroll delay={1.5}>
+                          <IconBrandLinkedinFilled size={20} />
+                        </FlipOnScroll>
                       </a>
                     )}
                   </div>
                   <p className="text-xs font-normal text-gray-600">
-                    {t.designation}
+                    <FadeUpTextScroll delay={0.5}>{t.designation}</FadeUpTextScroll>
                   </p>
                 </div>
 
                 {/* Feedback */}
-                <div className="min-w-0 w-full sm:max-w-sm font-serif text-lg sm:text-xl text-center ">
+                <div
+                  ref={(el) => (feedbackRefs.current[index] = el)}
+                  className="min-w-0 w-full sm:max-w-sm font-serif text-lg sm:text-xl text-center"
+                >
                   <p className="tracking-wider">"{t.feedback}"</p>
                 </div>
               </div>

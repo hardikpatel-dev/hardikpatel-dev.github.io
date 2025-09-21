@@ -64,14 +64,12 @@ const WorkTile = ({ project }) => {
   }, [video]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 lg:gap-1">
+    <div className="flex flex-col md:flex-row gap-4 lg:gap-1 work-tile">
       {/* Browser Mockup */}
       <Link
         href={link}
         target="_blank"
-        // hover:drop-shadow-[-8px_8px_5px_rgba(0,0,0,0.10)] hover:-translate-y-0.5
-        // ${order % 2 === 0 ? "hover:-rotate-1" : "hover:-rotate-1"}
-        className={`group block md:basis-[60%] browser-mockup aspect-16/9 rounded-xl lg:rounded-md shadow-lg lg:shadow-none
+        className={`work-thumb group block md:basis-[60%] browser-mockup aspect-16/9 rounded-xl lg:rounded-md shadow-lg lg:shadow-none
          mb-5 transition-all duration-300 overflow-hidden lg:overflow-visible  border-5 border-current lg:border-0`}
       >
         <div className="bg-secondary border-b border-gray-200 h-8 flex items-center justify-between px-4 rounded-t-lg">
@@ -152,14 +150,14 @@ const WorkTile = ({ project }) => {
 
       {/* Work details below */}
       <div className="mb-6 md:basis-[40%] flex flex-col gap-8 justify-between">
-        <div className="flex gap-2 flex-col">
+        <div className="flex gap-2 flex-col work-title">
           {/* Logo + Name */}
           <div className="flex gap-2 items-center">
             <div className="h-10 w-10 rounded-full bg-secondary overflow-hidden">
               <Image
-              width={40}
-              height={40}
-              loading="lazy"
+                width={40}
+                height={40}
+                loading="lazy"
                 src={favicon}
                 alt={`${name} favicon`}
                 className="w-full h-full object-contain rounded-full bg-white p-0.5"
@@ -170,13 +168,13 @@ const WorkTile = ({ project }) => {
             </span>
           </div>
           {/* Description */}
-          <div className="w-full sm:w-[60%] md:w-full lg:w-[80%]">
+          <div className="w-full sm:w-[60%] md:w-full lg:w-[80%] work-description">
             <p className="text-[12px] text-text-muted">{description}</p>
           </div>
         </div>
 
         {/* Industry, Link, Published */}
-        <div className="flex gap-2 flex-wrap items-center justify-between">
+        <div className="flex gap-2 flex-wrap items-center justify-between work-meta">
           <p className="text-xs">
             <span className="text-text-muted">
               Industry <br />

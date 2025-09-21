@@ -22,6 +22,15 @@ export default function Header() {
   useRollingLinks();
 
   useEffect(() => {
+    if (headerRef.current) {
+      gsap.from(headerRef.current, {
+        y: -50, // upar se niche slide
+        opacity: 0, // fade in
+        duration: 1.2, // smooth duration
+        ease: "power3.out",
+        delay: 2, // 1s delay
+      });
+    }
     initMagneticHover();
   }, []);
 

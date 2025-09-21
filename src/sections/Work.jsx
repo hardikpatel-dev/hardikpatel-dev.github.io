@@ -2,6 +2,7 @@ import React from "react";
 import projects from "@/data/projects";
 import { IconCircleArrowDownRight, IconCopyright } from "@tabler/icons-react";
 import WorkTile from "@/components/WorkTile";
+import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
 
 const Work = () => {
   return (
@@ -18,7 +19,7 @@ const Work = () => {
           />
           <div className="flex items-end justify-between ">
             <div className="heading mt-8 lg:mt-4 text-text-heading">
-              Selected Works
+              <FadeUpTextScroll delay={0.5}>Selected Works</FadeUpTextScroll>
             </div>
             <div className="text-md flex items-center justify-center gap-1 text-text-muted">
               <IconCopyright stroke={2} />

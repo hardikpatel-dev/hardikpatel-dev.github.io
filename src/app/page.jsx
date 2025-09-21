@@ -1,17 +1,23 @@
 
+import { Suspense, lazy } from "react";
+import Loader from "@/components/Loader";
 import About from "@/sections/About";
-import GridWorkShowcase from "@/sections/GridWorkShowcase";
+const Work = lazy(() => import("@/sections/Work"));
+const GridWorkShowcase = lazy(() => import("@/sections/GridWorkShowcase"));
 import Hero from "@/sections/Hero";
 import TechStack from "@/sections/TechStack";
 import Testimonial from "@/sections/Testimonial";
-import Work from "@/sections/Work";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Work />
-      <GridWorkShowcase />
+      <Suspense fallback={<Loader />}>
+        <Work />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <GridWorkShowcase />
+      </Suspense>
       <TechStack />
       <About />
       <Testimonial />

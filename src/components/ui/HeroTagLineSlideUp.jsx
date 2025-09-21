@@ -7,12 +7,23 @@ const HeroTagLineSlideUp = () => {
   const iconsRef = useRef(null);
 
   useEffect(() => {
-    const durationVisible = 4; // dono ke liye equal showtime
-    const durationAnim = 0.6; // slide duration
+    // initial entry animation (only once on mount)
+    gsap.from([lineRef.current, iconsRef.current], {
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      delay: 2,
+      ease: "power3.out",
+      stagger: 0.2,
+    });
 
-    const tl = gsap.timeline({ repeat: -1 });
+    const durationVisible = 4;
+    const durationAnim = 0.6;
 
-    // Line -> show (already visible by default) -> hide
+    const tl = gsap.timeline({ repeat: -1, delay: 3 + 1.2 });
+    // delay = initial delay (3s) + entry animation duration (≈1.2s)
+
+    // Line -> show -> hide
     tl.to(lineRef.current, {
       y: "0%",
       opacity: 1,

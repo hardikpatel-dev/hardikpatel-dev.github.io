@@ -1,4 +1,3 @@
-
 import { fields } from "@/data/form-input";
 import {
   IconArrowDownLeft,
@@ -10,45 +9,51 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
+import FadeUpTextScroll from "../animations/FadeUpTextScroll";
+import FlipOnScroll from "../animations/FlipOnScroll";
 
 export default function ContactPage() {
   // 🔥 Array me fields define kardo
-  
+
   return (
     <div className="bg-primary min-h-[calc(100vh-100px)] mx-2 xs:mx-4 mb-2 xs:mb-4 rounded-xl shadow-sm">
       <div className="flex xs:flex-row flex-col py-12 md:py-24 container-fluid gap-4">
         <h2 className="heading basis-[80%] md:basis-[70%]">
-          <p className="inline-flex items-baseline flex-nowrap text-nowrap">
-            <span className=" w-14 h-14 rounded-[50%] overflow-hidden me-3 inline-block xs:hidden">
+          <FadeUpTextScroll delay={1}>
+            <p className="inline-flex items-baseline flex-nowrap text-nowrap">
+              <span className=" w-14 h-14 rounded-[50%] overflow-hidden me-3 inline-block xs:hidden">
+                <Image
+                  src="/assets/hardik.jpeg"
+                  alt="Hardik's Photo"
+                  width={50}
+                  height={50}
+                  quality={50}
+                  loading="lazy"
+                  className="object-cover h-full w-full "
+                />
+              </span>{" "}
+              Open to <span className="text-green-600">.</span>
+            </p>{" "}
+            <br />{" "}
+            <span className="font-serif tracking-wide text-5xl">
+              Opportunities & Collaborations
+            </span>
+          </FadeUpTextScroll>
+        </h2>
+        <div className="flex-1 flex flex-col xs:items-start items-end justify-between">
+          <FlipOnScroll delay={2}>
+            <div className="w-25 h-25 rounded-[50%] overflow-hidden mb-20  hidden xs:block">
               <Image
                 src="/assets/hardik.jpeg"
                 alt="Hardik's Photo"
-                width={50}
-                height={50}
+                width={100}
+                height={100}
                 quality={50}
-                loading="lazy"
-                className="object-cover h-full w-full "
+                priority
+                className="object-cover h-full w-full"
               />
-            </span>{" "}
-            Open to <span className="text-green-600">.</span>
-          </p>{" "}
-          <br />{" "}
-          <span className="font-serif tracking-wide text-5xl">
-            Opportunities & Collaborations
-          </span>
-        </h2>
-        <div className="flex-1 flex flex-col xs:items-start items-end justify-between">
-          <div className="w-25 h-25 rounded-[50%] overflow-hidden mb-20  hidden xs:inline">
-            <Image
-              src="/assets/hardik.jpeg"
-              alt="Hardik's Photo"
-              width={100}
-              height={100}
-              quality={50}
-              priority
-              className="object-cover h-full w-full"
-            />
-          </div>
+            </div>
+          </FlipOnScroll>
           <IconArrowDownRight
             size={40}
             stroke={1}

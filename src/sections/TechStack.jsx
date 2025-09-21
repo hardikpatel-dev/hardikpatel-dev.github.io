@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
 
 const techStack = [
   {
@@ -100,7 +101,9 @@ const TechStack = () => {
       className="wrapper bg-secondary border-t-2 z-1 relative"
     >
       <h2 className="heading uppercase text-center my-8 md:my-10 lg:my-20">
-        Modern <span className="text-nowrap">Tech stack</span>
+        <FadeUpTextScroll delay={0.5}>
+          Modern <span className="text-nowrap">Tech stack</span>
+        </FadeUpTextScroll>
       </h2>
 
       <div className="container-fluid md:py-20">

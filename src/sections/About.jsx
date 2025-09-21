@@ -1,12 +1,16 @@
+import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
 import ProfileFrame from "@/components/ui/ProfileFrame";
 import React from "react";
 
 const About = () => {
   return (
-    <div id="about" className="about-section bg-primary section-clip-left pt-10 pb-50 border-t-2 shadow-md">
+    <div
+      id="about"
+      className="about-section bg-primary section-clip-left pt-10 pb-50 border-t-2 shadow-md"
+    >
       <div className="sticky top-16">
         <h2 className="font-whyte font-bold text-center text-[15vw] text-nowrap leading-[70%]  pt-2 z-1">
-          About Hardik
+          <FadeUpTextScroll >About Hardik</FadeUpTextScroll>
         </h2>
         <div className="flex items-center justify-between text-text px-2 z-1 opacity-80">
           <span className="text-xs sm:text-sm uppercase font-medium sm:font-bold">
@@ -21,7 +25,9 @@ const About = () => {
           <span className="text-xs sm:text-sm uppercase font-medium sm:font-bold">
             Learner
           </span>
-          <span className="text-xs sm:text-sm uppercase font-medium sm:font-bold">Seeker</span>
+          <span className="text-xs sm:text-sm uppercase font-medium sm:font-bold">
+            Seeker
+          </span>
         </div>
       </div>
       <div className="container-fluid mt-60 md:mt-80 z-20">

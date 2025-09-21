@@ -372,3 +372,14 @@ body {
 .dark .border-light {
   @apply border-gray-700;
 }
+
+
+#loader > div {
+  overflow: hidden;
+}
+
+.cloneText {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
