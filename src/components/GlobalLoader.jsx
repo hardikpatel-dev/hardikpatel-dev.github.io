@@ -80,12 +80,12 @@ export default function GlobalLoader() {
     const pRect = p.getBoundingClientRect();
     const distance = pRect.left - hRect.right; // gap between H and P
 
-    const moveFraction = 0.2; // move 20% toward each other
+    const moveFraction = 0.2; // move 40% toward each other
 
     tl.to(
       h,
       {
-        x: distance * (moveFraction + 0.6), // H moves toward P
+        x: distance * (moveFraction + 0.7), // H moves toward P
         duration: 0.6,
         ease: "power4.out",
       },
@@ -95,7 +95,7 @@ export default function GlobalLoader() {
     tl.to(
       p,
       {
-        x: -distance * moveFraction, // P moves toward H
+        x: -distance * 0.1, // P moves toward H
         duration: 0.6,
         ease: "power4.out",
       },
@@ -135,7 +135,7 @@ export default function GlobalLoader() {
     >
       <h1
         id="loader"
-        className="font-whyte text-text text-center font-bold text-7xl md:text-9xl tracking-wide relative"
+        className="font-whyte text-text text-center text-[12vw] text-nowrap font-bold tracking-wide relative"
       ></h1>
     </div>
   );

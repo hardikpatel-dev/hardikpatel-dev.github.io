@@ -28,7 +28,7 @@ export default function Header() {
         opacity: 0, // fade in
         duration: 1.2, // smooth duration
         ease: "power3.out",
-        delay: 2, // 1s delay
+        delay: 2.5, // 1s delay
       });
     }
     initMagneticHover();

@@ -29,11 +29,11 @@ const Hero = () => {
               className="text-text-muted"
             />
             <div className="py-10 lg:py-12 xl:py-16 text-center lg:text-start">
-              <FadeUpText delay={0.5}>
+              <FadeUpText delay={1}>
                 <h1 className="leading-tight text-[clamp(1.6rem,6vw,3.5rem)] lg:text-[clamp(1.5rem,6vw,3vw)]  font-extrabold box-border uppercase font-whyte text-text-heading text-nowrap">
                   <span className="inline-flex flex-nowrap items-center">
                     Cra
-                    <FlipOnScroll delay={2}>
+                    <FlipOnScroll delay={2.5}>
                       <svg
                         width="28"
                         height="28"
@@ -75,7 +75,7 @@ const Hero = () => {
                   </em>{" "}
                   <span className="inline-flex flex-nowrap items-center">
                     E
-                    <FlipOnScroll delay={2}>
+                    <FlipOnScroll delay={2.5}>
                       <IconBrandVscode
                         stroke={1}
                         className="drop-shadow-lg mb-[4%] md:mb-[2%] xl:mb-[4%] text-blue-500 w-6 sm:w-10 xl:w-12 h-6 sm:h-10 md:h-10 xl:h-12"

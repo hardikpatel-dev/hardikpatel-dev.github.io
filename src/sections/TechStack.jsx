@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
+import FlipOnScroll from "@/app/animations/FlipOnScroll";
 
 const techStack = [
   {
@@ -129,19 +130,21 @@ const TechStack = () => {
                   onMouseEnter={() => setActive(tech.id)}
                   className="h-60 flex flex-1 items-center justify-center p-6 border-r border-b border-t-0 border-gray-300 transition first:border-l-0 last:border-r-0"
                 >
-                  <Image
-                    src={tech.icon}
-                    alt={tech.id}
-                    width={60}
-                    height={60}
-                    quality={50}
-                    loading="lazy"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
-                    className={`h-18 w-auto object-contain  ${
-                      active === tech.id ? "filter-invert" : "svg-invert"
-                    }`}
-                  />
+                  <FlipOnScroll>
+                    <Image
+                      src={tech.icon}
+                      alt={tech.id}
+                      width={60}
+                      height={60}
+                      quality={50}
+                      loading="lazy"
+                      placeholder="blur"
+                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
+                      className={`h-18 w-auto object-contain  ${
+                        active === tech.id ? "filter-invert" : "svg-invert"
+                      }`}
+                    />
+                  </FlipOnScroll>
                 </a>
               ))}
             </div>
@@ -158,17 +161,19 @@ const TechStack = () => {
                   onMouseEnter={() => setActive(tech.id)}
                   className="h-50 flex flex-1 items-center justify-center p-6 border-r border-gray-300 transition first:border-l-0 last:border-r-0"
                 >
-                  <Image
-                    src={tech.icon}
-                    alt={tech.id}
-                    width={60}
-                    height={60}
-                    quality={50}
-                    loading="lazy"
-                    className={`h-12 w-auto object-contain  ${
-                      active === tech.id ? "filter-invert" : "svg-invert"
-                    }`}
-                  />
+                  <FlipOnScroll>
+                    <Image
+                      src={tech.icon}
+                      alt={tech.id}
+                      width={60}
+                      height={60}
+                      quality={50}
+                      loading="lazy"
+                      className={`h-12 w-auto object-contain  ${
+                        active === tech.id ? "filter-invert" : "svg-invert"
+                      }`}
+                    />
+                  </FlipOnScroll>
                 </a>
               ))}
             </div>
@@ -186,15 +191,17 @@ const TechStack = () => {
                 onMouseEnter={() => setActive(tech.id)}
                 className="h-30 flex flex-1 items-center justify-center p-4 border-r border-b border-gray-300 transition odd:border-l-0 even:border-r-0 last:border-r-0"
               >
-                <Image
-                  src={tech.icon}
-                  alt={tech.id}
-                  width={50}
-                  height={50}
-                  quality={50}
-                  loading="lazy"
-                  className={`h-12 w-auto object-contain svg-invert`}
-                />
+                <FlipOnScroll>
+                  <Image
+                    src={tech.icon}
+                    alt={tech.id}
+                    width={50}
+                    height={50}
+                    quality={50}
+                    loading="lazy"
+                    className={`h-12 w-auto object-contain svg-invert`}
+                  />
+                </FlipOnScroll>
               </a>
             ))}
           </div>

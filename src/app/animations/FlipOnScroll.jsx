@@ -19,6 +19,7 @@ export default function FlipOnScroll({ children, delay = 0.5 }) {
           opacity: 1,
           duration: 1.5,
           delay,
+          stagger: 0.1,
           ease: "back.out(1.7)",
           transformOrigin: "center center", // sikka center se ghoome
           scrollTrigger: {
