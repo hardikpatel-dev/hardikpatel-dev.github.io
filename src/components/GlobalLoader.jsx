@@ -86,7 +86,7 @@ export default function GlobalLoader() {
       h,
       {
         x: distance * (moveFraction + 0.7), // H moves toward P
-        duration: 0.6,
+        duration: 0.4,
         ease: "power4.out",
       },
       "s"
@@ -96,7 +96,7 @@ export default function GlobalLoader() {
       p,
       {
         x: -distance * 0.1, // P moves toward H
-        duration: 0.6,
+        duration: 0.4,
         ease: "power4.out",
       },
       "s"
@@ -113,7 +113,7 @@ export default function GlobalLoader() {
     // 5. Fade loader
     tl.to("#global-loader", {
       opacity: 0,
-      duration: 0.4,
+      duration: 0.2,
       onComplete: () => {
         setShow(false);
         window.dispatchEvent(new Event("loaderComplete"));
@@ -135,7 +135,7 @@ export default function GlobalLoader() {
     >
       <h1
         id="loader"
-        className="font-whyte text-text text-center text-[12vw] text-nowrap font-bold tracking-wide relative"
+        className="font-whyte text-text text-center text-[12vw] text-nowrap font-medium tracking-wide relative"
       ></h1>
     </div>
   );

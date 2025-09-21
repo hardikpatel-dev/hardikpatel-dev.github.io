@@ -14,7 +14,7 @@ const Footer = () => {
   const isContactPage = pathname === "/contact"; // check if it's contact page
 
   return (
-    <div className="bg-olive text-blue-50 ">
+    <div className="bg-olive text-blue-50 " data-cursor="🟡">
       <div className="container-fluid">
         {!isContactPage && (
           <>
@@ -41,6 +41,7 @@ const Footer = () => {
               <div className="absolute top-0 right-0 transform -translate-x-1/3 sm:-translate-x-1/2 -translate-y-1/2">
                 <FlipOnScroll delay={1.5}>
                   <TransitionLink
+                    data-cursor="Ping me here!"
                     label="Get in Touch"
                     href="contact"
                     className="magnetic-hover inline-flex  w-30 sm:w-40 h-30 sm:h-40 justify-center items-center rounded-full bg-white text-black text-shadow-lg"
@@ -51,35 +52,33 @@ const Footer = () => {
               </div>
             </div>
             <div className="flex items-center wrapper gap-6 flex-wrap">
-              <FadeUpTextScroll delay={1}>
-                <Link
-                  href="mailto:hkpatelofficial69@gmail.com"
-                  className="relative inline-flex items-center justify-center p-3 sm:p-6 rounded-full border border-gray-500 text-white overflow-hidden group magnetic-hover"
-                >
-                  <span className="relative z-10">
-                    hkpatelofficial69@gmail.com
-                  </span>
-                  {/* background fluid */}
-                  <span
-                    className="absolute bottom-0 left-0 w-full h-full bg-amber-400 rounded-full
+              <Link
+                data-cursor="📩Let's chat!"
+                href="mailto:hkpatelofficial69@gmail.com"
+                className="relative inline-flex items-center justify-center p-3 sm:p-6 rounded-full border border-gray-500 text-white overflow-hidden group magnetic-hover"
+              >
+                <span className="relative z-10">
+                  hkpatelofficial69@gmail.com
+                </span>
+                {/* background fluid */}
+                <span
+                  className="absolute bottom-0 left-0 w-full h-full bg-amber-400 rounded-full
                transform translate-y-full group-hover:translate-y-0
                transition-transform duration-500 ease-in-out"
-                  ></span>
-                </Link>
-              </FadeUpTextScroll>
-              <FadeUpTextScroll delay={1}>
-                <Link
-                  href="tel:+916386921922"
-                  className="relative inline-flex items-center justify-center p-3 sm:p-6 rounded-full border border-gray-500 text-white overflow-hidden group magnetic-hover"
-                >
-                  <span className="relative z-10">+91 6386 921 922</span>
-                  <span
-                    className="absolute bottom-0 left-0 w-full h-full bg-amber-400 rounded-full
+                ></span>
+              </Link>
+              <Link
+                data-cursor="📞Let's talk!"
+                href="tel:+916386921922"
+                className="relative inline-flex items-center justify-center p-3 sm:p-6 rounded-full border border-gray-500 text-white overflow-hidden group magnetic-hover"
+              >
+                <span className="relative z-10">+91 6386 921 922</span>
+                <span
+                  className="absolute bottom-0 left-0 w-full h-full bg-amber-400 rounded-full
                transform translate-y-full group-hover:translate-y-0
                transition-transform duration-500 ease-in-out"
-                  ></span>
-                </Link>
-              </FadeUpTextScroll>
+                ></span>
+              </Link>
             </div>
           </>
         )}
@@ -109,6 +108,7 @@ const Footer = () => {
             </span>
             <div className="flex gap-6  text-sm">
               <Link
+                data-cursor=""
                 href="https://wa.me/916386921922"
                 target="_blank"
                 className="hover:text-white transition-all hover:underline"
@@ -116,6 +116,7 @@ const Footer = () => {
                 Whatsapp
               </Link>
               <Link
+                data-cursor=""
                 href="https://www.linkedin.com/in/hardik-kumar-patel-564798227"
                 target="_blank"
                 className="hover:text-white transition-colors hover:underline"
@@ -123,6 +124,7 @@ const Footer = () => {
                 LinkedIn
               </Link>
               <Link
+                data-cursor=""
                 href="https://github.com/hardikpatel-dev"
                 target="_blank"
                 className="hover:text-white transition-colors hover:underline"

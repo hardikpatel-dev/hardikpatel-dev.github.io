@@ -163,6 +163,7 @@ export default function Header() {
   return (
     <>
       <header
+        data-cursor=""
         ref={headerRef}
         className="w-full navbar text-dark sticky py-4 top-0 z-[9]"
       >
@@ -193,7 +194,11 @@ export default function Header() {
 
           <div className="flex item-center gap-4">
             <div className="hidden sm:block">
-              <TransitionLink label="Connect" href="contact" className="main-btn magnetic-hover">
+              <TransitionLink
+                label="Connect"
+                href="contact"
+                className="main-btn magnetic-hover"
+              >
                 Connect
               </TransitionLink>
             </div>
@@ -223,7 +228,10 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {(isMenuOpen || isAnimating) && (
-        <div className="fixed bg-primary text-text top-0 right-0 h-screen w-full sm:w-2/4 md:w-3/4 lg:w-2/6 p-4 flex flex-col gap-4 font-primary z-[99] mobile-menu justify-between shadow-gray-500 shadow-2xl">
+        <div
+          data-cursor=""
+          className="fixed bg-primary text-text top-0 right-0 h-screen w-full sm:w-2/4 md:w-3/4 lg:w-2/6 p-4 flex flex-col gap-4 font-primary z-[99] mobile-menu justify-between shadow-gray-500 shadow-2xl"
+        >
           <div className="flex justify-between items-center py-3 border-b border-gray-400">
             <p className="uppercase text-text-muted">Navigation</p>
             <button
@@ -237,9 +245,13 @@ export default function Header() {
           </div>
 
           {/* Mobile Nav Links */}
-          <div className="py-6 lg:py-12 flex flex-col gap-4 flex-1">
+          <div
+            className="py-6 lg:py-12 flex flex-col gap-4 flex-1"
+            data-cursor=""
+          >
             {navLinks.map((link) => (
               <div
+                data-cursor=""
                 key={link.id}
                 className={`text-2xl flex justify-between items-center py-2 ${
                   activeLink === link.id &&
@@ -249,6 +261,7 @@ export default function Header() {
                 onMouseLeave={() => setHoveredLink(null)}
               >
                 <Link
+                  data-cursor=""
                   href={link.href}
                   onClick={() => {
                     setActiveLink(link.id);
@@ -268,11 +281,15 @@ export default function Header() {
           </div>
 
           {/* Socials */}
-          <div className="text-sm border-t-1 text-text-muted mb-30">
+          <div
+            className="text-sm border-t-1 text-text-muted mb-30"
+            data-cursor=""
+          >
             <p className="text-text-muted my-3">SOCIALS</p>
             <ul className="flex justify-start gap-4 items-center social-links">
               <li>
                 <Link
+                  data-cursor=""
                   href="https://www.linkedin.com/in/hardik-kumar-patel-564798227"
                   target="_blank"
                   className="font-bold text-text border-b border-current"
@@ -282,6 +299,7 @@ export default function Header() {
               </li>
               <li>
                 <Link
+                  data-cursor=""
                   href="https://github.com/hardikpatel-dev"
                   target="_blank"
                   className="font-bold text-text border-b border-current"

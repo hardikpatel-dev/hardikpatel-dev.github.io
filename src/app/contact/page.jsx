@@ -16,21 +16,29 @@ export default function ContactPage() {
   // 🔥 Array me fields define kardo
 
   return (
-    <div className="bg-primary min-h-[calc(100vh-100px)] mx-2 xs:mx-4 mb-2 xs:mb-4 rounded-xl shadow-sm">
-      <div className="flex xs:flex-row flex-col py-12 md:py-24 container-fluid gap-4">
+    <div
+      className="bg-primary min-h-[calc(100vh-100px)] mx-2 xs:mx-4 mb-2 xs:mb-4 rounded-xl shadow-sm"
+      data-cursor=""
+    >
+      <div
+        className="flex xs:flex-row flex-col py-12 md:py-24 container-fluid gap-4"
+        data-cursor=""
+      >
         <h2 className="heading basis-[80%] md:basis-[70%]">
           <FadeUpTextScroll delay={1}>
             <p className="inline-flex items-baseline flex-nowrap text-nowrap">
               <span className=" w-14 h-14 rounded-[50%] overflow-hidden me-3 inline-block xs:hidden">
-                <Image
-                  src="/assets/hardik.jpeg"
-                  alt="Hardik's Photo"
-                  width={50}
-                  height={50}
-                  quality={50}
-                  loading="lazy"
-                  className="object-cover h-full w-full "
-                />
+                <FadeUpTextScroll delay={2}>
+                  <Image
+                    src="/assets/hardik.jpeg"
+                    alt="Hardik's Photo"
+                    width={50}
+                    height={50}
+                    quality={50}
+                    loading="lazy"
+                    className="object-cover h-full w-full "
+                  />
+                </FadeUpTextScroll>
               </span>{" "}
               Open to <span className="text-green-600">.</span>
             </p>{" "}
@@ -44,6 +52,7 @@ export default function ContactPage() {
           <FlipOnScroll delay={2}>
             <div className="w-25 h-25 rounded-[50%] overflow-hidden mb-20  hidden xs:block">
               <Image
+                data-cursor=""
                 src="/assets/hardik.jpeg"
                 alt="Hardik's Photo"
                 width={100}
@@ -72,7 +81,11 @@ export default function ContactPage() {
           </div>
           <form className="w-full lg:max-w-3xl space-y-12">
             {fields.map((field, index) => (
-              <div key={field.id} className="border-t border-light pt-8">
+              <div
+                data-cursor={field.label}
+                key={field.id}
+                className="border-t border-light pt-8"
+              >
                 <div className="flex gap-8">
                   {/* Number */}
                   <span className="text-text-muted text-sm w-6">
@@ -116,6 +129,7 @@ export default function ContactPage() {
                 <div className="stripe block w-full h-[1px] bg-gray-700 "></div>
                 <div className="absolute top-0 right-0 transform -translate-x-1/3 sm:-translate-x-1/2 -translate-y-1/2">
                   <button
+                    data-cursor="🚀"
                     type="submit"
                     className="relative magnetic-hover inline-flex  w-30 sm:w-40 h-30 sm:h-40 justify-center items-center rounded-full bg-inverse text-inverse text-shadow-lg cursor-pointer z-10"
                   >
@@ -126,7 +140,10 @@ export default function ContactPage() {
             </div>
           </form>
         </div>
-        <div className="flex-1 flex flex-row md:flex-col gap-6 md:gap-12 flex-wrap items-stretch justify-between md:justify-start ">
+        <div
+          data-cursor=""
+          className="flex-1 flex flex-row md:flex-col gap-6 md:gap-12 flex-wrap items-stretch justify-between md:justify-start "
+        >
           <div className="flex flex-col gap-4 bg-secondary md:bg-transparent p-2 rounded-xl flex-1 md:flex-0">
             <span className="uppercase text-xs tracking-wider text-text-muted">
               Contact Details

@@ -43,12 +43,12 @@ const Testimonial = () => {
   }, []);
 
   return (
-    <div id="testimonials" className=" py-20 bg-primary">
+    <div data-cursor="" id="testimonials" className=" py-20 bg-primary">
       <div className="text-center container-fluid">
         <span className="inline-block mx-auto rounded-full p-2 mb-4 text-sm border">
           Testimonials
         </span>
-        <h2 className="font-whyte font-bold text-center text-[12vw] text-nowrap leading-[70%]  pb-20 z-1">
+        <h2 className="font-whyte font-bold text-center text-[12vw] text-nowrap leading-[80%]  pb-20 z-1">
           <FadeUpTextScroll>
             <em className="font-serif font-medium">Voices</em> of Trust
           </FadeUpTextScroll>
@@ -61,7 +61,7 @@ const Testimonial = () => {
             Kind words
           </span>
           <span className="text-xs sm:text-sm uppercase font-bold">
-            Notes from friends & clients.
+            Notes from friends & clients
           </span>
         </div>
       </div>
@@ -73,6 +73,7 @@ const Testimonial = () => {
               testimonials.length % 2 !== 0;
             return (
               <div
+                data-cursor={t.name}
                 key={t.id}
                 className={`flex flex-col items-center gap-8  w-full
               ${isLastSingle ? "md:col-span-2 md:justify-center" : ""}`}
@@ -86,6 +87,7 @@ const Testimonial = () => {
                   <Link
                     href={t.linkedin}
                     target="_blank"
+                    data-cursor="view profile"
                     className="block w-full h-50 overflow-hidden"
                   >
                     <Image
@@ -117,7 +119,9 @@ const Testimonial = () => {
                     )}
                   </div>
                   <p className="text-xs font-normal text-gray-600">
-                    <FadeUpTextScroll delay={0.5}>{t.designation}</FadeUpTextScroll>
+                    <FadeUpTextScroll delay={0.5}>
+                      {t.designation}
+                    </FadeUpTextScroll>
                   </p>
                 </div>
 

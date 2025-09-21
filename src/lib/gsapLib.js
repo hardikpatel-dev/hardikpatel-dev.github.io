@@ -27,7 +27,7 @@ export function animateWorkTiles() {
 
   tiles.forEach((tile) => {
     const elements = tile.querySelectorAll(
-      ".work-thumb, .work-title, .work-description, .work-meta"
+      " .work-title, .work-description, .work-meta"
     );
 
     gsap.set(elements, { opacity: 0, y: 40 }); // initial state

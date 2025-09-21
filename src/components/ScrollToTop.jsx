@@ -113,10 +113,11 @@ export default function ScrollToTop() {
 
   return (
     <button
+      data-cursor=""
       ref={btnRef}
       onClick={scrollToTop}
       aria-label="Scroll to top"
-      className="fixed bottom-7 -right-2 z-[1000] w-[60px] h-[46px] px-2 py-3 rounded-l-full bg-gradient-to-bl from-gray-300 to-gray-900 text-white shadow-lg flex items-end gap-0.5 cursor-pointer overflow-hidden"
+      className="fixed bottom-7 -right-2 z-[999] w-[60px] h-[46px] px-2 py-3 rounded-l-full bg-gradient-to-bl from-gray-300 to-gray-900 text-white shadow-lg flex items-end gap-0.5 cursor-pointer overflow-hidden"
       style={{ transform: "translateX(0)", opacity: 1 }}
     >
       {/* wrap arrow in an element so we can animate it */}

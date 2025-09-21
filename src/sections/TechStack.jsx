@@ -99,6 +99,7 @@ const TechStack = () => {
   return (
     <div
       id="tech-stack"
+      data-cursor=""
       className="wrapper bg-secondary border-t-2 z-1 relative"
     >
       <h2 className="heading uppercase text-center my-8 md:my-10 lg:my-20">
@@ -123,6 +124,7 @@ const TechStack = () => {
               {topRow.map((tech) => (
                 <a
                   key={tech.id}
+                  data-cursor={tech.id}
                   id={`tech-${tech.id}`}
                   href={tech.link}
                   target="_blank"

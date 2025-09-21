@@ -64,11 +64,15 @@ const WorkTile = ({ project }) => {
   }, [video]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 lg:gap-1 work-tile">
+    <div
+      className="flex flex-col md:flex-row gap-4 lg:gap-1 work-tile "
+      suppressHydrationWarning
+    >
       {/* Browser Mockup */}
       <Link
         href={link}
         target="_blank"
+        data-cursor="see project"
         className={`work-thumb group block md:basis-[60%] browser-mockup aspect-16/9 rounded-xl lg:rounded-md shadow-lg lg:shadow-none
          mb-5 transition-all duration-300 overflow-hidden lg:overflow-visible  border-5 border-current lg:border-0`}
       >
@@ -149,7 +153,10 @@ const WorkTile = ({ project }) => {
       </Link>
 
       {/* Work details below */}
-      <div className="mb-6 md:basis-[40%] flex flex-col gap-8 justify-between">
+      <div
+        className="mb-6 md:basis-[40%] flex flex-col gap-8 justify-between"
+        data-cursor=""
+      >
         <div className="flex gap-2 flex-col work-title">
           {/* Logo + Name */}
           <div className="flex gap-2 items-center">
@@ -188,6 +195,7 @@ const WorkTile = ({ project }) => {
               Live Site <br />
             </span>
             <span
+              data-cursor="view site"
               onClick={() => window.open(link, "_blank")}
               className="font-medium text-sm tracking-tight cursor-pointer flex items-center gap-0.5 group"
             >

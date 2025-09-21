@@ -106,9 +106,13 @@ const Hero = () => {
                 </FadeUpText>
               </div>
 
-              <div className="flex items-center justify-center lg:justify-start gap-4 mt-14">
+              <div
+                className="flex items-center justify-center lg:justify-start gap-4 mt-14"
+                data-cursor=""
+              >
                 <Link
                   href="#work"
+                  data-cursor=""
                   className="main-btn magnetic-hover gap-1 animate-button"
                 >
                   View Work
@@ -116,7 +120,8 @@ const Hero = () => {
                 </Link>
                 {/* resume button */}
                 <Link
-                  href="/"
+                  href="/resume"
+                  data-cursor=""
                   className="relative inline-flex  items-center text-sm font-medium text-text xs:px-3 px-5 py-1 lg:py-2.5 rounded-full text-shadow-lg outline-amber-300 outline lg:outline-0 hover:outline transition"
                 >
                   Resume {/* on large screen click icon */}

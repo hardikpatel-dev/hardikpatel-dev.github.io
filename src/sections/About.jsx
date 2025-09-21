@@ -5,12 +5,13 @@ import React from "react";
 const About = () => {
   return (
     <div
+      data-cursor=""
       id="about"
       className="about-section bg-primary section-clip-left pt-10 pb-50 border-t-2 shadow-md"
     >
       <div className="sticky top-16">
-        <h2 className="font-whyte font-bold text-center text-[15vw] text-nowrap leading-[70%]  pt-2 z-1">
-          <FadeUpTextScroll >About Hardik</FadeUpTextScroll>
+        <h2 className="font-whyte font-bold text-center text-[15vw] text-nowrap leading-[80%] md:leading-[70%]  pt-2 z-1">
+          <FadeUpTextScroll>About Hardik</FadeUpTextScroll>
         </h2>
         <div className="flex items-center justify-between text-text px-2 z-1 opacity-80">
           <span className="text-xs sm:text-sm uppercase font-medium sm:font-bold">
@@ -36,7 +37,10 @@ const About = () => {
           designation="hkpatelofficial69@gmail.com"
           image="/assets/hardik.jpeg"
         />
-        <div className="py-40 flex flex-col sm:flex-row gap-5 sm:gap-10 justify-start mix-blend-difference text-white">
+        <div
+          data-cursor="Approach"
+          className="py-40 flex flex-col sm:flex-row gap-5 sm:gap-10 justify-start mix-blend-difference text-white"
+        >
           <div className="basis-[35%]">
             <p className="uppercase text-sm font-bold">Approach</p>
           </div>
@@ -54,7 +58,10 @@ const About = () => {
           </div>
         </div>
 
-        <div className="py-40 flex flex-col sm:flex-row gap-5 sm:gap-10 justify-end mix-blend-difference text-white">
+        <div
+          data-cursor="Background"
+          className="py-40 flex flex-col sm:flex-row gap-5 sm:gap-10 justify-end mix-blend-difference text-white"
+        >
           <div className="basis-[20%]">
             <p className="uppercase text-sm font-bold">Background</p>
           </div>
@@ -75,7 +82,10 @@ const About = () => {
             </p>
           </div>
         </div>
-        <div className="pt-40 flex flex-col sm:flex-row gap-5 sm:gap-10 justify-start mix-blend-difference text-white">
+        <div
+          data-cursor="Beyond Design"
+          className="pt-40 flex flex-col sm:flex-row gap-5 sm:gap-10 justify-start mix-blend-difference text-white"
+        >
           <div className="basis-[20%]">
             <p className="uppercase text-sm font-bold text-nowrap">
               Beyond Design

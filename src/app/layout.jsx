@@ -8,6 +8,7 @@ import LenisProvider from "./LenisProvider";
 import Loader from "@/components/Loader";
 import InitGsapAnimations from "./animations/InitGsapAnimations";
 import GlobalLoader from "@/components/GlobalLoader";
+import CustomCursor from "@/components/CustomCursor";
 
 export const metadata = {
   title: "Hardik Patel | FrontEnd Developer",
@@ -21,9 +22,10 @@ export default function RootLayout({ children }) {
         className={`${WhyteInktrap.variable} ${poppins.variable} ${instrumentSerif.variable} antialiased`}
       >
         <InitGsapAnimations />
+        <TitleChanger />
         <LenisProvider>
           <GlobalLoader />
-          <TitleChanger />
+          <CustomCursor />
           <Header />
           <Suspense fallback={<Loader />}>{children}</Suspense>
           <Footer />

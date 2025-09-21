@@ -72,6 +72,7 @@ export default function GridWorkShowcase() {
   return (
     <div
       ref={containerRef}
+      data-cursor="Samples of work"
       className="relative h-[250vh] md:h-[300vh] lg:h-[400vh] -mt-[100vh] -mb-[100vh]"
     >
       <div className="grid grid-cols-3 lg:grid-cols-4 gap-3 items-start bg-gray-700 overflow-hidden px-4 sticky top-0 h-screen">

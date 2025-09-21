@@ -29,7 +29,10 @@ export default function ThemeToggle() {
   };
 
   return (
-    <div className="w-[60px] h-[46px] fixed -right-2 z-[1000] bottom-20 ">
+    <div
+      data-cursor=""
+      className="w-[60px] h-[46px] fixed -right-2 z-[1000] bottom-20 "
+    >
       <label
         className={`relative w-full h-full rounded-l-full rounded-r-0 cursor-pointer overflow-hidden block border ${
           isDark ? "border-black/10" : "border-white/10"
