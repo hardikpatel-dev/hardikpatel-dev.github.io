@@ -153,7 +153,7 @@ body {
   }
 
   .heading {
-    @apply leading-[1.065] text-[clamp(3rem,8vw,4.5rem)] lg:text-[clamp(1.5rem,8vw,5vw)]  font-bold box-border font-whyte text-text-heading;
+    @apply leading-[1.01] lg:leading-[1.065] text-[clamp(3rem,8vw,4.5rem)] lg:text-[clamp(1.5rem,8vw,5vw)]  font-bold box-border font-whyte text-text-heading;
   }
 }
 

@@ -113,7 +113,7 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 z-[9999] pointer-events-none flex items-center justify-center
+      className="hidden fixed top-0 left-0 z-[9999] pointer-events-none md:flex items-center justify-center
         w-16 h-16 rounded-full backdrop-blur-sm text-xs text-text-muted font-medium"
       style={{ transform: "translate3d(0,0,0)" }}
     >

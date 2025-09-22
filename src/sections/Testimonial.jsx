@@ -48,7 +48,7 @@ const Testimonial = () => {
         <span className="inline-block mx-auto rounded-full p-2 mb-4 text-sm border">
           Testimonials
         </span>
-        <h2 className="font-whyte font-bold text-center text-[12vw] text-nowrap leading-[80%]  pb-20 z-1">
+        <h2 className="font-whyte font-bold text-center text-[12vw] text-nowrap leading-[80%]  pb-5 md:pb-20 z-1">
           <FadeUpTextScroll>
             <em className="font-serif font-medium">Voices</em> of Trust
           </FadeUpTextScroll>

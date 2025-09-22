@@ -13,15 +13,15 @@ export default function FadeUpTextScroll({ children, delay = 0 }) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el.current,
-        { y: "100%" }, // hidden niche
+        { y: "104%" }, // hidden niche
         {
-          y: "0%",
+          y: "4%",
           duration: 1,
           delay,
           ease: "power3.out",
           scrollTrigger: {
             trigger: el.current,
-            start: "top 80%", // 👈 jab element viewport me aa jaye
+            start: "top 85%", // 👈 jab element viewport me aa jaye
             toggleActions: "play none none reverse",
             // play on enter, reverse on leave
           },
@@ -33,7 +33,7 @@ export default function FadeUpTextScroll({ children, delay = 0 }) {
   }, [delay]);
 
   return (
-    <span className="inline-block overflow-hidden align-bottom">
+    <span className="inline-block overflow-hidden">
       <span ref={el} className="inline-block will-change-transform">
         {children}
       </span>

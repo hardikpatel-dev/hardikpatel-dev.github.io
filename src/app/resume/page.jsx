@@ -1,8 +1,9 @@
 "use client";
-import { IconArrowDown, IconDownload } from "@tabler/icons-react";
+import { IconArrowDown } from "@tabler/icons-react";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import FadeUpTextScroll from "../animations/FadeUpTextScroll";
+import Loader from "@/components/Loader";
 
 export default function ResumePage() {
   const canvasRef = useRef(null);
@@ -26,22 +27,24 @@ export default function ResumePage() {
       data-cursor=""
     >
       {/* Download Button */}
-      <FadeUpTextScroll delay={1}>
-        <Link
-          href="/assets/resume.pdf"
-          download
-          className="sticky top-18 cursor-pointer flex justify-between bg-inverse px-3 py-2 rounded-full text-inverse tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-500 hover:ring-1 font-whyte w-[140px]"
-        >
-          Resume
-          <IconArrowDown className="animate-bounce" />
-        </Link>
-      </FadeUpTextScroll>
+
+      <Link
+        href="/assets/resume.pdf"
+        download
+        className="sticky top-18 cursor-pointer flex justify-between bg-inverse px-3 py-2 rounded-full text-inverse tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-500 hover:ring-1 font-whyte w-[140px]"
+      >
+        <FadeUpTextScroll delay={1}>Resume</FadeUpTextScroll>
+        <IconArrowDown className="animate-bounce" />
+      </Link>
 
       {/* PDF Viewer as canvas */}
+
       <canvas
         ref={canvasRef}
         className="w-full max-w-3xl border rounded-md border-gray-300"
-      ></canvas>
+      >
+        <Suspense fallback={<Loader />}></Suspense>
+      </canvas>
     </div>
   );
 }

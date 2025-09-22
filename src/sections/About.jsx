@@ -10,7 +10,7 @@ const About = () => {
       className="about-section bg-primary section-clip-left pt-10 pb-50 border-t-2 shadow-md"
     >
       <div className="sticky top-16">
-        <h2 className="font-whyte font-bold text-center text-[15vw] text-nowrap leading-[80%] md:leading-[70%]  pt-2 z-1">
+        <h2 className="font-whyte font-bold text-center text-[15vw] text-nowrap leading-[70%]  pt-2 z-1">
           <FadeUpTextScroll>About Hardik</FadeUpTextScroll>
         </h2>
         <div className="flex items-center justify-between text-text px-2 z-1 opacity-80">

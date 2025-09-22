@@ -41,7 +41,7 @@ export default function Loader() {
         ref={iconRef}
         className="flex items-center justify-center w-20 h-20 rounded-full"
       >
-        <IconSparkles size={40} stroke={1} className="text-yellow-400" />
+        <IconSparkles size={40} stroke={1} className="text-yellow-400 animate-pulse" />
       </div>
 
       {/* Loading text */}

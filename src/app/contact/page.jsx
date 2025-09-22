@@ -27,8 +27,8 @@ export default function ContactPage() {
         <h2 className="heading basis-[80%] md:basis-[70%]">
           <FadeUpTextScroll delay={1}>
             <p className="inline-flex items-baseline flex-nowrap text-nowrap">
-              <span className=" w-14 h-14 rounded-[50%] overflow-hidden me-3 inline-block xs:hidden">
                 <FadeUpTextScroll delay={2}>
+              <span className=" w-14 h-14 rounded-[50%] translate-y-2 overflow-hidden me-3 inline-block xs:hidden">
                   <Image
                     src="/assets/hardik.jpeg"
                     alt="Hardik's Photo"
@@ -38,8 +38,8 @@ export default function ContactPage() {
                     loading="lazy"
                     className="object-cover h-full w-full "
                   />
-                </FadeUpTextScroll>
               </span>{" "}
+                </FadeUpTextScroll>
               Open to <span className="text-green-600">.</span>
             </p>{" "}
             <br />{" "}

@@ -135,7 +135,7 @@ export default function GlobalLoader() {
     >
       <h1
         id="loader"
-        className="font-whyte text-text text-center text-[12vw] text-nowrap font-medium tracking-wide relative"
+        className="font-whyte text-text text-center text-[12vw] text-nowrap font-bold uppercase tracking-wide relative"
       ></h1>
     </div>
   );
