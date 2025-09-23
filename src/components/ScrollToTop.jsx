@@ -40,7 +40,7 @@ export default function ScrollToTop() {
             x: 0,
             opacity: 1,
             duration: 0.6,
-            ease: "power3.out",
+            ease: "power3.inOut",
             onStart: () => gsap.set(btnRef.current, { pointerEvents: "auto" }),
           }
         );
@@ -97,11 +97,11 @@ export default function ScrollToTop() {
         btnRef.current,
         { scale: 1 },
         {
-          scale: 0.95,
-          duration: 0.06,
+          scale: 1,
+          duration: 2,
           yoyo: true,
           repeat: 1,
-          ease: "power1.out",
+          ease: "power1.inOut",
         }
       );
     }

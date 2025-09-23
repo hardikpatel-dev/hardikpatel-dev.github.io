@@ -29,7 +29,7 @@ const Hero = () => {
               className="text-text-muted"
             />
             <div className="py-10 lg:py-12 xl:py-16 text-center lg:text-start">
-              <FadeUpText delay={1}>
+              <FadeUpText delay={1.5}>
                 <h1 className="leading-tight text-[clamp(1.6rem,6vw,3.5rem)] lg:text-[clamp(1.5rem,6vw,3vw)]  font-extrabold box-border uppercase font-whyte text-text-heading text-nowrap">
                   <span className="inline-flex flex-nowrap items-center">
                     Cra
@@ -105,39 +105,40 @@ const Hero = () => {
                   </span>
                 </FadeUpText>
               </div>
-
-              <div
-                className="flex items-center justify-center lg:justify-start gap-4 mt-14"
-                data-cursor=""
-              >
-                <Link
-                  href="#work"
+              <FadeUpText delay={2.5}>
+                <div
+                  className="flex items-center justify-center lg:justify-start gap-4 mt-14 mb-8"
                   data-cursor=""
-                  className="main-btn magnetic-hover gap-1 animate-button"
                 >
-                  View Work
-                  <IconSparkles className="w-5 h-5 text-yellow-500" />
-                </Link>
-                {/* resume button */}
-                <Link
-                  href="/resume"
-                  data-cursor=""
-                  className="relative inline-flex  items-center text-sm font-medium text-text xs:px-3 px-5 py-1 lg:py-2.5 rounded-full text-shadow-lg outline-amber-300 outline lg:outline-0 hover:outline transition"
-                >
-                  Resume {/* on large screen click icon */}
-                  <IconClick
-                    className="text-text-muted md:inline-block hidden animate-pulse ms-1 mt-1"
-                    aria-hidden="true"
-                    stroke={1}
-                  />
-                  {/* on mobine screen hand icon */}
-                  <IconHandClick
-                    className="text-text-muted inline-block md:hidden animate-pulse mt-2"
-                    aria-hidden="true"
-                    stroke={1}
-                  />
-                </Link>
-              </div>
+                  <Link
+                    href="#work"
+                    data-cursor=""
+                    className="main-btn magnetic-hover gap-1 "
+                  >
+                    View Work
+                    <IconSparkles className="w-5 h-5 text-yellow-500" />
+                  </Link>
+                  {/* resume button */}
+                  <Link
+                    href="/resume"
+                    data-cursor=""
+                    className="relative inline-flex  items-center text-sm font-medium text-text xs:px-3 px-5 py-1 lg:py-2.5 rounded-full text-shadow-lg outline-amber-300 outline lg:outline-0 hover:outline transition"
+                  >
+                    Resume {/* on large screen click icon */}
+                    <IconClick
+                      className="text-text-muted md:inline-block hidden animate-pulse ms-1 mt-1"
+                      aria-hidden="true"
+                      stroke={1}
+                    />
+                    {/* on mobine screen hand icon */}
+                    <IconHandClick
+                      className="text-text-muted inline-block md:hidden animate-pulse mt-2"
+                      aria-hidden="true"
+                      stroke={1}
+                    />
+                  </Link>
+                </div>
+              </FadeUpText>
             </div>
             <div className="relative lg:absolute bottom-10 h-15 mt-8 overflow-hidden flex items-center justify-center lg:justify-start">
               <HeroTagLineSlideUp />

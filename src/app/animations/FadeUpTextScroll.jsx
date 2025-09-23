@@ -33,7 +33,7 @@ export default function FadeUpTextScroll({ children, delay = 0 }) {
   }, [delay]);
 
   return (
-    <span className="inline-block overflow-hidden">
+    <span className="inline-block overflow-y-clip">
       <span ref={el} className="inline-block will-change-transform">
         {children}
       </span>

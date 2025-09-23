@@ -14,7 +14,7 @@ const Footer = () => {
   const isContactPage = pathname === "/contact"; // check if it's contact page
 
   return (
-    <div className="bg-olive text-blue-50 " data-cursor="🟡">
+    <div className="bg-olive text-blue-50 " data-cursor="">
       <div className="container-fluid">
         {!isContactPage && (
           <>
@@ -41,7 +41,7 @@ const Footer = () => {
               <div className="absolute top-0 right-0 transform -translate-x-1/3 sm:-translate-x-1/2 -translate-y-1/2">
                 <FlipOnScroll delay={1.5}>
                   <TransitionLink
-                    data-cursor="Ping me here!"
+                    data-cursor=""
                     label="Get in Touch"
                     href="contact"
                     className="magnetic-hover inline-flex  w-30 sm:w-40 h-30 sm:h-40 justify-center items-center rounded-full bg-white text-black text-shadow-lg"

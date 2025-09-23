@@ -1,89 +1,125 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 export default function CustomCursor() {
   const cursorRef = useRef(null);
+  const trailRefs = useRef([]);
   const textRef = useRef(null);
-  const circleTextRef = useRef(null);
+  const [isMoving, setIsMoving] = useState(false);
+  const lastPosition = useRef({ x: 0, y: 0 });
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     const cursor = cursorRef.current;
     const text = textRef.current;
-    const circleText = circleTextRef.current;
+    const trailDots = trailRefs.current;
 
-    // GSAP quickTo for smooth motion
+    // Number of trail dots
+    const numDots = 10;
+
+    // Create trail dots
+    trailDots.forEach((dot, index) => {
+      dot.style.opacity = 1 - (index / numDots) * 0.8; // Fading opacity
+      dot.style.transform = `scale(${1 - index * 0.05})`; // Slightly smaller
+    });
+
+    // GSAP quickTo for smooth motion of main cursor
     const xMove = gsap.quickTo(cursor, "x", {
-      duration: 0.5,
+      duration: 0.3,
       ease: "power3.out",
     });
     const yMove = gsap.quickTo(cursor, "y", {
-      duration: 0.5,
+      duration: 0.3,
       ease: "power3.out",
     });
 
+    // Trail dot animations
+    const trailMoves = trailDots.map((dot, index) =>
+      gsap.quickTo(dot, "x", {
+        duration: 0.3 + index * 0.05,
+        ease: "power3.out",
+      })
+    );
+    const trailYMoves = trailDots.map((dot, index) =>
+      gsap.quickTo(dot, "y", {
+        duration: 0.3 + index * 0.05,
+        ease: "power3.out",
+      })
+    );
+
     const move = (e) => {
-      // center the cursor element on mouse
-      xMove(e.clientX - cursor.offsetWidth / 2);
-      yMove(e.clientY - cursor.offsetHeight / 2);
+      const x = e.clientX - cursor.offsetWidth / 2;
+      const y = e.clientY - cursor.offsetHeight / 2;
+
+      // Detect movement
+      if (
+        Math.abs(x - lastPosition.current.x) > 1 ||
+        Math.abs(y - lastPosition.current.y) > 1
+      ) {
+        setIsMoving(true);
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => {
+          setIsMoving(false);
+        }, 100);
+      }
+
+      // Move main cursor
+      xMove(x);
+      yMove(y);
+
+      // Move trail dots
+      trailMoves.forEach((moveX, index) => {
+        const offset = isMoving ? (index + 1) * -5 : 0; // Spread when moving
+        moveX(x + offset);
+      });
+      trailYMoves.forEach((moveY, index) => {
+        moveY(y);
+      });
+
+      lastPosition.current = { x, y };
     };
+
     window.addEventListener("mousemove", move);
 
-    // rotating circle text (default)
-    gsap.to(circleText, {
-      rotate: 360,
-      duration: 8,
-      repeat: -1,
-      ease: "linear",
-    });
+    // Classes for cursor
+    const smallDotClasses = [
+      "w-3",
+      "h-3",
+      "bg-inverse",
+      "shadow-lg",
+      "rounded-full",
+    ];
+    const bubbleClasses = [
+      "px-4",
+      "py-2",
+      "w-auto",
+      "h-auto",
+      "rounded-full",
+      "backdrop-blur-md",
+    ];
 
-    // helper lists of classes to toggle
-    const defaultClasses = ["w-16", "h-16", "backdrop-blur-sm"];
-    const smallDotClasses = ["w-3", "h-3", "bg-inverse", "shadow-lg"];
-    const bubbleClasses = ["px-4", "py-2", "w-auto", "h-auto"];
-
+    // Default: small dot
     const makeDefault = () => {
-      // remove both special states, then add default
-      cursor.classList.remove(...smallDotClasses, ...bubbleClasses);
-      cursor.classList.add(...defaultClasses);
-      cursor.style.border = ""; // reset if modified
-      cursor.style.background = ""; // reset if modified
+      cursor.classList.remove(...bubbleClasses);
+      cursor.classList.add(...smallDotClasses);
       text.textContent = "";
-      text.classList.remove("!visible"); // in case
-      circleText.style.display = "block";
-    };
-
-    const makeSmallDot = () => {
-      // small filled dot for data-cursor=""
-      cursor.classList.remove(...defaultClasses, ...bubbleClasses);
-      cursor.classList.add(...smallDotClasses, "rounded-full");
-      // hide text and circle text
-      text.textContent = "";
-      circleText.style.display = "none";
-      // ensure no internal text element shows
       text.classList.remove("inline-block");
     };
 
     const makeBubble = (t) => {
-      // bubble with text
-      cursor.classList.remove(...defaultClasses, ...smallDotClasses);
-      cursor.classList.add(
-        ...bubbleClasses,
-        "rounded-full",
-        "backdrop-blur-sm"
-      );
+      cursor.classList.remove(...smallDotClasses);
+      cursor.classList.add(...bubbleClasses);
       text.textContent = t;
-      circleText.style.display = "none";
-      // ensure text visible
       text.classList.add("inline-block");
     };
 
+    // Event handlers for hover
     const handleEnter = (e) => {
       const t = e.target.getAttribute("data-cursor");
       if (t !== null) {
-        // attribute exists
         if (t === "") {
-          makeSmallDot();
+          makeDefault();
         } else {
           makeBubble(t);
         }
@@ -93,58 +129,49 @@ export default function CustomCursor() {
       makeDefault();
     };
 
-    // attach listeners to all elements that have data-cursor
+    // Attach listeners
     const els = Array.from(document.querySelectorAll("[data-cursor]"));
     els.forEach((el) => {
       el.addEventListener("mouseenter", handleEnter);
-      el.addEventListener("mouseleave", handleLeave);
+      el.removeEventListener("mouseleave", handleLeave);
     });
 
-    // cleanup
+    // Set initial state
+    makeDefault();
+
     return () => {
       window.removeEventListener("mousemove", move);
       els.forEach((el) => {
         el.removeEventListener("mouseenter", handleEnter);
         el.removeEventListener("mouseleave", handleLeave);
       });
+      clearTimeout(timeoutRef.current);
     };
   }, []);
 
-  return (
+  // Create trail dot elements
+  const trailDots = Array.from({ length: 15 }).map((_, index) => (
     <div
-      ref={cursorRef}
-      className="hidden fixed top-0 left-0 z-[9999] pointer-events-none md:flex items-center justify-center
-        w-16 h-16 rounded-full backdrop-blur-sm text-xs text-text-muted font-medium"
+      key={index}
+      ref={(el) => (trailRefs.current[index] = el)}
+      className="hidden fixed top-0 left-0 z-[9998] pointer-events-none md:block w-3 h-3 rounded-full bg-inverse"
       style={{ transform: "translate3d(0,0,0)" }}
-    >
-      {/* Circle text (default state) */}
-      <svg
-        ref={circleTextRef}
-        className="absolute inset-0 w-full h-full"
-        viewBox="0 0 100 100"
-      >
-        <defs>
-          <path
-            id="circlePath"
-            d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0"
-          />
-        </defs>
-        <text fill="currentColor" fontSize="12" fontWeight="500">
-          <textPath
-            href="#circlePath"
-            startOffset="0%"
-            className="tracking-[5px]"
-          >
-            SCROLL 🌟 SCROLL 🌟
-          </textPath>
-        </text>
-      </svg>
+    />
+  ));
 
-      {/* Hover text (data-cursor) */}
-      <span
-        ref={textRef}
-        className="relative z-10 text-text rounded-full pointer-events-none"
-      />
-    </div>
+  return (
+    <>
+      <div
+        ref={cursorRef}
+        className="hidden fixed top-0 left-0 z-[9999] pointer-events-none md:flex items-center justify-center w-3 h-3 rounded-full bg-inverse shadow-lg"
+        style={{ transform: "translate3d(0,0,0)" }}
+      >
+        <span
+          ref={textRef}
+          className="relative z-10 text-text text-xs font-medium rounded-full pointer-events-none hidden"
+        />
+      </div>
+      {trailDots}
+    </>
   );
 }

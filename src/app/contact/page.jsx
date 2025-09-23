@@ -27,19 +27,19 @@ export default function ContactPage() {
         <h2 className="heading basis-[80%] md:basis-[70%]">
           <FadeUpTextScroll delay={1}>
             <p className="inline-flex items-baseline flex-nowrap text-nowrap">
-                <FadeUpTextScroll delay={2}>
-              <span className=" w-14 h-14 rounded-[50%] translate-y-2 overflow-hidden me-3 inline-block xs:hidden">
+              <FadeUpTextScroll delay={2}>
+                <span className=" w-14 h-14 rounded-[50%] translate-y-2 overflow-hidden me-3 inline-block xs:hidden">
                   <Image
                     src="/assets/hardik.jpeg"
                     alt="Hardik's Photo"
                     width={50}
                     height={50}
-                    quality={50}
+                    quality={100}
                     loading="lazy"
                     className="object-cover h-full w-full "
                   />
-              </span>{" "}
-                </FadeUpTextScroll>
+                </span>{" "}
+              </FadeUpTextScroll>
               Open to <span className="text-green-600">.</span>
             </p>{" "}
             <br />{" "}
@@ -57,7 +57,7 @@ export default function ContactPage() {
                 alt="Hardik's Photo"
                 width={100}
                 height={100}
-                quality={50}
+                quality={100}
                 priority
                 className="object-cover h-full w-full"
               />
@@ -142,8 +142,20 @@ export default function ContactPage() {
         </div>
         <div
           data-cursor=""
-          className="flex-1 flex flex-row md:flex-col gap-6 md:gap-12 flex-wrap items-stretch justify-between md:justify-start "
+          className="flex-1 flex flex-row md:flex-col gap-6 md:gap-10 flex-wrap items-stretch justify-between md:justify-start "
         >
+          <div className="flex flex-col gap-4 bg-secondary md:bg-transparent p-2 rounded-xl flex-1 md:flex-0">
+            <span className="uppercase text-xs tracking-wider text-text-muted">
+              Resume at a Glance
+            </span>
+            <Link
+              href="/resume"
+              className="relative group text-md w-fit"
+            >
+              View Resume
+              <span className="absolute left-1/2 bottom-0 h-[1px] w-0 bg-inverse transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+            </Link>
+          </div>
           <div className="flex flex-col gap-4 bg-secondary md:bg-transparent p-2 rounded-xl flex-1 md:flex-0">
             <span className="uppercase text-xs tracking-wider text-text-muted">
               Contact Details

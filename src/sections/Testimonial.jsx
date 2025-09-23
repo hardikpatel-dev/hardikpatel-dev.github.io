@@ -93,10 +93,10 @@ const Testimonial = () => {
                     <Image
                       src={t.image}
                       alt={t.name}
-                      width={80}
+                      width={100}
                       height={100}
                       className="object-cover w-full h-full"
-                      loading="lazy"
+                      loading="eager"
                       quality={100}
                     />
                   </Link>

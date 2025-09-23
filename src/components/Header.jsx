@@ -41,6 +41,7 @@ export default function Header() {
     { id: "tech-stack", label: "Tech Stack", href: "/#tech-stack" },
     { id: "about", label: "About", href: "/#about" },
     { id: "testimonials", label: "Testimonials", href: "/#testimonials" },
+    { id: "resume", label: "Resume", href: "/resume" },
     { id: "connect", label: "Connect", href: "/contact" },
   ];
 

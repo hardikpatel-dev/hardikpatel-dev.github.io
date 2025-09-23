@@ -35,7 +35,7 @@ const About = () => {
         <ProfileFrame
           name="Hardik Patel"
           designation="hkpatelofficial69@gmail.com"
-          image="/assets/hardik.jpeg"
+          image="/assets/hardik.webp"
         />
         <div
           data-cursor="Approach"

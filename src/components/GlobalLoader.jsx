@@ -54,7 +54,7 @@ export default function GlobalLoader() {
       {
         x: -120,
         opacity: 0,
-        duration: 0.4,
+        duration: 0.2,
         stagger: 0.1,
       },
       "s"
@@ -66,7 +66,7 @@ export default function GlobalLoader() {
       {
         x: 120,
         opacity: 0,
-        duration: 0.4,
+        duration: 0.2,
         stagger: 0.1,
       },
       "s"

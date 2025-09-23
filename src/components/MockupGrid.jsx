@@ -72,7 +72,7 @@ export default function MockupGrid() {
   return (
     <div
       ref={root}
-      className="relative  max-lg:w-screen  lg:translate-x-15  lg:translate-y-[-30px] xl:translate-x-0 transition"
+      className="relative  max-lg:w-screen  lg:translate-x-15  lg:translate-y-[-30px] xl:translate-x-10 transition"
     >
       {/* lg screens → grid | below lg → flex row */}
       <div className="mockup-track grid grid-cols-3 gap-1 auto-rows-fr max-lg:flex max-lg:space-x-4 ">

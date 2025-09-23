@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 
 export default function DeviceFrame({ type, src }) {
@@ -8,9 +7,9 @@ export default function DeviceFrame({ type, src }) {
 
   let frameClass = "";
   if (type === "mobile") {
-    frameClass = "w-28 h-58";
+    frameClass = "w-28 h-58 xl:w-32 xl:h-64";
   } else if (type === "desktop") {
-    frameClass = "w-85 h-48";
+    frameClass = "w-85 h-48 xl:w-96 xl:h-54";
   }
 
   useEffect(() => {
@@ -35,19 +34,19 @@ export default function DeviceFrame({ type, src }) {
       ref={frameRef}
       className={`flex overflow-hidden items-center justify-center bg-gray-400 rounded-2xl border-5 border-current shadow-md lg:shadow-lg ${frameClass} ${
         type === "mobile"
-          ? "lg:-rotate-0 translate-y-[-4px]"
-          : "lg:rotate-0 translate-y-[4px]"
+          ? "lg:-rotate-2 translate-y-[-4px]"
+          : "lg:rotate-2 translate-y-[4px]"
       }`}
     >
       {src && (
-        <Image
+        <img
           src={src}
           alt={`${type} mockup`}
-          width={85}
-          height={52}
+          width={100}
+          height={100}
           className="w-full h-full object-cover rounded-lg"
-          quality={100}
-          loading="lazy"
+          loading="eager"
+          draggable="false"
         />
       )}
     </div>

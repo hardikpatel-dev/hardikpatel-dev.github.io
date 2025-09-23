@@ -94,8 +94,8 @@ export default function GridWorkShowcase() {
                   width={800}
                   height={1200}
                   className="w-full h-auto object-contain"
-                  quality={40}
-                  loading="lazy"
+                  quality={60}
+                  loading="eager"
                   placeholder="blur"
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
                 />
