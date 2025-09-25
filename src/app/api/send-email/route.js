@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 
-// Use environment variable for security (add to .env.local)
-const resend = new Resend(process.env.RESEND_API_KEY);
-
+// No static import of Resend to avoid build-time issues
 export async function POST(request) {
   // Set CORS headers
   const headers = {
-    "Access-Control-Allow-Origin": "https://itshardik.vercel.app", // Replace with your frontend origin
+    "Access-Control-Allow-Origin":
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000" // For local development
+        : "https://itshardik.vercel.app", // For production
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
@@ -28,10 +28,12 @@ export async function POST(request) {
       );
     }
 
-    // Dynamic import to avoid build-time issues
-    const { default: ContactEmail } = await import(
-      "@/app/emails/ContactEmail"
-    );
+    // Dynamically import Resend and ContactEmail
+    const { Resend } = await import("resend");
+    const { default: ContactEmail } = await import("@/app/emails/ContactEmail");
+
+    // Initialize Resend with the API key at runtime
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { data, error } = await resend.emails.send({
       from: "onboarding@resend.dev", // Your verified domain
