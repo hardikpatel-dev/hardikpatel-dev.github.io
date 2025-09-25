@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: isExport
     ? { unoptimized: true }
-    : { 
+    : {
         formats: ["image/avif", "image/webp"],
         remotePatterns: [
           {
@@ -23,6 +23,14 @@ const nextConfig = {
         assetPrefix: "",
       }
     : {}),
+  // Add experimental configuration for server components
+  experimental: {
+    serverComponentsExternalPackages: [
+      "@react-email/components",
+      "react-email",
+      "resend",
+    ],
+  },
 };
 
 export default nextConfig;
