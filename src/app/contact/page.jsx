@@ -1,4 +1,7 @@
+"use client";
+import React, { useRef, useState } from "react";
 import { fields } from "@/data/form-input";
+import contact from "@/data/contact.json";
 import {
   IconArrowDownLeft,
   IconArrowDownRight,
@@ -11,19 +14,93 @@ import Image from "next/image";
 import Link from "next/link";
 import FadeUpTextScroll from "../animations/FadeUpTextScroll";
 import FlipOnScroll from "../animations/FlipOnScroll";
+import toast from "react-hot-toast"; // For error toasts
+import SuccessPopup from "@/components/SuccessPopup"; // Separate popup component
 
 export default function ContactPage() {
-  // 🔥 Array me fields define kardo
+  const formRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+    const formValues = Object.fromEntries(formData);
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formValues),
+      });
+
+      console.log("Response status:", response.status);
+      console.log(
+        "Response headers:",
+        Object.fromEntries(response.headers.entries())
+      );
+      const result = await response.json();
+      console.log("Response data:", result);
+
+      if (response.ok) {
+        toast.success("Message sent! 🎉 I'll get back to you soon!", {
+          duration: 4000,
+          icon: "🚀",
+          style: {
+            background: "#fff",
+            color: "#10b981",
+            borderRadius: "8px",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          },
+        }); // Success toast with style
+        setShowSuccessPopup(true); // Show popup on success
+        if (formRef.current) {
+          formRef.current.reset();
+        } else {
+          console.warn("Form reference is no longer available.");
+        }
+      } else {
+        toast.error(
+          result.error || "Failed to send message. Please try again.",
+          {
+            duration: 4000,
+            icon: "❌",
+            style: {
+              background: "#fff",
+              color: "#EF4444",
+              borderRadius: "8px",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            },
+          }
+        ); // Styled error toast
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("An unexpected error occurred. Please try again.", {
+        duration: 4000,
+        icon: "❌",
+        style: {
+          background: "#fff",
+          color: "#EF4444",
+          borderRadius: "8px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        },
+      }); // Styled error toast
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div
       className="bg-primary min-h-[calc(100vh-100px)] mx-2 xs:mx-4 mb-2 xs:mb-4 rounded-xl shadow-sm"
       data-cursor=""
     >
-      <div
-        className="flex xs:flex-row flex-col py-12 md:py-24 container-fluid gap-4"
-        data-cursor=""
-      >
+      <div className="flex xs:flex-row flex-col py-12 md:py-24 container-fluid gap-4">
         <h2 className="heading basis-[80%] md:basis-[70%]">
           <FadeUpTextScroll delay={1}>
             <p className="inline-flex items-baseline flex-nowrap text-nowrap">
@@ -53,7 +130,7 @@ export default function ContactPage() {
             <div className="w-25 h-25 rounded-[50%] overflow-hidden mb-20  hidden xs:block">
               <Image
                 data-cursor=""
-                src="/assets/hardik.jpeg"
+                src="/assets/hardik.webp"
                 alt="Hardik's Photo"
                 width={100}
                 height={100}
@@ -79,20 +156,17 @@ export default function ContactPage() {
               — let’s connect! — I’d love to hear from you."
             </p>
           </div>
-          <form className="w-full lg:max-w-3xl space-y-12">
-            {fields.map((field, index) => (
-              <div
-                data-cursor={field.label}
-                key={field.id}
-                className="border-t border-light pt-8"
-              >
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="w-full lg:max-w-3xl space-y-12"
+          >
+            {fields.map((field) => (
+              <div key={field.id} className="border-t border-light pt-8">
                 <div className="flex gap-8">
-                  {/* Number */}
                   <span className="text-text-muted text-sm w-6">
                     {field.number}
                   </span>
-
-                  {/* Label + Input */}
                   <div className="flex flex-col w-full">
                     <label
                       htmlFor={field.id}
@@ -122,18 +196,16 @@ export default function ContactPage() {
                 </div>
               </div>
             ))}
-
-            {/* Submit Button */}
             <div className="py-30">
               <div className="flex relative">
-                <div className="stripe block w-full h-[1px] bg-gray-700 "></div>
+                <div className="stripe block w-full h-[1px] bg-gray-700"></div>
                 <div className="absolute top-0 right-0 transform -translate-x-1/3 sm:-translate-x-1/2 -translate-y-1/2">
                   <button
-                    data-cursor="🚀"
                     type="submit"
-                    className="relative magnetic-hover inline-flex  w-30 sm:w-40 h-30 sm:h-40 justify-center items-center rounded-full bg-inverse text-inverse text-shadow-lg cursor-pointer z-10"
+                    disabled={isSubmitting}
+                    className="relative magnetic-hover inline-flex w-30 sm:w-40 h-30 sm:h-40 justify-center items-center rounded-full bg-inverse text-inverse text-shadow-lg cursor-pointer z-10"
                   >
-                    Send it!
+                    {isSubmitting ? "Sending..." : "Send it!"}
                   </button>
                 </div>
               </div>
@@ -148,10 +220,7 @@ export default function ContactPage() {
             <span className="uppercase text-xs tracking-wider text-text-muted">
               Resume at a Glance
             </span>
-            <Link
-              href="/resume"
-              className="relative group text-md w-fit"
-            >
+            <Link href="/resume" className="relative group text-md w-fit">
               View Resume
               <span className="absolute left-1/2 bottom-0 h-[1px] w-0 bg-inverse transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
             </Link>
@@ -161,18 +230,18 @@ export default function ContactPage() {
               Contact Details
             </span>
             <Link
-              href="mailto:hkpatelofficial69@gmail.com"
+              href={`mailto:${contact.email}`}
               className="relative group text-md w-fit"
             >
-              hkpatelofficial69@gmail.com
+              {contact.email}
               <span className="absolute left-1/2 bottom-0 h-[1px] w-0 bg-inverse transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
             </Link>
 
             <Link
-              href="tel:+916386921922"
+              href={`tel:${contact.phone}`}
               className="relative group text-md w-fit"
             >
-              +91 6386 921 922
+              {contact.phone}
               <span className="absolute left-1/2 bottom-0 h-[1px] w-0 bg-inverse transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
             </Link>
           </div>
@@ -189,7 +258,7 @@ export default function ContactPage() {
               Socials
             </span>
             <Link
-              href="https://wa.me/916386921922"
+              href={contact.whatsapp}
               className="text-md flex items-center gap-2 relative group w-fit"
               target="_blank"
             >
@@ -198,7 +267,7 @@ export default function ContactPage() {
               <span className="absolute left-1/2 bottom-0 h-[1px] w-0 bg-inverse transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
             </Link>
             <Link
-              href="https://www.linkedin.com/in/hardik-kumar-patel-564798227"
+              href={contact.linkedin}
               className="text-md flex items-center gap-2 relative group w-fit"
               target="_blank"
             >
@@ -207,7 +276,7 @@ export default function ContactPage() {
               <span className="absolute left-1/2 bottom-0 h-[1px] w-0 bg-inverse transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
             </Link>
             <Link
-              href="https://github.com/hardikpatel-dev"
+              href={contact.github}
               className="text-md flex items-center gap-2 relative group w-fit"
               target="_blank"
             >
@@ -218,6 +287,14 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
+
+      {/* Success Popup */}
+      {showSuccessPopup && (
+        <SuccessPopup
+          message="Your message has been sent successfully!"
+          onClose={() => setShowSuccessPopup(false)}
+        />
+      )}
     </div>
   );
 }

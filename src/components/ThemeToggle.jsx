@@ -1,5 +1,6 @@
 "use client";
 
+import { IconMoonStars, IconSunFilled } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 
 export default function ThemeToggle() {
@@ -8,7 +9,7 @@ export default function ThemeToggle() {
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: light)"
+      "(prefers-color-scheme: dark)"
     ).matches;
 
     if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
@@ -65,7 +66,11 @@ export default function ThemeToggle() {
             ${isDark ? "rotate-360" : "rotate-0"}
           `}
         >
-          {isDark ? "🌚" : "🌞"}
+          {isDark ? (
+            <IconMoonStars className="text-purple-200" size={30} />
+          ) : (
+            <IconSunFilled className="text-amber-600" size={30} />
+          )}
         </span>
       </label>
     </div>

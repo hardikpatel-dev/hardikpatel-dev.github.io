@@ -10,6 +10,8 @@ import { IconCircleFilled, IconMenu3, IconX } from "@tabler/icons-react";
 import useRollingLinks from "@/lib/useRollingLinks";
 import ScrollToTop from "./ScrollToTop";
 import TransitionLink from "./TranstionLinks";
+import contact from "@/data/contact.json";
+
 
 export default function Header() {
   const headerRef = useRef(null);
@@ -291,7 +293,7 @@ export default function Header() {
               <li>
                 <Link
                   data-cursor=""
-                  href="https://www.linkedin.com/in/hardik-kumar-patel-564798227"
+                  href={contact.linkedin}
                   target="_blank"
                   className="font-bold text-text border-b border-current"
                 >
@@ -301,7 +303,7 @@ export default function Header() {
               <li>
                 <Link
                   data-cursor=""
-                  href="https://github.com/hardikpatel-dev"
+                  href={contact.github}
                   target="_blank"
                   className="font-bold text-text border-b border-current"
                 >

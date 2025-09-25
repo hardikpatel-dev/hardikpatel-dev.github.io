@@ -7,6 +7,8 @@ import React from "react";
 import TransitionLink from "./TranstionLinks";
 import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
 import FlipOnScroll from "@/app/animations/FlipOnScroll";
+import contact from "@/data/contact.json";
+
 
 const Footer = () => {
   const time = useLocalTime();
@@ -54,12 +56,10 @@ const Footer = () => {
             <div className="flex items-center wrapper gap-6 flex-wrap">
               <Link
                 data-cursor="📩Let's chat!"
-                href="mailto:hkpatelofficial69@gmail.com"
+                href={`mailto:${contact.email}`}
                 className="relative inline-flex items-center justify-center p-3 sm:p-6 rounded-full border border-gray-500 text-white overflow-hidden group magnetic-hover"
               >
-                <span className="relative z-10">
-                  hkpatelofficial69@gmail.com
-                </span>
+                <span className="relative z-10">{contact.email}</span>
                 {/* background fluid */}
                 <span
                   className="absolute bottom-0 left-0 w-full h-full bg-amber-400 rounded-full
@@ -69,10 +69,10 @@ const Footer = () => {
               </Link>
               <Link
                 data-cursor="📞Let's talk!"
-                href="tel:+916386921922"
+                href={contact.phone}
                 className="relative inline-flex items-center justify-center p-3 sm:p-6 rounded-full border border-gray-500 text-white overflow-hidden group magnetic-hover"
               >
-                <span className="relative z-10">+91 6386 921 922</span>
+                <span className="relative z-10">{contact.phone}</span>
                 <span
                   className="absolute bottom-0 left-0 w-full h-full bg-amber-400 rounded-full
                transform translate-y-full group-hover:translate-y-0
@@ -109,7 +109,7 @@ const Footer = () => {
             <div className="flex gap-6  text-sm">
               <Link
                 data-cursor=""
-                href="https://wa.me/916386921922"
+                href={contact.whatsapp}
                 target="_blank"
                 className="hover:text-white transition-all hover:underline"
               >
@@ -117,7 +117,7 @@ const Footer = () => {
               </Link>
               <Link
                 data-cursor=""
-                href="https://www.linkedin.com/in/hardik-kumar-patel-564798227"
+                href={contact.linkedin}
                 target="_blank"
                 className="hover:text-white transition-colors hover:underline"
               >
@@ -125,7 +125,7 @@ const Footer = () => {
               </Link>
               <Link
                 data-cursor=""
-                href="https://github.com/hardikpatel-dev"
+                href={contact.github}
                 target="_blank"
                 className="hover:text-white transition-colors hover:underline"
               >
