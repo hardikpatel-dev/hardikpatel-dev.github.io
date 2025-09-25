@@ -6,14 +6,14 @@ const nextConfig = {
   images: isExport
     ? { unoptimized: true }
     : {
-        formats: ["image/avif", "image/webp"],
+        formats: ["image/webp"],
         remotePatterns: [
+          
           {
             protocol: "https",
-            hostname: "images.unsplash.com",
+            hostname: "https://itshardik.vercel.app",
             pathname: "/**",
           },
-          { protocol: "https", hostname: "cdn.yoursite.com", pathname: "/**" },
         ],
       },
   ...(isExport
