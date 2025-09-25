@@ -30,13 +30,16 @@ export default function ContactPage() {
     const formValues = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formValues),
-      });
+      const response = await fetch(
+        "https://itshardik.vercel.app/api/send-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
 
       console.log("Response status:", response.status);
       console.log(
