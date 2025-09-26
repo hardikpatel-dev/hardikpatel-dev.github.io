@@ -8,10 +8,9 @@ const nextConfig = {
     : {
         formats: ["image/webp"],
         remotePatterns: [
-          
           {
             protocol: "https",
-            hostname: "https://itshardik.vercel.app",
+            hostname: "itshardik.vercel.app", // Correct hostname
             pathname: "/**",
           },
         ],

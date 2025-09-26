@@ -1,57 +1,60 @@
 import { NextResponse } from "next/server";
 
-// No static import of Resend to avoid build-time issues
 export async function POST(request) {
-  // Set CORS headers
   const headers = {
-    "Access-Control-Allow-Origin": "*", // For production
+    "Access-Control-Allow-Origin": "*", // Temporary for testing, lock to "https://itshardik.vercel.app" later
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
 
-  // Handle preflight OPTIONS request
   if (request.method === "OPTIONS") {
     return NextResponse.json({}, { headers });
   }
 
   try {
+    console.log("Processing POST request to /api/send-email");
     const { name, email, organization, service, message } =
       await request.json();
 
     if (!email || !message) {
+      console.log("Validation failed:", { email, message });
       return NextResponse.json(
         { error: "Email and message are required" },
         { status: 400, headers }
       );
     }
 
-    // Dynamically import Resend and ContactEmail
     const { Resend } = await import("resend");
     const { default: ContactEmail } = await import("@/app/emails/ContactEmail");
 
-    // Initialize Resend with the API key at runtime
+    console.log("RESEND_API_KEY:", process.env.RESEND_API_KEY); // Debug API key
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error("RESEND_API_KEY is not set");
+    }
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev", // Your verified domain
+      from: "onboarding@resend.dev", // Verify this domain in Resend dashboard
       to: "officialhkpatel@gmail.com",
-      subject: "Hardik's  Portfolio Form Submission",
+      subject: "Hardik's Portfolio Form Submission",
       react: ContactEmail({ name, email, organization, service, message }),
     });
 
     if (error) {
+      console.error("Resend error:", error);
       return NextResponse.json(
         { error: error.message },
         { status: 500, headers }
       );
     }
 
+    console.log("Email sent successfully:", data);
     return NextResponse.json(
       { message: "Email sent successfully", data },
       { status: 200, headers }
     );
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error("Error in API route:", error.message);
     return NextResponse.json(
       { error: "Failed to send email" },
       { status: 500, headers }
