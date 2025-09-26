@@ -4,10 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   // Set CORS headers
   const headers = {
-    "Access-Control-Allow-Origin":
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3000" // For local development
-        : "https://itshardik.vercel.app", // For production
+    "Access-Control-Allow-Origin": "*", // For production
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
