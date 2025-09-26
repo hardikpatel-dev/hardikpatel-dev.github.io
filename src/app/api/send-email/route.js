@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   const headers = {
-    "Access-Control-Allow-Origin": "*", // Temporary for testing, lock to "https://itshardik.vercel.app" later
+    "Access-Control-Allow-Origin": "https://itshardik.vercel.app", // Specific origin for security
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
@@ -12,7 +12,10 @@ export async function POST(request) {
   }
 
   try {
-    console.log("Processing POST request to /api/send-email");
+    console.log(
+      "Processing POST request to /api/send-email at",
+      new Date().toISOString()
+    );
     const { name, email, organization, service, message } =
       await request.json();
 
@@ -27,21 +30,27 @@ export async function POST(request) {
     const { Resend } = await import("resend");
     const { default: ContactEmail } = await import("@/app/emails/ContactEmail");
 
-    console.log("RESEND_API_KEY:", process.env.RESEND_API_KEY); // Debug API key
+    console.log(
+      "RESEND_API_KEY:",
+      process.env.RESEND_API_KEY ? "Set" : "Not set"
+    ); // Debug API key
     if (!process.env.RESEND_API_KEY) {
-      throw new Error("RESEND_API_KEY is not set");
+      throw new Error("RESEND_API_KEY is not set in production environment");
     }
     const resend = new Resend(process.env.RESEND_API_KEY);
 
+    const isTest =
+      process.env.NODE_ENV === "development" ||
+      process.env.TEST_MODE === "true";
     const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev", // Verify this domain in Resend dashboard
+      from: isTest ? "onboarding@resend.dev" : "contact@yourdomain.com", // Default verified email agar domain aajaye
       to: "officialhkpatel@gmail.com",
       subject: "Hardik's Portfolio Form Submission",
       react: ContactEmail({ name, email, organization, service, message }),
     });
 
     if (error) {
-      console.error("Resend error:", error);
+      console.error("Resend error:", error.message, error);
       return NextResponse.json(
         { error: error.message },
         { status: 500, headers }
@@ -54,9 +63,9 @@ export async function POST(request) {
       { status: 200, headers }
     );
   } catch (error) {
-    console.error("Error in API route:", error.message);
+    console.error("Error in API route:", error.message, error.stack);
     return NextResponse.json(
-      { error: "Failed to send email" },
+      { error: "Failed to send email", details: error.message },
       { status: 500, headers }
     );
   }
