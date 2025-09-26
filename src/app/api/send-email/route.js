@@ -38,7 +38,7 @@ export async function POST(request) {
     const { data, error } = await resend.emails.send({
       from: "onboarding@resend.dev", // Your verified domain
       to: "officialhkpatel@gmail.com",
-      subject: "New Contact Form Submission",
+      subject: "Hardik's  Portfolio Form Submission",
       react: ContactEmail({ name, email, organization, service, message }),
     });
 

@@ -31,7 +31,7 @@ export default function ContactPage() {
 
     try {
       const response = await fetch(
-        "https://itshardik.vercel.app/api/send-email",
+        "/api/send-email",
         {
           method: "POST",
           headers: {
