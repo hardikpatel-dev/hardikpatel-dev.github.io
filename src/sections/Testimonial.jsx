@@ -113,7 +113,7 @@ const Testimonial = () => {
                         className="flex items-center text-blue-600"
                       >
                         <FlipOnScroll delay={1.5}>
-                          <IconBrandLinkedinFilled size={20} />
+                          <IconBrandLinkedinFilled className="text-blue-600" size={20} />
                         </FlipOnScroll>
                       </a>
                     )}

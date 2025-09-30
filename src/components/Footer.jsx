@@ -46,7 +46,7 @@ const Footer = () => {
                     data-cursor=""
                     label="Get in Touch"
                     href="contact"
-                    className="magnetic-hover inline-flex  w-30 sm:w-40 h-30 sm:h-40 justify-center items-center rounded-full bg-white text-black text-shadow-lg"
+                    className="magnetic-hover inline-flex w-30 sm:w-40 h-30 sm:h-40 justify-center items-center rounded-full bg-white text-gray-950 text-shadow-lg"
                   >
                     Get in Touch
                   </TransitionLink>
@@ -55,7 +55,7 @@ const Footer = () => {
             </div>
             <div className="flex items-center wrapper gap-6 flex-wrap">
               <Link
-                data-cursor="📩Let's chat!"
+                data-cursor="Let's chat!"
                 href={`mailto:${contact.email}`}
                 className="relative inline-flex items-center justify-center p-3 sm:p-6 rounded-full border border-gray-500 text-white overflow-hidden group magnetic-hover"
               >
@@ -68,7 +68,7 @@ const Footer = () => {
                 ></span>
               </Link>
               <Link
-                data-cursor="📞Let's talk!"
+                data-cursor="Let's talk!"
                 href={contact.phone}
                 className="relative inline-flex items-center justify-center p-3 sm:p-6 rounded-full border border-gray-500 text-white overflow-hidden group magnetic-hover"
               >

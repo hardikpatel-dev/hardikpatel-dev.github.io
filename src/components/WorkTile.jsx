@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const WorkTile = ({ project }) => {
   const {
@@ -30,9 +30,10 @@ const WorkTile = ({ project }) => {
 
   const videoRef = useRef(null);
   const [isVisibleMobile, setIsVisibleMobile] = useState(false);
+  
 
   // 📱 Mobile autoplay (scroll observer)
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!video || window.innerWidth >= 768) return; // only mobile
 
     const observer = new IntersectionObserver(
@@ -64,10 +65,7 @@ const WorkTile = ({ project }) => {
   }, [video]);
 
   return (
-    <div
-      className="flex flex-col md:flex-row gap-4 lg:gap-1 work-tile "
-      suppressHydrationWarning
-    >
+    <div className="flex flex-col md:flex-row gap-4 lg:gap-1 work-tile ">
       {/* Browser Mockup */}
       <Link
         href={link}
@@ -157,7 +155,10 @@ const WorkTile = ({ project }) => {
         className="mb-6 md:basis-[40%] flex flex-col gap-8 justify-between"
         data-cursor=""
       >
-        <div className="flex gap-2 flex-col work-title">
+        <div
+          className="flex gap-2 flex-col work-title"
+          suppressHydrationWarning
+        >
           {/* Logo + Name */}
           <div className="flex gap-2 items-center">
             <div className="h-10 w-10 rounded-full bg-secondary overflow-hidden">
@@ -175,13 +176,19 @@ const WorkTile = ({ project }) => {
             </span>
           </div>
           {/* Description */}
-          <div className="w-full sm:w-[60%] md:w-full lg:w-[80%] work-description">
+          <div
+            className="w-full sm:w-[60%] md:w-full lg:w-[80%] work-description"
+            suppressHydrationWarning
+          >
             <p className="text-[12px] text-text-muted">{description}</p>
           </div>
         </div>
 
         {/* Industry, Link, Published */}
-        <div className="flex gap-2 flex-wrap items-center justify-between work-meta">
+        <div
+          className="flex gap-2 flex-wrap items-center justify-between work-meta"
+          suppressHydrationWarning
+        >
           <p className="text-xs">
             <span className="text-text-muted">
               Industry <br />

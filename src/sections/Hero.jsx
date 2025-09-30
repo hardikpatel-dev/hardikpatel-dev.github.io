@@ -10,19 +10,20 @@ import {
   IconWorld,
 } from "@tabler/icons-react";
 import Link from "next/link";
-import MockupGrid from "../components/MockupGrid";
+// import MockupGrid from "../components/MockupGrid";
 import HeroTagLineSlideUp from "../components/ui/HeroTagLineSlideUp";
 import HeroBlob from "../components/ui/HeroBlob";
 import FadeUpText from "@/app/animations/FadeUpTextScroll";
 import FlipOnScroll from "@/app/animations/FlipOnScroll";
+import CircleWordBlocks from "@/components/CircleWordBlocks";
 
 const Hero = () => {
   return (
-    <div className="hero-section relative lg:h-[90vh] overflow-x-clip">
+    <div className="hero-section relative lg:max-h-[90vh] overflow-x-clip">
       <HeroBlob />
-      <div className="w-full max-w-[1400px] mx-auto lg:w-[90%] py-4  lg:py-15">
-        <div className="flex flex-row lg:flex-nowrap flex-wrap gap-4">
-          <div className="col-span-6 flex-1 lg:flex-none px-4">
+      <div className="w-full max-w-[1400px] mx-auto 2xl:w-[90%]">
+        <div className="flex flex-col lg:flex-row lg:flex-nowrap flex-wrap gap-4">
+          <div className="col-span-6 flex-1 lg:flex-none px-4 py-4 lg:py-15">
             <IconArrowDownRight
               stroke={1}
               size={40}
@@ -140,12 +141,13 @@ const Hero = () => {
                 </div>
               </FadeUpText>
             </div>
-            <div className="relative lg:absolute bottom-10 h-15 mt-8 overflow-hidden flex items-center justify-center lg:justify-start">
+            <div className="relative lg:absolute lg:bottom-10 h-15 mt-4 lg:mt-8 overflow-hidden flex items-center justify-center lg:justify-start">
               <HeroTagLineSlideUp />
             </div>
           </div>
-          <div className="col-span-6 mx-auto lg:mr-0 z-2">
-            <MockupGrid />
+          <div className=" col-span-6 mx-auto lg:mr-0 z-2 relative flex-1 hidden lg:flex items-center justify-center h-[70vh] lg:h-auto">
+            {/* <MockupGrid /> */}
+            <CircleWordBlocks />
           </div>
         </div>
       </div>

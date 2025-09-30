@@ -207,7 +207,7 @@ export default function Header() {
             </div>
             {/* Mobile Menu Button */}
             <button
-              className=" text-xs md:text-md bg-gray-500 px-2 sm:py-0 py-2 border-2 border-amber-200  rounded-full text-white focus:outline-none z-99 cursor-pointer magnetic-hover"
+              className=" text-xs md:text-md bg-gray-500 px-2 sm:py-0 py-2 border-2 border-gray-200  rounded-full text-white focus:outline-none z-99 cursor-pointer magnetic-hover"
               onClick={toggleMenu}
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}

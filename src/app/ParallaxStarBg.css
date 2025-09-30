@@ -4,7 +4,7 @@
 }
 
 .dark {
-  --bg-star-inverse : #8000b2;
+  --bg-star-inverse : #6b00969f;
 }
 
 #stars, #stars2, #stars3 {
@@ -25,7 +25,7 @@
 #stars {
   width: 8px;
   height: 8px;
-  
+  backdrop-filter: blur(20px);
   background: transparent;
   box-shadow: 1239px 119px var(--bg-star-inverse) , 737px 674px var(--bg-star-inverse) , 944px 818px var(--bg-star-inverse) , 1074px 390px var(--bg-star-inverse) , 1503px 844px var(--bg-star-inverse) , 166px 188px var(--bg-star-inverse) , 1089px 61px var(--bg-star-inverse) , 1065px 1116px var(--bg-star-inverse) , 1885px 1819px var(--bg-star-inverse) , 378px 880px var(--bg-star-inverse) , 567px 799px var(--bg-star-inverse) , 1251px 757px var(--bg-star-inverse) , 258px 380px var(--bg-star-inverse) , 1029px 1056px var(--bg-star-inverse) , 1395px 1424px var(--bg-star-inverse) , 915px 1998px var(--bg-star-inverse) , 1917px 541px var(--bg-star-inverse) , 751px 457px var(--bg-star-inverse) , 1994px 1274px var(--bg-star-inverse) , 468px 648px var(--bg-star-inverse) , 1895px 1013px var(--bg-star-inverse) , 806px 276px var(--bg-star-inverse);
   animation: animStar 50s linear infinite;
