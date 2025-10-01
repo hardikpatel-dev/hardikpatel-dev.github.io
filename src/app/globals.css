@@ -391,6 +391,9 @@ body {
   top: 0;
 }
 
+.work-section {
+  overflow-x: hidden;
+}
 /* responsive transform only under 40rem */
 @media (max-width: 40rem) {
   .work-thumb {
