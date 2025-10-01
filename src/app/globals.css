@@ -235,7 +235,7 @@ body {
 }
 
 .main-btn:hover {
-  color: var(--text-inverse) !important;
+  color: var(--text) !important;
 }
 
 .main-btn:hover:before {
@@ -258,7 +258,7 @@ body {
 }
 
 .dark .main-btn:hover:after {
-  background-color: var(--bg-olive);
+  background-color: var(--bg-primary);
 }
 
 /* magnetic hover effect */
@@ -393,6 +393,9 @@ body {
 
 .work-section {
   overflow-x: hidden;
+  .work-thumb {
+    position: relative;
+  }
 }
 /* responsive transform only under 40rem */
 @media (max-width: 40rem) {

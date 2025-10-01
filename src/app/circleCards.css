@@ -31,25 +31,36 @@
   --text: #ffffff;
   --mask-gradient: radial-gradient(
     100% 50% at 100% 50%,
-    rgba(141, 26, 229, 0.44) 0%,
+    rgba(0, 0, 0, 0.44) 0%,
     rgba(141, 26, 229, 0) 100%
   );
   --second-gradient: radial-gradient(
     100% 50% at 100% 50%,
-    #ac07ff 0%,
-    #34005b62 100%
+    #535353 0%,
+    #171717f4 100%
   );
   --circle-gradient: radial-gradient(
     circle,
-    rgb(80, 4, 118) 40%,
-    rgba(255, 255, 255, 0.512) 100%
+    rgba(21, 21, 21, 0.827) 40%,
+    rgb(106, 106, 106) 100%
   );
   --mask-after: linear-gradient(
     180deg,
     rgba(60, 26, 229, 0) 0%,
-    #8600d4 50%,
+    #370057 50%,
     rgba(60, 26, 229, 0) 100%
   );
+}
+
+.filter-invert {
+  @apply filter invert-100;
+}
+.dark .filter-invert {
+  @apply filter invert-0;
+}
+
+.dark .svg-invert {
+  @apply invert;
 }
 
 .void {

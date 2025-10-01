@@ -6,7 +6,6 @@ import {
   IconCode,
   IconCopyright,
   IconHandClick,
-  IconSparkles,
   IconWorld,
 } from "@tabler/icons-react";
 import Link from "next/link";
@@ -19,7 +18,10 @@ import CircleWordBlocks from "@/components/CircleWordBlocks";
 
 const Hero = () => {
   return (
-    <div className="hero-section relative lg:max-h-[90vh] overflow-x-clip">
+    <div
+      className="hero-section relative lg:max-h-[90vh] overflow-x-clip"
+      data-cursor=""
+    >
       <HeroBlob />
       <div className="w-full max-w-[1400px] mx-auto 2xl:w-[90%]">
         <div className="flex flex-col lg:flex-row lg:flex-nowrap flex-wrap gap-4">
@@ -102,7 +104,7 @@ const Hero = () => {
 
                 <FadeUpText delay={2}>
                   <span className="flex items-center gap-0.5">
-                    Developer <IconCode stroke={2} size={16} /> 
+                    Developer <IconCode stroke={2} size={16} />
                     Designer
                   </span>
                 </FadeUpText>
@@ -145,7 +147,7 @@ const Hero = () => {
               <HeroTagLineSlideUp />
             </div>
           </div>
-          <div className=" col-span-6 mx-auto lg:mr-0 z-2 relative flex-1 hidden lg:flex items-center justify-center h-[70vh] lg:h-auto">
+          <div className="col-span-6 mx-auto lg:mr-0 z-2 relative flex-1 hidden lg:flex items-center justify-center ">
             {/* <MockupGrid /> */}
             <CircleWordBlocks />
           </div>
