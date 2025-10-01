@@ -6,23 +6,23 @@
   --easing: cubic-bezier(0, 0.37, 1, 0.63);
   --mask-gradient: radial-gradient(
     100% 50% at 100%,
-    #ffe8c376 0%,
-    #ffc80000 100%
+    #acacac5a 0%,
+    #ffffff00 100%
   );
   --second-gradient: radial-gradient(
     100% 50% at 100% 50%,
-    #ffd95d 0%,
+    #cecece 0%,
     #eeeeee 100%
   );
   --circle-gradient: radial-gradient(
     circle,
     rgb(255, 255, 255) 40%,
-    rgb(255, 240, 187) 100%
+    rgba(195, 195, 195, 0.8) 100%
   );
   --mask-after: linear-gradient(
     180deg,
     rgba(60, 26, 229, 0) 0%,
-    #f2c337 50%,
+    #a0a0a0 50%,
     rgba(60, 26, 229, 0) 100%
   );
 }
@@ -31,7 +31,7 @@
   --text: #ffffff;
   --mask-gradient: radial-gradient(
     100% 50% at 100% 50%,
-    rgba(141, 26, 229, 0.25) 0%,
+    rgba(141, 26, 229, 0.44) 0%,
     rgba(141, 26, 229, 0) 100%
   );
   --second-gradient: radial-gradient(
@@ -62,9 +62,7 @@
   transform: translate(-5%, -5%);
 }
 
-ul:hover * {
-  animation-play-state: paused;
-}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -90,7 +88,7 @@ li {
   gap: 6px;
   /* margin: 0 -2rem; */
   background: transparent;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
 
   border-radius: 25px;
   font-family: "Inter", sans-serif;
@@ -168,7 +166,7 @@ li:nth-child(8) .card {
   background: var(--circle-gradient);
   box-shadow:
     0px 18px 36px -18px rgba(12, 5, 46, 0.3),
-    0px 30px 60px -12px rgba(12, 5, 46, 0.25);
+    0px 8px 16px -18px rgba(12, 5, 46, 0.25);
   border-radius: 50%;
 }
 .second-circle {
@@ -221,4 +219,19 @@ li:nth-child(8) .card {
   right: 0;
   display: block;
   background-image: var(--mask-after);
+}
+
+
+/* globals.css */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 6s linear infinite;
 }

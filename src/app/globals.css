@@ -79,7 +79,7 @@
   --bg-secondary: #202020;
   --bg-olive: #242424;
   --bg-inverse: #ffffff;
-  --border: #676767;
+  --border: #fff3;
 
   --text: #ffffff;
   --text-heading: #f3f3f3;
@@ -120,7 +120,7 @@ body {
   color: var(--color-text);
   font-family: var(--font-primary);
   @apply antialiased;
-   /* cursor: none; */
+  /* cursor: none; */
 }
 
 .navbar {
@@ -190,14 +190,18 @@ body {
   font-size: 16px;
   border-radius: 50px;
   background: var(--text);
-  box-shadow: 6px 6px 12px #c5c5c57b, -6px -6px 12px #dbdbdb43;
+  box-shadow:
+    6px 6px 12px #c5c5c57b,
+    -6px -6px 12px #dbdbdb43;
   border: 2px solid var(--text-muted);
   text-wrap-mode: nowrap;
 }
 
 .main-btn:active {
   color: var(--text-muted);
-  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+  box-shadow:
+    inset 4px 4px 12px #c5c5c5,
+    inset -4px -4px 12px #ffffff;
 }
 
 .main-btn:before {
@@ -247,7 +251,8 @@ body {
 }
 
 .dark .main-btn {
-  box-shadow: rgba(50, 50, 93, 0.8) 0px 50px 100px -20px,
+  box-shadow:
+    rgba(50, 50, 93, 0.8) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.8) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.8) 0px -2px 6px 0px inset;
 }
@@ -363,7 +368,8 @@ body {
 }
 
 .dark .box-shadow {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
     rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
@@ -375,7 +381,6 @@ body {
   @apply border-gray-700;
 }
 
-
 #loader > div {
   overflow: hidden;
 }
@@ -384,4 +389,43 @@ body {
   position: absolute;
   left: 0;
   top: 0;
+}
+
+/* responsive transform only under 40rem */
+@media (max-width: 40rem) {
+  .work-thumb {
+    position: relative;
+    margin: 1rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    transform: translate(16%, -6%) scale(1.4);
+    padding: 1rem;
+    padding-bottom: 0;
+    background: transparent; 
+    border: 2px solid #eee !important;
+  }
+
+  /* glowing gradient background */
+  .work-thumb::before {
+    content: "";
+    position: absolute;
+    inset: -40px;
+    background: radial-gradient(#f6dcff 10%, #ffffff 20%, #e7b9ff 30%, #27004e 60%) 0 0 / cover;
+    filter: blur(40px);
+    mix-blend-mode: color-dodge;
+    background-size: cover;
+    opacity: 0.8;
+    z-index: -2;
+  }
+
+  /* dot pattern overlay */
+  .work-thumb::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.4) 1px, rgb(255 255 255 / 0%) 1px);
+    background-size: 20px 20px; /* dots grid size */
+    opacity: 0.4;
+    z-index: -1;
+  }
 }

@@ -50,16 +50,16 @@ export default function ContactPage() {
       console.log("Response data:", result);
 
       if (response.ok) {
-        toast.success("Message sent! 🎉 I'll get back to you soon!", {
-          duration: 4000,
-          icon: "🚀",
-          style: {
-            background: "#fff",
-            color: "#10b981",
-            borderRadius: "8px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          },
-        }); // Success toast with style
+        // toast.success("Message sent! 🎉 I'll get back to you soon!", {
+        //   duration: 4000,
+        //   icon: "🚀",
+        //   style: {
+        //     background: "#fff",
+        //     color: "#10b981",
+        //     borderRadius: "8px",
+        //     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        //   },
+        // }); // Success toast with style
         setShowSuccessPopup(true); // Show popup on success
         if (formRef.current) {
           formRef.current.reset();
@@ -110,7 +110,7 @@ export default function ContactPage() {
               <FadeUpTextScroll delay={2}>
                 <span className=" w-14 h-14 rounded-[50%] translate-y-2 overflow-hidden me-3 inline-block xs:hidden">
                   <Image
-                    src="/assets/hardik.jpeg"
+                    src="/assets/hardik.webp"
                     alt="Hardik's Photo"
                     width={50}
                     height={50}
@@ -156,7 +156,7 @@ export default function ContactPage() {
           <div className="flex xs:items-center gap-1 mb-4">
             <IconHeartHandshake className="text-amber-400" />
             <p className="text-md italic font-whyte  text-text-muted">
-              — let’s connect! — I’d love to hear from you."
+              — I’d love to hear from you."
             </p>
           </div>
           <form

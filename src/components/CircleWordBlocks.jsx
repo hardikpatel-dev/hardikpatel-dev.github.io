@@ -2,7 +2,7 @@
 "use client";
 import React from "react";
 import "../app/circleCards.css";
-import { IconCode } from "@tabler/icons-react";
+import { IconCode, IconSettings } from "@tabler/icons-react";
 
 const words = [
   "Plan",
@@ -25,7 +25,7 @@ export default function CircleWordBlocks() {
             <li key={i}>
               <div className="card">
                 <span>
-                  <span className="model-name">{word}</span>
+                  <span className="model-name tracking-widest">{word}</span>
                 </span>
               </div>
             </li>
@@ -36,8 +36,14 @@ export default function CircleWordBlocks() {
       </div>
       <div className="mask"></div>
       <div className="center-circle flex items-center justify-center">
-        <span style={{fontFamily: "cursive"}} className=" font-extrabold text-6xl">
-          <IconCode stroke={2} className="text-text" size={40} />
+        <span
+          className="text-6xl"
+        >
+          <IconSettings
+            stroke={1}
+            className="text-text animate-spin-slow"
+            size={40}
+          />
         </span>
       </div>
     </div>

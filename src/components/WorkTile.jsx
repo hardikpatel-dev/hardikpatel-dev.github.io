@@ -74,17 +74,17 @@ const WorkTile = ({ project }) => {
         className={`work-thumb group block md:basis-[60%] browser-mockup aspect-16/9 rounded-xl lg:rounded-md shadow-lg lg:shadow-none
          mb-5 transition-all duration-300 overflow-hidden lg:overflow-visible  border-5 border-current lg:border-0`}
       >
-        <div className="bg-secondary border-b border-gray-200 h-8 flex items-center justify-between px-4 rounded-t-lg">
+        <div className="bg-secondary border-b border-gray-200 xs:h-8 h-6 flex items-center justify-between px-4 rounded-t-lg">
           {/* Left controls */}
           <div className="flex space-x-4 items-center">
             <div className="flex space-x-2">
-              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <div className="w-1 xs:w-2 h-1 xs:h-2 bg-red-500 rounded-full"></div>
+              <div className="w-1 xs:w-2 h-1 xs:h-2 bg-yellow-500 rounded-full"></div>
+              <div className="w-1 xs:w-2 h-1 xs:h-2 bg-green-500 rounded-full"></div>
             </div>
             <div className="flex space-x-1 items-center text-text-muted">
-              <IconChevronLeft size={16} />
-              <IconChevronRight size={16} />
+              <IconChevronLeft size={12} />
+              <IconChevronRight size={12} />
             </div>
           </div>
 

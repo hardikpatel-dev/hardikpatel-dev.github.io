@@ -29,18 +29,18 @@ export default function SuccessPopup({ message, onClose }) {
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/80 backdrop-blur-xs  bg-opacity-80">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/60 backdrop-blur-xs  bg-opacity-50">
       <div
         ref={popupRef}
-        className="bg-white sm:py-15 sm:px-30 py-10 px-10 rounded-md shadow-2xl max-w-xl w-full text-center"
+        className="bg-white sm:py-15 py-10 px-10 rounded-xl shadow-2xl max-w-xl w-full text-center"
       >
         <FadeUpTextScroll delay={0.4}>
-          <h3 className="text-3xl font-bold text-green-600 mb-4 font-whyte">
+          <h3 className="text-5xl font-bold text-green-600 mb-4 italic font-serif">
             Success!
           </h3>
         </FadeUpTextScroll>
         <p className="text-lg text-gray-700 mb-4">{message}</p>
-        <p className="text-sm text-gray-500 italic">
+        <p className="text-sm text-gray-500">
           I will strive to contact you at the earliest convenience.
         </p>
       </div>

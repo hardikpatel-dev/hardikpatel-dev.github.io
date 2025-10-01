@@ -102,7 +102,8 @@ const Hero = () => {
 
                 <FadeUpText delay={2}>
                   <span className="flex items-center gap-0.5">
-                    Designer <IconCode stroke={2} size={16} /> Developer
+                    Developer <IconCode stroke={2} size={16} /> 
+                    Designer
                   </span>
                 </FadeUpText>
               </div>
@@ -117,7 +118,6 @@ const Hero = () => {
                     className="main-btn magnetic-hover gap-1 "
                   >
                     View Work
-                    <IconSparkles className="w-5 h-5 text-yellow-500" />
                   </Link>
                   {/* resume button */}
                   <Link
