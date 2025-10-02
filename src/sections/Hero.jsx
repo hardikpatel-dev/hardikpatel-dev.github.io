@@ -143,7 +143,7 @@ const Hero = () => {
                 </div>
               </FadeUpText>
             </div>
-            <div className="relative lg:absolute lg:bottom-10 h-15 mt-4 lg:mt-8 overflow-hidden flex items-center justify-center lg:justify-start">
+            <div className="relative lg:absolute lg:bottom-6 h-15 mt-4 lg:mt-8 overflow-hidden flex items-center justify-center lg:justify-start">
               <HeroTagLineSlideUp />
             </div>
           </div>
