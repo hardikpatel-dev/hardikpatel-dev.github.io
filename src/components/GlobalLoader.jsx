@@ -131,7 +131,7 @@ export default function GlobalLoader() {
   return (
     <div
       id="global-loader"
-      className="fixed inset-0 z-[999999] flex items-center justify-center bg-secondary overflow-hidden"
+      className="fixed inset-0 z-[999999] flex items-center justify-center bg-primary overflow-hidden"
     >
       <h1
         id="loader"
