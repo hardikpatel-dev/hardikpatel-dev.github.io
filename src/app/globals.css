@@ -138,7 +138,7 @@ body {
 
 @layer utilities {
   .container-fluid {
-    @apply w-full max-w-[1400px] mx-auto 2xl:w-[90%] px-4;
+    @apply w-full max-w-[1600px] mx-auto 2xl:w-[90%] px-4;
   }
   .wrapper {
     @apply py-24; /* 6rem = 96px ≈ py-24 */

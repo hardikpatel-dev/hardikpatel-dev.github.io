@@ -23,7 +23,7 @@ const Hero = () => {
       data-cursor=""
     >
       <HeroBlob />
-      <div className="w-full max-w-[1400px] mx-auto 2xl:w-[90%]">
+      <div className="w-full max-w-[1600px] mx-auto 2xl:w-[90%]">
         <div className="flex flex-col lg:flex-row lg:flex-nowrap flex-wrap gap-4">
           <div className="col-span-6 flex-1 lg:flex-none px-4 py-4 lg:py-15">
             <IconArrowDownRight
