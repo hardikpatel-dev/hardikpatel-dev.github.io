@@ -10,6 +10,7 @@ import InitGsapAnimations from "./animations/InitGsapAnimations";
 import GlobalLoader from "@/components/GlobalLoader";
 import CustomCursor from "@/components/CustomCursor";
 import { Toaster } from "react-hot-toast";
+import ClarityProvider from "@/components/ClarityProvider";
 
 export const metadata = {
   title: "Hardik Patel | FrontEnd Developer",
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${WhyteInktrap.variable} ${poppins.variable} ${instrumentSerif.variable} antialiased`}
       >
+        <ClarityProvider />
         <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
         <InitGsapAnimations />
         <TitleChanger />
