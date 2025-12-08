@@ -13,7 +13,7 @@ export default function ResumePage() {
     const ctx = canvas.getContext("2d");
 
     const img = new Image();
-    img.src = "/assets/resume.png"; // PDF page exported as high-res PNG
+    img.src = "/assets/hardik-resume.jpg"; // PDF page exported as high-res PNG
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
@@ -29,7 +29,7 @@ export default function ResumePage() {
       {/* Download Button */}
 
       <Link
-        href="/assets/resume.pdf"
+        href="/assets/hardik-resume.pdf"
         download
         className="sticky top-18 cursor-pointer flex justify-between bg-inverse px-3 py-2 rounded-full text-inverse tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-500 hover:ring-1 font-whyte w-[140px]"
       >
