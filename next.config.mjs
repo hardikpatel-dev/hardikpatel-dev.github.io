@@ -23,13 +23,7 @@ const nextConfig = {
       }
     : {}),
   // Add experimental configuration for server components
-  experimental: {
-    serverComponentsExternalPackages: [
-      "@react-email/components",
-      "react-email",
-      "resend",
-    ],
-  },
+  serverExternalPackages: ["@react-email/components", "react-email", "resend"],
 };
 
 export default nextConfig;

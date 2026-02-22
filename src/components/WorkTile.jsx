@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 
 const WorkTile = ({ project }) => {
   const {
@@ -30,7 +30,7 @@ const WorkTile = ({ project }) => {
 
   const videoRef = useRef(null);
   const [isVisibleMobile, setIsVisibleMobile] = useState(false);
-  
+  const isPriority = order === 1;
 
   // 📱 Mobile autoplay (scroll observer)
   useLayoutEffect(() => {
@@ -61,6 +61,7 @@ const WorkTile = ({ project }) => {
 
     return () => {
       if (videoRef.current) observer.unobserve(videoRef.current);
+      observer.disconnect();
     };
   }, [video]);
 
@@ -110,7 +111,9 @@ const WorkTile = ({ project }) => {
           <Image
             width={1920}
             height={1080}
-            priority
+            priority={isPriority}
+            loading={isPriority ? undefined : "lazy"}
+            sizes="(min-width: 1024px) 52vw, 100vw"
             quality={90}
             src={thumbnail}
             alt={name}
@@ -166,6 +169,7 @@ const WorkTile = ({ project }) => {
                 width={40}
                 height={40}
                 loading="lazy"
+                sizes="40px"
                 src={favicon}
                 alt={`${name} favicon`}
                 className="w-full h-full object-contain rounded-full bg-white p-0.5"

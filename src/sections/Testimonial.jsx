@@ -15,31 +15,38 @@ gsap.registerPlugin(ScrollTrigger);
 const Testimonial = () => {
   const feedbackRefs = useRef([]);
 
-  
-
   useEffect(() => {
-    feedbackRefs.current.forEach((el) => {
-      if (!el) return;
+    const splits = [];
+    const ctx = gsap.context(() => {
+      feedbackRefs.current.forEach((el) => {
+        if (!el) return;
 
-      // Split text into words
-      const split = new SplitType(el, {
-        types: "words",
-        tagName: "span",
-      });
+        // Split text into words
+        const split = new SplitType(el, {
+          types: "words",
+          tagName: "span",
+        });
+        splits.push(split);
 
-      gsap.from(split.words, {
-        opacity: 0.3,
-        duration: 1,
-        ease: "power1.out",
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-          end: "bottom 80%",
-          scrub: true, // scroll ke saath smooth
-        },
+        gsap.from(split.words, {
+          opacity: 0.3,
+          duration: 1,
+          ease: "power1.out",
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+            end: "bottom 80%",
+            scrub: true, // scroll ke saath smooth
+          },
+        });
       });
     });
+
+    return () => {
+      ctx.revert();
+      splits.forEach((split) => split.revert());
+    };
   }, []);
 
   return (
@@ -95,8 +102,9 @@ const Testimonial = () => {
                       alt={t.name}
                       width={100}
                       height={100}
+                      sizes="(min-width: 768px) 180px, 160px"
                       className="object-cover w-full h-full"
-                      loading="eager"
+                      loading="lazy"
                       quality={100}
                     />
                   </Link>

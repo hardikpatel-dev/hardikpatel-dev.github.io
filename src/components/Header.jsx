@@ -24,6 +24,7 @@ export default function Header() {
   useRollingLinks();
 
   useEffect(() => {
+    let cleanupMagnetic;
     if (headerRef.current) {
       gsap.from(headerRef.current, {
         y: -50, // upar se niche slide
@@ -33,7 +34,11 @@ export default function Header() {
         delay: 2.5, // 1s delay
       });
     }
-    initMagneticHover();
+    cleanupMagnetic = initMagneticHover();
+
+    return () => {
+      if (typeof cleanupMagnetic === "function") cleanupMagnetic();
+    };
   }, []);
 
   // nav links data
@@ -59,6 +64,7 @@ export default function Header() {
   };
 
   useEffect(() => {
+    let cleanupMagnetic;
     if (isMenuOpen) {
       const tl = gsap.timeline({
         onComplete: () => setIsAnimating(true),
@@ -132,6 +138,11 @@ export default function Header() {
         "-=0.4"
       );
     }
+
+    cleanupMagnetic = initMagneticHover();
+    return () => {
+      if (typeof cleanupMagnetic === "function") cleanupMagnetic();
+    };
   }, [isMenuOpen]);
 
   useEffect(() => {

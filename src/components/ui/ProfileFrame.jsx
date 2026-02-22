@@ -13,8 +13,9 @@ const ProfileFrame = ({ name, designation, image }) => {
           alt={name}
           width={100}
           height={100}
+          sizes="(min-width: 640px) 280px, 200px"
           className="passport-image"
-          loading="eager"
+          loading="lazy"
           quality={100}
         />
       </div>

@@ -76,10 +76,9 @@ const TechStack = () => {
                       alt={tech.id}
                       width={60}
                       height={60}
+                      sizes="60px"
                       quality={50}
                       loading="lazy"
-                      placeholder="blur"
-                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
                       className={`h-18 w-auto object-contain  ${
                         active === tech.id ? "filter-invert" : "svg-invert"
                       }`}
@@ -107,6 +106,7 @@ const TechStack = () => {
                       alt={tech.id}
                       width={60}
                       height={60}
+                      sizes="60px"
                       quality={50}
                       loading="lazy"
                       className={`h-12 w-auto object-contain  ${
@@ -137,6 +137,7 @@ const TechStack = () => {
                     alt={tech.id}
                     width={50}
                     height={50}
+                    sizes="50px"
                     quality={50}
                     loading="lazy"
                     className={`h-12 w-auto object-contain svg-invert`}

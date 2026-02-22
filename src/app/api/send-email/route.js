@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
+  const isDev = process.env.NODE_ENV !== "production";
+  const log = (...args) => {
+    if (isDev) console.log(...args);
+  };
+
   const headers = {
     "Access-Control-Allow-Origin": "https://itshardik.vercel.app", // Specific origin for security
     "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -12,15 +17,12 @@ export async function POST(request) {
   }
 
   try {
-    console.log(
-      "Processing POST request to /api/send-email at",
-      new Date().toISOString()
-    );
+    log("Processing POST request to /api/send-email at", new Date().toISOString());
     const { name, email, organization, service, message } =
       await request.json();
 
     if (!email || !message) {
-      console.log("Validation failed:", { email, message });
+      log("Validation failed:", { email, message });
       return NextResponse.json(
         { error: "Email and message are required" },
         { status: 400, headers }
@@ -30,10 +32,7 @@ export async function POST(request) {
     const { Resend } = await import("resend");
     const { default: ContactEmail } = await import("@/app/emails/ContactEmail");
 
-    console.log(
-      "RESEND_API_KEY:",
-      process.env.RESEND_API_KEY ? "Set" : "Not set"
-    ); // Debug API key
+    log("RESEND_API_KEY:", process.env.RESEND_API_KEY ? "Set" : "Not set");
     if (!process.env.RESEND_API_KEY) {
       throw new Error("RESEND_API_KEY is not set in production environment");
     }
@@ -42,8 +41,12 @@ export async function POST(request) {
     const isTest =
       process.env.NODE_ENV === "development" ||
       process.env.TEST_MODE === "true";
+    const fromEmail =
+      process.env.RESEND_FROM_EMAIL ||
+      (isTest ? "onboarding@resend.dev" : "onboarding@resend.dev");
+
     const { data, error } = await resend.emails.send({
-      from: isTest ? "onboarding@resend.dev" : "contact@yourdomain.com", // Default verified email agar domain aajaye
+      from: fromEmail,
       to: "officialhkpatel@gmail.com",
       subject: "Hardik's Portfolio Form Submission",
       react: ContactEmail({ name, email, organization, service, message }),
@@ -57,7 +60,7 @@ export async function POST(request) {
       );
     }
 
-    console.log("Email sent successfully:", data);
+    log("Email sent successfully:", data);
     return NextResponse.json(
       { message: "Email sent successfully", data },
       { status: 200, headers }

@@ -41,13 +41,7 @@ export default function ContactPage() {
         }
       );
 
-      console.log("Response status:", response.status);
-      console.log(
-        "Response headers:",
-        Object.fromEntries(response.headers.entries())
-      );
       const result = await response.json();
-      console.log("Response data:", result);
 
       if (response.ok) {
         // toast.success("Message sent! 🎉 I'll get back to you soon!", {
@@ -63,8 +57,6 @@ export default function ContactPage() {
         setShowSuccessPopup(true); // Show popup on success
         if (formRef.current) {
           formRef.current.reset();
-        } else {
-          console.warn("Form reference is no longer available.");
         }
       } else {
         toast.error(

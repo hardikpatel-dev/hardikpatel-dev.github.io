@@ -16,9 +16,23 @@ export default function useLocalTime() {
       setTime(now.toLocaleTimeString([], options));
     };
 
+    const getMsToNextMinute = () => {
+      const now = new Date();
+      return (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+    };
+
     updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
+
+    let minuteInterval = null;
+    const timeout = setTimeout(() => {
+      updateTime();
+      minuteInterval = setInterval(updateTime, 60000);
+    }, getMsToNextMinute());
+
+    return () => {
+      clearTimeout(timeout);
+      if (minuteInterval) clearInterval(minuteInterval);
+    };
   }, []);
 
   return time;

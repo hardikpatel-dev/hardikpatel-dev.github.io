@@ -9,8 +9,12 @@ export default function Template({ children }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    animatePageIn(); 
-    initMagneticHover();
+    animatePageIn();
+    const cleanupMagnetic = initMagneticHover();
+
+    return () => {
+      if (typeof cleanupMagnetic === "function") cleanupMagnetic();
+    };
   }, [pathname]);
 
   return (

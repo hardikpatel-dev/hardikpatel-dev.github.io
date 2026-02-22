@@ -1,19 +1,24 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 export default function CustomCursor() {
   const cursorRef = useRef(null);
   const trailRefs = useRef([]);
   const textRef = useRef(null);
-  const [isMoving, setIsMoving] = useState(false);
+  const isMovingRef = useRef(false);
   const lastPosition = useRef({ x: 0, y: 0 });
   const timeoutRef = useRef(null);
+  const rafRef = useRef(null);
+  const pointerRef = useRef({ x: 0, y: 0 });
+  const moveFnsRef = useRef(null);
+  const directionRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const cursor = cursorRef.current;
     const text = textRef.current;
     const trailDots = trailRefs.current;
+    if (!cursor || !text || !trailDots.length) return;
 
     // Number of trail dots
     const numDots = 10;
@@ -47,37 +52,62 @@ export default function CustomCursor() {
         ease: "power3.out",
       })
     );
+    moveFnsRef.current = { xMove, yMove, trailMoves, trailYMoves };
 
-    const move = (e) => {
-      const x = e.clientX - cursor.offsetWidth / 2;
-      const y = e.clientY - cursor.offsetHeight / 2;
-
-      // Detect movement
-      if (
-        Math.abs(x - lastPosition.current.x) > 1 ||
-        Math.abs(y - lastPosition.current.y) > 1
-      ) {
-        setIsMoving(true);
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-          setIsMoving(false);
-        }, 100);
-      }
+    const renderCursor = (x, y) => {
+      const fns = moveFnsRef.current;
+      if (!fns) return;
 
       // Move main cursor
-      xMove(x);
-      yMove(y);
+      fns.xMove(x);
+      fns.yMove(y);
 
       // Move trail dots
-      trailMoves.forEach((moveX, index) => {
-        const offset = isMoving ? (index + 1) * -5 : 0; // Spread when moving
-        moveX(x + offset);
+      fns.trailMoves.forEach((moveX, index) => {
+        const distance = isMovingRef.current ? (index + 1) * 5 : 0;
+        moveX(x - directionRef.current.x * distance);
       });
-      trailYMoves.forEach((moveY, index) => {
-        moveY(y);
+      fns.trailYMoves.forEach((moveY, index) => {
+        const distance = isMovingRef.current ? (index + 1) * 5 : 0;
+        moveY(y - directionRef.current.y * distance);
       });
+    };
 
-      lastPosition.current = { x, y };
+    const move = (e) => {
+      pointerRef.current = {
+        x: e.clientX - cursor.offsetWidth / 2,
+        y: e.clientY - cursor.offsetHeight / 2,
+      };
+
+      if (!rafRef.current) {
+        rafRef.current = requestAnimationFrame(() => {
+          rafRef.current = null;
+          const { x, y } = pointerRef.current;
+
+          // Detect movement
+          if (
+            Math.abs(x - lastPosition.current.x) > 1 ||
+            Math.abs(y - lastPosition.current.y) > 1
+          ) {
+            const dx = x - lastPosition.current.x;
+            const dy = y - lastPosition.current.y;
+            const len = Math.hypot(dx, dy);
+            if (len > 0) {
+              directionRef.current = { x: dx / len, y: dy / len };
+            }
+
+            isMovingRef.current = true;
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(() => {
+              isMovingRef.current = false;
+              renderCursor(lastPosition.current.x, lastPosition.current.y);
+            }, 100);
+          }
+
+          renderCursor(x, y);
+          lastPosition.current = { x, y };
+        });
+      }
     };
 
     window.addEventListener("mousemove", move);
@@ -133,7 +163,7 @@ export default function CustomCursor() {
     const els = Array.from(document.querySelectorAll("[data-cursor]"));
     els.forEach((el) => {
       el.addEventListener("mouseenter", handleEnter);
-      el.removeEventListener("mouseleave", handleLeave);
+      el.addEventListener("mouseleave", handleLeave);
     });
 
     // Set initial state
@@ -141,6 +171,9 @@ export default function CustomCursor() {
 
     return () => {
       window.removeEventListener("mousemove", move);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
       els.forEach((el) => {
         el.removeEventListener("mouseenter", handleEnter);
         el.removeEventListener("mouseleave", handleLeave);

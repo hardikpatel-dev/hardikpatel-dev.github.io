@@ -65,8 +65,7 @@ export default function GridWorkShowcase() {
 
   // split works into 4 columns
   const columns = [[], [], [], []];
-  const colCount =
-    typeof window !== "undefined" && window.innerWidth < 768 ? 3 : 4;
+  const colCount = 4;
   works.forEach((src, i) => columns[i % colCount].push(src));
 
   return (
@@ -79,7 +78,7 @@ export default function GridWorkShowcase() {
         {columns.map((col, i) => (
           <div
             key={i}
-            className={`grid-col flex flex-col gap-3 ${
+            className={`grid-col flex flex-col gap-3 ${i === 3 ? "hidden lg:flex" : ""} ${
               i % 2 === 0 ? "items-start" : "items-end"
             }`}
           >
@@ -94,10 +93,9 @@ export default function GridWorkShowcase() {
                   width={800}
                   height={1200}
                   className="w-full h-auto object-contain"
+                  sizes="(min-width: 1024px) 25vw, 33vw"
                   quality={60}
-                  loading="eager"
-                  placeholder="blur"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
+                  loading="lazy"
                 />
               </div>
             ))}

@@ -6,6 +6,8 @@ import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
 import FlipOnScroll from "@/app/animations/FlipOnScroll";
 
 const Work = () => {
+  const sortedProjects = [...projects].sort((a, b) => a.order - b.order);
+
   return (
     <>
       <section
@@ -32,11 +34,9 @@ const Work = () => {
           </div>
           {/* work listing */}
           <div className="wrapper grid grid-cols-1 gap-12">
-            {projects
-              .sort((a, b) => a.order - b.order)
-              .map((project) => (
-                <WorkTile key={project.id} project={project} />
-              ))}
+            {sortedProjects.map((project) => (
+              <WorkTile key={project.id} project={project} />
+            ))}
           </div>
         </div>
       </section>
