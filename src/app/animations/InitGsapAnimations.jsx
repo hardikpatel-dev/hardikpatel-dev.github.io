@@ -1,9 +1,9 @@
 "use client";
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { animateWorkTiles } from "@/lib/gsapLib";
 
 export default function InitGsapAnimations() {
-  useLayoutEffect(() => {
+  useEffect(() => {
     animateWorkTiles(); // 👈 ab ye call ho jayega
   }, []);
 

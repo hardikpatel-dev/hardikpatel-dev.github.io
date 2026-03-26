@@ -1,17 +1,22 @@
 "use client";
-import useLocalTime from "@/lib/useLocalTime";
 import { IconArrowDownLeftCircle } from "@tabler/icons-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // 👈 to detect the current page
+import { usePathname } from "next/navigation";
 import React from "react";
 import TransitionLink from "./TranstionLinks";
 import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
 import FlipOnScroll from "@/app/animations/FlipOnScroll";
 import contact from "@/data/contact.json";
+import useLocalTime from "@/lib/useLocalTime";
+
+function LiveClock() {
+  const time = useLocalTime();
+  return <span className="text-white text-sm">{time}</span>;
+}
+
 
 
 const Footer = () => {
-  const time = useLocalTime();
   const pathname = usePathname(); // current route
   const isContactPage = pathname === "/contact"; // check if it's contact page
 
@@ -98,7 +103,7 @@ const Footer = () => {
             <span className="uppercase text-xs tracking-widest text-text-muted">
               Local Time
             </span>
-            <span className="text-white text-sm">{time}</span>
+            <LiveClock />
           </div>
 
           {/* Right - Social */}

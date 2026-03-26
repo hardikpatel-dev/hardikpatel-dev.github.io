@@ -5,7 +5,10 @@ import clarity from "@microsoft/clarity";
 
 export default function ClarityProvider() {
   useEffect(() => {
-    clarity.init("twtluvv34d");
+    const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+    if (clarityId) {
+      clarity.init(clarityId);
+    }
   }, []);
 
   return null;

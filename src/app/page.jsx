@@ -1,23 +1,25 @@
 
-import { Suspense, lazy } from "react";
-import Loader from "@/components/Loader";
+import dynamic from "next/dynamic";
 import About from "@/sections/About";
-const Work = lazy(() => import("@/sections/Work"));
-const GridWorkShowcase = lazy(() => import("@/sections/GridWorkShowcase"));
 import Hero from "@/sections/Hero";
 import TechStack from "@/sections/TechStack";
 import Testimonial from "@/sections/Testimonial";
+import Loader from "@/components/Loader";
+
+const Work = dynamic(() => import("@/sections/Work"), {
+  loading: () => <Loader />,
+});
+const GridWorkShowcase = dynamic(
+  () => import("@/sections/GridWorkShowcase"),
+  { loading: () => <Loader /> }
+);
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Suspense fallback={<Loader />}>
-        <Work />
-      </Suspense>
-      <Suspense fallback={<Loader />}>
-        <GridWorkShowcase />
-      </Suspense>
+      <Work />
+      <GridWorkShowcase />
       <TechStack />
       <About />
       <Testimonial />

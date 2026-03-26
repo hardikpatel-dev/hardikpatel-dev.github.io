@@ -44,6 +44,7 @@ export const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-poppins",
+  display: "swap",
 });
 
 export const instrumentSerif = Instrument_Serif({
@@ -51,4 +52,5 @@ export const instrumentSerif = Instrument_Serif({
   weight: ["400"],
   style: ["normal", "italic"],
   variable: "--font-instrument-serif",
+  display: "swap",
 });

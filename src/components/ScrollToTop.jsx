@@ -97,8 +97,8 @@ export default function ScrollToTop() {
         btnRef.current,
         { scale: 1 },
         {
-          scale: 1,
-          duration: 2,
+          scale: 0.9,
+          duration: 0.15,
           yoyo: true,
           repeat: 1,
           ease: "power1.inOut",

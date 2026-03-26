@@ -105,7 +105,7 @@ const Testimonial = () => {
                       sizes="(min-width: 768px) 180px, 160px"
                       className="object-cover w-full h-full"
                       loading="lazy"
-                      quality={100}
+                      quality={75}
                     />
                   </Link>
                   <div className="flex justify-between items-center gap-2 pt-2">

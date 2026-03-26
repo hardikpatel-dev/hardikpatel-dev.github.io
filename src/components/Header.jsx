@@ -5,7 +5,7 @@ import gsap from "gsap";
 import Link from "next/link";
 import Logo from "./ui/Logo";
 import ThemeToggle from "./ThemeToggle";
-import { initMagneticHover } from "../lib/initMagneticHover";
+
 import { IconCircleFilled, IconMenu3, IconX } from "@tabler/icons-react";
 import useRollingLinks from "@/lib/useRollingLinks";
 import ScrollToTop from "./ScrollToTop";
@@ -24,21 +24,15 @@ export default function Header() {
   useRollingLinks();
 
   useEffect(() => {
-    let cleanupMagnetic;
     if (headerRef.current) {
       gsap.from(headerRef.current, {
-        y: -50, // upar se niche slide
-        opacity: 0, // fade in
-        duration: 1.2, // smooth duration
+        y: -50,
+        opacity: 0,
+        duration: 1.2,
         ease: "power3.out",
-        delay: 2.5, // 1s delay
+        delay: 2.5,
       });
     }
-    cleanupMagnetic = initMagneticHover();
-
-    return () => {
-      if (typeof cleanupMagnetic === "function") cleanupMagnetic();
-    };
   }, []);
 
   // nav links data
@@ -64,7 +58,6 @@ export default function Header() {
   };
 
   useEffect(() => {
-    let cleanupMagnetic;
     if (isMenuOpen) {
       const tl = gsap.timeline({
         onComplete: () => setIsAnimating(true),
@@ -138,11 +131,6 @@ export default function Header() {
         "-=0.4"
       );
     }
-
-    cleanupMagnetic = initMagneticHover();
-    return () => {
-      if (typeof cleanupMagnetic === "function") cleanupMagnetic();
-    };
   }, [isMenuOpen]);
 
   useEffect(() => {
@@ -170,7 +158,7 @@ export default function Header() {
       lastScroll = currentScroll;
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

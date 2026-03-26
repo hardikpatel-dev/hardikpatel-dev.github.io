@@ -15,7 +15,7 @@ const techStack = [
     id: "javascript",
     order: 3,
     icon: "/assets/tech-stack/javascript.svg",
-    link: "https://www.typescriptlang.org/",
+    link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
   },
   {
     id: "gsap",
@@ -27,37 +27,37 @@ const techStack = [
     id: "tailwindcss",
     order: 5,
     icon: "/assets/tech-stack/tailwindcss.svg",
-    link: "https://www.framer.com/motion/",
+    link: "https://tailwindcss.com/",
   },
   {
     id: "bootstrap",
     order: 6,
     icon: "/assets/tech-stack/bootstrap.svg",
-    link: "https://tailwindcss.com/",
+    link: "https://getbootstrap.com/",
   },
   {
     id: "css",
     order: 7,
     icon: "/assets/tech-stack/css.svg",
-    link: "https://chakra-ui.com/",
+    link: "https://developer.mozilla.org/en-US/docs/Web/CSS",
   },
   {
     id: "mui",
     order: 8,
     icon: "/assets/tech-stack/mui.svg",
-    link: "https://vitejs.dev/",
+    link: "https://mui.com/",
   },
   {
     id: "electron",
     order: 9,
     icon: "/assets/tech-stack/electron.svg",
-    link: "https://vercel.com/",
+    link: "https://www.electronjs.org/",
   },
   {
     id: "figma",
     order: 10,
     icon: "/assets/tech-stack/figma.svg",
-    link: "https://vercel.com/",
+    link: "https://www.figma.com/",
   },
 ];
 

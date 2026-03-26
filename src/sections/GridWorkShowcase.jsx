@@ -16,13 +16,11 @@ const works = [
   "/assets/workGrid/work6.png",
   "/assets/workGrid/work7.png",
   "/assets/workGrid/work8.png",
-  "/assets/workGrid/work3.png",
   "/assets/workGrid/work10.png",
   "/assets/workGrid/work9.png",
   "/assets/workGrid/work13.png",
   "/assets/workGrid/work11.png",
   "/assets/workGrid/work12.png",
-  "/assets/workGrid/work1.png",
 ];
 
 export default function GridWorkShowcase() {

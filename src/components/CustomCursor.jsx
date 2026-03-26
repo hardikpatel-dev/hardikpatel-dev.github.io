@@ -144,10 +144,11 @@ export default function CustomCursor() {
       text.classList.add("inline-block");
     };
 
-    // Event handlers for hover
-    const handleEnter = (e) => {
-      const t = e.target.getAttribute("data-cursor");
-      if (t !== null) {
+    // Event delegation for hover (works for dynamic elements too)
+    const handleMouseOver = (e) => {
+      const target = e.target.closest("[data-cursor]");
+      if (target) {
+        const t = target.getAttribute("data-cursor");
         if (t === "") {
           makeDefault();
         } else {
@@ -155,16 +156,18 @@ export default function CustomCursor() {
         }
       }
     };
-    const handleLeave = () => {
-      makeDefault();
+    const handleMouseOut = (e) => {
+      const target = e.target.closest("[data-cursor]");
+      if (target) {
+        const related = e.relatedTarget?.closest?.("[data-cursor]");
+        if (!related || related !== target) {
+          makeDefault();
+        }
+      }
     };
 
-    // Attach listeners
-    const els = Array.from(document.querySelectorAll("[data-cursor]"));
-    els.forEach((el) => {
-      el.addEventListener("mouseenter", handleEnter);
-      el.addEventListener("mouseleave", handleLeave);
-    });
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
 
     // Set initial state
     makeDefault();
@@ -174,16 +177,14 @@ export default function CustomCursor() {
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
       }
-      els.forEach((el) => {
-        el.removeEventListener("mouseenter", handleEnter);
-        el.removeEventListener("mouseleave", handleLeave);
-      });
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
       clearTimeout(timeoutRef.current);
     };
   }, []);
 
-  // Create trail dot elements
-  const trailDots = Array.from({ length: 15 }).map((_, index) => (
+  // Create trail dot elements (match numDots = 10)
+  const trailDots = Array.from({ length: 10 }).map((_, index) => (
     <div
       key={index}
       ref={(el) => (trailRefs.current[index] = el)}

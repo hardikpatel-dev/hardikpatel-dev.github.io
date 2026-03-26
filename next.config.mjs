@@ -3,10 +3,11 @@ const isExport = process.env.EXPORT === "true";
 
 const nextConfig = {
   reactStrictMode: true,
+  poweredByHeader: false,
   images: isExport
     ? { unoptimized: true }
     : {
-        formats: ["image/webp"],
+        formats: ["image/avif", "image/webp"],
         remotePatterns: [
           {
             protocol: "https",

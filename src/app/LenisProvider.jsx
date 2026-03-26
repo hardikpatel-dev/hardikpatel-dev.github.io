@@ -19,25 +19,22 @@ export default function LenisProvider({ children }) {
     }
 
     rafId = requestAnimationFrame(raf);
-    // 🔥 anchor link smooth scroll
-    const handlers = [];
-    document.querySelectorAll('a[href^="#"]').forEach((link) => {
-      const onClick = (e) => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute("href"));
-        if (target) {
-          lenis.scrollTo(target);
-        }
-      };
-      link.addEventListener("click", onClick);
-      handlers.push([link, onClick]);
-    });
+
+    // 🔥 anchor link smooth scroll via event delegation
+    const onAnchorClick = (e) => {
+      const link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute("href"));
+      if (target) {
+        lenis.scrollTo(target);
+      }
+    };
+    document.addEventListener("click", onAnchorClick);
 
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
-      handlers.forEach(([link, onClick]) => {
-        link.removeEventListener("click", onClick);
-      });
+      document.removeEventListener("click", onAnchorClick);
       lenis.destroy();
     };
   }, []);

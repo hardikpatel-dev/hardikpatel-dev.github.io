@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const WorkTile = ({ project }) => {
   const {
@@ -33,7 +33,7 @@ const WorkTile = ({ project }) => {
   const isPriority = order === 1;
 
   // 📱 Mobile autoplay (scroll observer)
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!video || window.innerWidth >= 768) return; // only mobile
 
     const observer = new IntersectionObserver(
