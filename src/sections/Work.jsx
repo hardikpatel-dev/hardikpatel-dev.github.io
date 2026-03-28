@@ -1,12 +1,33 @@
 import React from "react";
-import projects from "@/data/projects";
 import { IconCircleArrowDownRight, IconCopyright } from "@tabler/icons-react";
 import WorkTile from "@/components/WorkTile";
 import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
 import FlipOnScroll from "@/app/animations/FlipOnScroll";
+import { unstable_noStore as noStore } from "next/cache";
+import { prisma } from "@/lib/prisma";
 
-const Work = () => {
-  const sortedProjects = [...projects].sort((a, b) => a.order - b.order);
+const Work = async () => {
+  noStore();
+
+  const projects = await prisma.project.findMany({
+    where: {
+      status: "PUBLISHED",
+    },
+    orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+  });
+
+  const sortedProjects = projects.map((project) => ({
+    id: project.id,
+    order: project.sortOrder,
+    name: project.title,
+    link: project.liveUrl || "#",
+    favicon: project.faviconUrl || "/assets/hardik-ai.png",
+    thumbnail: project.thumbnailUrl || "/assets/hero-demo.png",
+    video: project.videoUrl,
+    industry: project.industry || "Not specified",
+    published: project.publishedYear ? String(project.publishedYear) : "N/A",
+    description: project.description,
+  }));
 
   return (
     <>
@@ -34,9 +55,13 @@ const Work = () => {
           </div>
           {/* work listing */}
           <div className="wrapper grid grid-cols-1 gap-12">
-            {sortedProjects.map((project) => (
-              <WorkTile key={project.id} project={project} />
-            ))}
+            {sortedProjects.length > 0 ? (
+              sortedProjects.map((project) => (
+                <WorkTile key={project.id} project={project} />
+              ))
+            ) : (
+              <p className="text-sm text-text-muted">No projects found.</p>
+            )}
           </div>
         </div>
       </section>
