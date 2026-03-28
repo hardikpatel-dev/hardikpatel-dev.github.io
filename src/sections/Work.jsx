@@ -5,16 +5,37 @@ import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
 import FlipOnScroll from "@/app/animations/FlipOnScroll";
 import { unstable_noStore as noStore } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import fallbackProjects from "@/data/projects";
 
 const Work = async () => {
-  noStore();
+  const isExport = process.env.EXPORT === "true";
 
-  const projects = await prisma.project.findMany({
-    where: {
-      status: "PUBLISHED",
-    },
-    orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
-  });
+  const projects = isExport
+    ? fallbackProjects
+        .slice()
+        .sort((a, b) => a.order - b.order)
+        .map((project) => ({
+          id: project.id,
+          sortOrder: project.order,
+          title: project.name,
+          liveUrl: project.link,
+          faviconUrl: project.favicon,
+          thumbnailUrl: project.thumbnail,
+          videoUrl: project.video,
+          industry: project.industry,
+          publishedYear: Number(project.published),
+          description: project.description,
+        }))
+    : await (async () => {
+        noStore();
+
+        return prisma.project.findMany({
+          where: {
+            status: "PUBLISHED",
+          },
+          orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+        });
+      })();
 
   const sortedProjects = projects.map((project) => ({
     id: project.id,

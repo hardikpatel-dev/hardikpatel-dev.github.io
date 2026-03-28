@@ -8,6 +8,7 @@
     "build:export": "cross-env EXPORT=true next build && next export",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed": "node prisma/seed.cjs"
