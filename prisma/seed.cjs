@@ -1,4 +1,5 @@
 require("dotenv/config");
+const { randomBytes, scryptSync } = require("node:crypto");
 const { PrismaClient, ProjectStatus } = require("@prisma/client");
 const { PrismaPg } = require("@prisma/adapter-pg");
 const { Pool } = require("pg");
@@ -12,6 +13,32 @@ if (!connectionString) {
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
+
+function hashPassword(password) {
+  const salt = randomBytes(16).toString("hex");
+  const derivedKey = scryptSync(password, salt, 64).toString("hex");
+  return `${salt}:${derivedKey}`;
+}
+
+function getSeedAdmin() {
+  const name = String(process.env.ADMIN_SEED_NAME || "").trim();
+  const email = String(process.env.ADMIN_SEED_EMAIL || "")
+    .trim()
+    .toLowerCase();
+  const password = String(process.env.ADMIN_SEED_PASSWORD || "");
+
+  if (!name && !email && !password) {
+    return null;
+  }
+
+  if (!name || !email || password.length < 8) {
+    throw new Error(
+      "ADMIN_SEED_NAME, ADMIN_SEED_EMAIL, and ADMIN_SEED_PASSWORD (min 8 chars) are required to seed an admin user."
+    );
+  }
+
+  return { name, email, password };
+}
 
 const projects = [
   {
@@ -100,8 +127,32 @@ async function main() {
     });
   }
 
-  const count = await prisma.project.count();
-  console.log(`Seed completed. Total projects: ${count}`);
+  const seedAdmin = getSeedAdmin();
+
+  if (seedAdmin) {
+    await prisma.adminUser.upsert({
+      where: { email: seedAdmin.email },
+      update: {
+        name: seedAdmin.name,
+        passwordHash: hashPassword(seedAdmin.password),
+      },
+      create: {
+        name: seedAdmin.name,
+        email: seedAdmin.email,
+        passwordHash: hashPassword(seedAdmin.password),
+      },
+    });
+
+    console.log(`Admin user ensured for ${seedAdmin.email}`);
+  } else {
+    console.log("No admin seed env vars found. Skipping admin user seed.");
+  }
+
+  const projectCount = await prisma.project.count();
+  const adminCount = await prisma.adminUser.count();
+  console.log(
+    `Seed completed. Total projects: ${projectCount}. Total admin users: ${adminCount}`
+  );
 }
 
 main()
