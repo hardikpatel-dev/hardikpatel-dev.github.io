@@ -1,16 +1,10 @@
 import "./globals.css";
-import { Suspense } from "react";
 import { WhyteInktrap, poppins, instrumentSerif } from "./fonts";
 import TitleChanger from "@/components/TitleChanger";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import LenisProvider from "./LenisProvider";
-import Loader from "@/components/Loader";
 import InitGsapAnimations from "./animations/InitGsapAnimations";
-import GlobalLoader from "@/components/GlobalLoader";
-import CustomCursor from "@/components/CustomCursor";
 import { Toaster } from "react-hot-toast";
 import ClarityProvider from "@/components/ClarityProvider";
+import AppChrome from "@/components/AppChrome";
 
 export const metadata = {
   title: "Hardik Patel | FrontEnd Developer",
@@ -27,13 +21,7 @@ export default function RootLayout({ children }) {
         <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
         <InitGsapAnimations />
         <TitleChanger />
-        <LenisProvider>
-          <GlobalLoader />
-          <CustomCursor />
-          <Header />
-          <Suspense fallback={<Loader />}>{children}</Suspense>
-          <Footer />
-        </LenisProvider>
+        <AppChrome>{children}</AppChrome>
       </body>
     </html>
   );
