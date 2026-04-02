@@ -1,4 +1,4 @@
-name: Deploy Next.js to GitHub Pages
+name: Build Next.js App
 
 on:
   push:
@@ -10,7 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      EXPORT: "true"
       DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/portfolio_db?schema=public"
     steps:
       - name: Checkout code
