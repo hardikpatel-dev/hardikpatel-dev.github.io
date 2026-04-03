@@ -1,0 +1,148 @@
+"use client";
+
+import { IconBrandLinkedinFilled } from "@tabler/icons-react";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
+import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
+import FlipOnScroll from "@/app/animations/FlipOnScroll";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const TestimonialClient = ({ testimonials }) => {
+  const feedbackRefs = useRef([]);
+
+  useEffect(() => {
+    const splits = [];
+    const ctx = gsap.context(() => {
+      feedbackRefs.current.forEach((el) => {
+        if (!el) return;
+
+        const split = new SplitType(el, {
+          types: "words",
+          tagName: "span",
+        });
+        splits.push(split);
+
+        gsap.from(split.words, {
+          opacity: 0.3,
+          duration: 1,
+          ease: "power1.out",
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+            end: "bottom 80%",
+            scrub: true,
+          },
+        });
+      });
+    });
+
+    return () => {
+      ctx.revert();
+      splits.forEach((split) => split.revert());
+    };
+  }, [testimonials]);
+
+  return (
+    <div data-cursor="" id="testimonials" className="py-20 bg-primary">
+      <div className="text-center container-fluid">
+        <span className="inline-block mx-auto rounded-full p-2 mb-4 text-sm border">
+          Testimonials
+        </span>
+        <h2 className="font-whyte font-bold text-center text-[12vw] text-nowrap leading-[80%] pb-5 md:pb-20 z-1">
+          <FadeUpTextScroll>
+            <em className="font-serif font-medium">Voices</em> of Trust
+          </FadeUpTextScroll>
+        </h2>
+        <div className="flex items-center justify-between font-whyte px-2 z-1 text-text-muted">
+          <span className="text-xs sm:text-sm uppercase font-bold hidden sm:inline">
+            Don&apos;t just take my word for it
+          </span>
+          <span className="text-xs sm:text-sm uppercase font-bold">Kind words</span>
+          <span className="text-xs sm:text-sm uppercase font-bold">
+            Notes from friends & clients
+          </span>
+        </div>
+      </div>
+      <div className="container-fluid py-20 bg-secondary rounded-2xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:flex-row flex-col items-start justify-around gap-16 sm:gap-24">
+          {testimonials.map((testimonial, index) => {
+            const isLastSingle =
+              index === testimonials.length - 1 &&
+              testimonials.length % 2 !== 0;
+
+            return (
+              <div
+                data-cursor={testimonial.name}
+                key={testimonial.id}
+                className={`flex flex-col items-center gap-8 w-full ${
+                  isLastSingle ? "md:col-span-2 md:justify-center" : ""
+                }`}
+              >
+                <div
+                  className={`min-w-45 w-45 h-65 bg-white mx-auto sm:mx-0 p-2 rounded-sm overflow-hidden ${
+                    index % 2 === 1 ? "rotate-2" : "-rotate-2"
+                  } shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:rotate-0 box-shadow`}
+                >
+                  <Link
+                    href={testimonial.linkedin || "#"}
+                    target={testimonial.linkedin ? "_blank" : undefined}
+                    data-cursor={testimonial.linkedin ? "view profile" : testimonial.name}
+                    className="block w-full h-50 overflow-hidden"
+                  >
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      width={100}
+                      height={100}
+                      sizes="(min-width: 768px) 180px, 160px"
+                      className="object-cover w-full h-full"
+                      loading="lazy"
+                      quality={75}
+                    />
+                  </Link>
+                  <div className="flex justify-between items-center gap-2 pt-2">
+                    <p className="text-xs font-medium capitalize text-black">
+                      <FadeUpTextScroll>{testimonial.name}</FadeUpTextScroll>
+                    </p>
+                    {testimonial.linkedin ? (
+                      <a
+                        href={testimonial.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center text-blue-600"
+                      >
+                        <FlipOnScroll delay={1.5}>
+                          <IconBrandLinkedinFilled className="text-blue-600" size={20} />
+                        </FlipOnScroll>
+                      </a>
+                    ) : null}
+                  </div>
+                  <p className="text-xs font-normal text-gray-600">
+                    <FadeUpTextScroll delay={0.5}>
+                      {testimonial.designation}
+                    </FadeUpTextScroll>
+                  </p>
+                </div>
+
+                <div
+                  ref={(el) => (feedbackRefs.current[index] = el)}
+                  className="min-w-0 w-full sm:max-w-sm font-serif text-lg sm:text-xl text-center"
+                >
+                  <p className="tracking-wider">&quot;{testimonial.feedback}&quot;</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TestimonialClient;

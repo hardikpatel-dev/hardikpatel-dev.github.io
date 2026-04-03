@@ -8,10 +8,12 @@
 - Contact form API exists and sends email via Resend
 - `Project` content is connected to PostgreSQL through Prisma
 - Admin login/signup, protected dashboard shell, and project CRUD are working
+- Testimonial model, public DB-backed testimonial section, and admin testimonial CRUD are working
 - Production deployment is running on Vercel with Neon PostgreSQL
 - Admin architecture has been reorganized into `_components`, `_lib`, and `_server`
 - Admin API route files are now thin and delegate to server handlers
 - Dynamic backend expansion beyond `projects`, broader admin coverage, blogs, and case studies are still not implemented
+- Blogs, case studies, settings, and contact-message storage are still not implemented
 
 ## Locked Decisions
 - Backend should be built in a learn-first way, not as a black-box managed CMS
@@ -78,10 +80,13 @@
 - Admin uploads route exists:
   - `src/app/api/admin/uploads/route.js`
 - `AdminUser` Prisma model exists and local migration for it was applied
+- `Testimonial` Prisma model exists and local migration for it was applied
 - Protected admin dashboard shell exists with overview and projects sections
+- Protected admin testimonials section exists
 - Admin-specific route proxy exists at `src/proxy.js`
 - Homepage invalidation after admin writes is handled with `revalidatePath`
 - Production build succeeds with the admin scaffold
+- Testimonial section now reads from PostgreSQL in normal runtime and uses static fallback only for export mode
 
 ## Recent Structural Changes
 - Admin-only UI components were moved into:
@@ -93,6 +98,7 @@
 - Thin route-entry pattern is now used for:
   - auth routes
   - project routes
+  - testimonial routes
   - uploads route
 
 ## Recent UI / UX Changes
@@ -113,12 +119,13 @@
 - Project create/edit modal was redesigned into a lighter, tabbed form flow
 - Project modal preview panel was removed
 - Shared suspense loader was redesigned into a lighter premium loading surface
+- Admin sidebar and overview now include testimonial management entry points
 
 ## What Is Pending
 - Decide whether export-only fallback should remain in `Work.jsx` or be removed now that production is DB-backed
 - Add a safer production workflow for migrations/seeding
-- Expand dynamic models beyond `projects`
-- Expand admin beyond the current `projects` scaffold
+- Expand dynamic models beyond `projects` and `testimonials`
+- Expand admin beyond the current `projects` and `testimonials` scaffold
 - Harden current authentication flow before broader production rollout
 - Harden validation with a dedicated schema layer such as Zod
 - Move richer admin route logic patterns to future modules as blogs/case studies are added

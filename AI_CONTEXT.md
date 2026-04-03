@@ -22,7 +22,9 @@
 - Shared DB client lives in `src/lib/prisma.js`
 - Shared suspense loader lives in `src/components/Loader.jsx`
 - Home page `Work` section supports DB-backed reads through Prisma
+- Home page `Testimonial` section supports DB-backed reads through Prisma
 - `src/sections/Work.jsx` uses Prisma in normal runtime and falls back to `src/data/projects.js` only when `EXPORT=true`
+- `src/sections/Testimonial.jsx` uses Prisma in normal runtime and falls back to `src/data/testimonials.js` only when `EXPORT=true`
 - Static content still exists in:
   - `src/data/projects.js`
   - `src/data/testimonials.js`
@@ -43,6 +45,7 @@
 - `src/app/admin/_components/AdminSidebar.jsx`
 - `src/app/admin/_components/AdminTopbar.jsx`
 - `src/app/admin/_components/ProjectAdminClient.jsx`
+- `src/app/admin/_components/TestimonialAdminClient.jsx`
 
 ## Admin Helper Layer
 - `src/app/admin/_lib/auth.js`
@@ -51,6 +54,7 @@
 ## Admin Server Layer
 - `src/app/admin/_server/auth.js`
 - `src/app/admin/_server/projects.js`
+- `src/app/admin/_server/testimonials.js`
 - `src/app/admin/_server/uploads.js`
 
 ## Shared Infrastructure That Intentionally Remains Outside Admin
@@ -65,7 +69,8 @@
 - Admin panel pages:
   - `src/app/admin/(panel)/layout.jsx`
   - `src/app/admin/(panel)/page.jsx`
-  - `src/app/admin/(panel)/projects/page.jsx`
+- `src/app/admin/(panel)/projects/page.jsx`
+- `src/app/admin/(panel)/testimonials/page.jsx`
 
 ## Admin API Routes
 - Route entry files must remain in `src/app/api/admin/*` because Next.js routing depends on that structure
@@ -73,9 +78,11 @@
   - `src/app/api/admin/auth/login/route.js`
   - `src/app/api/admin/auth/logout/route.js`
   - `src/app/api/admin/auth/signup/route.js`
-  - `src/app/api/admin/projects/route.js`
-  - `src/app/api/admin/projects/[id]/route.js`
-  - `src/app/api/admin/uploads/route.js`
+- `src/app/api/admin/projects/route.js`
+- `src/app/api/admin/projects/[id]/route.js`
+- `src/app/api/admin/testimonials/route.js`
+- `src/app/api/admin/testimonials/[id]/route.js`
+- `src/app/api/admin/uploads/route.js`
 - These route files are now intentionally thin and forward to handlers in `src/app/admin/_server`
 
 ## Auth State
@@ -87,9 +94,12 @@
 
 ## Project CRUD State
 - Project admin CRUD is live
+- Testimonial admin CRUD is live
 - Admin project table UI is powered by `src/app/admin/_components/ProjectAdminClient.jsx`
 - Project validation and normalization helper lives in `src/app/admin/_lib/projects.js`
+- Testimonial validation and normalization helper lives in `src/app/admin/_lib/testimonials.js`
 - Project records can be created, updated, and deleted from `/admin/projects`
+- Testimonial records can be created, updated, and deleted from `/admin/testimonials`
 - Project ordering in DB-backed mode is controlled by `sortOrder`
 - Asset uploads for project files go through `/api/admin/uploads`
 

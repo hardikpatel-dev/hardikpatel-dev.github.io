@@ -17,6 +17,12 @@ enum ProjectStatus {
   ARCHIVED
 }
 
+enum TestimonialStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 model Project {
   id           Int           @id @default(autoincrement())
   title        String
@@ -42,4 +48,17 @@ model AdminUser {
   passwordHash String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model Testimonial {
+  id          Int               @id @default(autoincrement())
+  name        String
+  designation String
+  imageUrl    String?
+  feedback    String
+  linkedinUrl String?
+  sortOrder   Int               @default(0)
+  status      TestimonialStatus @default(DRAFT)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
 }

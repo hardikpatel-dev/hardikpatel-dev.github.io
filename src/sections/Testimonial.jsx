@@ -1,152 +1,44 @@
-"use client";
-import testimonials from "@/data/testimonials";
-import { IconBrandLinkedinFilled } from "@tabler/icons-react";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SplitType from "split-type";
-import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
-import FlipOnScroll from "@/app/animations/FlipOnScroll";
+import { unstable_noStore as noStore } from "next/cache";
+import { prisma } from "@/lib/prisma";
+import fallbackTestimonials from "@/data/testimonials";
+import TestimonialClient from "@/sections/TestimonialClient";
 
-gsap.registerPlugin(ScrollTrigger);
+export default async function Testimonial() {
+  const isExport = process.env.EXPORT === "true";
 
-const Testimonial = () => {
-  const feedbackRefs = useRef([]);
+  const testimonials = isExport
+    ? fallbackTestimonials
+        .slice()
+        .sort((a, b) => a.id - b.id)
+        .map((testimonial, index) => ({
+          id: testimonial.id,
+          name: testimonial.name,
+          designation: testimonial.designation,
+          imageUrl: testimonial.image,
+          feedback: testimonial.feedback,
+          linkedinUrl: testimonial.linkedin,
+          sortOrder: index + 1,
+          status: "PUBLISHED",
+        }))
+    : await (async () => {
+        noStore();
 
-  useEffect(() => {
-    const splits = [];
-    const ctx = gsap.context(() => {
-      feedbackRefs.current.forEach((el) => {
-        if (!el) return;
-
-        // Split text into words
-        const split = new SplitType(el, {
-          types: "words",
-          tagName: "span",
-        });
-        splits.push(split);
-
-        gsap.from(split.words, {
-          opacity: 0.3,
-          duration: 1,
-          ease: "power1.out",
-          stagger: 0.2,
-          scrollTrigger: {
-            trigger: el,
-            start: "top 80%",
-            end: "bottom 80%",
-            scrub: true, // scroll ke saath smooth
+        return prisma.testimonial.findMany({
+          where: {
+            status: "PUBLISHED",
           },
+          orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
         });
-      });
-    });
+      })();
 
-    return () => {
-      ctx.revert();
-      splits.forEach((split) => split.revert());
-    };
-  }, []);
+  const mappedTestimonials = testimonials.map((testimonial) => ({
+    id: testimonial.id,
+    name: testimonial.name,
+    designation: testimonial.designation,
+    image: testimonial.imageUrl || "/assets/hardik-ai.png",
+    feedback: testimonial.feedback,
+    linkedin: testimonial.linkedinUrl,
+  }));
 
-  return (
-    <div data-cursor="" id="testimonials" className=" py-20 bg-primary">
-      <div className="text-center container-fluid">
-        <span className="inline-block mx-auto rounded-full p-2 mb-4 text-sm border">
-          Testimonials
-        </span>
-        <h2 className="font-whyte font-bold text-center text-[12vw] text-nowrap leading-[80%]  pb-5 md:pb-20 z-1">
-          <FadeUpTextScroll>
-            <em className="font-serif font-medium">Voices</em> of Trust
-          </FadeUpTextScroll>
-        </h2>
-        <div className="flex items-center justify-between font-whyte px-2 z-1 text-text-muted">
-          <span className="text-xs sm:text-sm uppercase font-bold hidden sm:inline">
-            Don’t just take my word for it
-          </span>
-          <span className="text-xs sm:text-sm uppercase font-bold">
-            Kind words
-          </span>
-          <span className="text-xs sm:text-sm uppercase font-bold">
-            Notes from friends & clients
-          </span>
-        </div>
-      </div>
-      <div className="container-fluid py-20 bg-secondary rounded-2xl">
-        <div className="grid grid-cols-1 md:grid-cols-2  xl:flex-row flex-col items-start justify-around gap-16 sm:gap-24">
-          {testimonials.map((t, index) => {
-            const isLastSingle =
-              index === testimonials.length - 1 &&
-              testimonials.length % 2 !== 0;
-            return (
-              <div
-                data-cursor={t.name}
-                key={t.id}
-                className={`flex flex-col items-center gap-8  w-full
-              ${isLastSingle ? "md:col-span-2 md:justify-center" : ""}`}
-              >
-                {/* Profile Frame */}
-                <div
-                  className={`min-w-45 w-45 h-65 bg-white mx-auto sm:mx-0 p-2 rounded-sm overflow-hidden 
-                    ${index % 2 === 1 ? "rotate-2" : "-rotate-2"}
-                     shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:rotate-0 box-shadow`}
-                >
-                  <Link
-                    href={t.linkedin}
-                    target="_blank"
-                    data-cursor="view profile"
-                    className="block w-full h-50 overflow-hidden"
-                  >
-                    <Image
-                      src={t.image}
-                      alt={t.name}
-                      width={100}
-                      height={100}
-                      sizes="(min-width: 768px) 180px, 160px"
-                      className="object-cover w-full h-full"
-                      loading="lazy"
-                      quality={75}
-                    />
-                  </Link>
-                  <div className="flex justify-between items-center gap-2 pt-2">
-                    <p className="text-xs font-medium capitalize  text-black">
-                      <FadeUpTextScroll>{t.name}</FadeUpTextScroll>
-                    </p>
-                    {/* LinkedIn Link */}
-                    {t.linkedin && (
-                      <a
-                        href={t.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center text-blue-600"
-                      >
-                        <FlipOnScroll delay={1.5}>
-                          <IconBrandLinkedinFilled className="text-blue-600" size={20} />
-                        </FlipOnScroll>
-                      </a>
-                    )}
-                  </div>
-                  <p className="text-xs font-normal text-gray-600">
-                    <FadeUpTextScroll delay={0.5}>
-                      {t.designation}
-                    </FadeUpTextScroll>
-                  </p>
-                </div>
-
-                {/* Feedback */}
-                <div
-                  ref={(el) => (feedbackRefs.current[index] = el)}
-                  className="min-w-0 w-full sm:max-w-sm font-serif text-lg sm:text-xl text-center"
-                >
-                  <p className="tracking-wider">"{t.feedback}"</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Testimonial;
+  return <TestimonialClient testimonials={mappedTestimonials} />;
+}

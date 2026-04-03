@@ -118,12 +118,78 @@ const projects = [
   },
 ];
 
+const testimonials = [
+  {
+    name: "Jai Prakash Maurya",
+    designation: "Team Lead",
+    imageUrl: "/assets/testimonial-images/jai-prakash-maurya.webp",
+    feedback:
+      "Hardik has an eye for detail and a strong sense of responsibility. His ability to take ownership of tasks made our projects run smoother and more efficiently.",
+    linkedinUrl: "https://www.linkedin.com/in/jai-prakash-m-2857711a0",
+    sortOrder: 1,
+    status: "PUBLISHED",
+  },
+  {
+    name: "Bhavesh Singh",
+    designation: "Web Developer",
+    imageUrl: "/assets/testimonial-images/bhavesh-singh.webp",
+    feedback:
+      "Collaborating with Hardik was a great experience. He always comes up with creative solutions and ensures the work is both functional and visually appealing.",
+    linkedinUrl: "https://www.linkedin.com/in/bhavesh-singh-04a74a1a5",
+    sortOrder: 2,
+    status: "PUBLISHED",
+  },
+  {
+    name: "Suryadev Vindeshwari",
+    designation: "Backend Developer",
+    imageUrl: "/assets/testimonial-images/suryadev.webp",
+    feedback:
+      "Hardik is quick to understand complex requirements and transform them into clean, user-friendly designs. His problem-solving approach makes him stand out.",
+    linkedinUrl: "https://www.linkedin.com/in/suryadev-vindeshwari",
+    sortOrder: 3,
+    status: "PUBLISHED",
+  },
+  {
+    name: "Abhishek Jaiswal",
+    designation: "Email Marketer",
+    imageUrl: "/assets/testimonial-images/abhishek-jaiswal.webp",
+    feedback:
+      "Hardik brings a fresh perspective to every project. His creativity and adaptability make him a valuable asset in any team setting.",
+    linkedinUrl: "https://www.linkedin.com/in/abhishek-jaiswal-29a515125",
+    sortOrder: 4,
+    status: "PUBLISHED",
+  },
+  {
+    name: "Abhishek Dubey",
+    designation: "Full Stack Web Developer",
+    imageUrl: "/assets/testimonial-images/abhishek-dubey.webp",
+    feedback:
+      "I've worked with Hardik on multiple projects, and his consistency has been remarkable. He's innovative, dependable, and always ready to help the team grow.",
+    linkedinUrl: "https://www.linkedin.com/in/abhishek-dubey1",
+    sortOrder: 5,
+    status: "PUBLISHED",
+  },
+];
+
 async function main() {
   for (const project of projects) {
     await prisma.project.upsert({
       where: { slug: project.slug },
       update: project,
       create: project,
+    });
+  }
+
+  for (const testimonial of testimonials) {
+    await prisma.testimonial.upsert({
+      where: {
+        id: testimonial.sortOrder,
+      },
+      update: testimonial,
+      create: {
+        id: testimonial.sortOrder,
+        ...testimonial,
+      },
     });
   }
 
@@ -149,9 +215,10 @@ async function main() {
   }
 
   const projectCount = await prisma.project.count();
+  const testimonialCount = await prisma.testimonial.count();
   const adminCount = await prisma.adminUser.count();
   console.log(
-    `Seed completed. Total projects: ${projectCount}. Total admin users: ${adminCount}`
+    `Seed completed. Total projects: ${projectCount}. Total testimonials: ${testimonialCount}. Total admin users: ${adminCount}`
   );
 }
 

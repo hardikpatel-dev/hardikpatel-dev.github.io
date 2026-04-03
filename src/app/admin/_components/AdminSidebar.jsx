@@ -7,6 +7,7 @@ import {
   IconFolders,
   IconLayoutGrid,
   IconMail,
+  IconMessage2Heart,
   IconSettings,
   IconUserCircle,
 } from "@tabler/icons-react";
@@ -16,6 +17,7 @@ import AdminBrandMark from "@/app/admin/_components/AdminBrandMark";
 const navItems = [
   { href: "/admin", label: "Overview", icon: IconLayoutGrid },
   { href: "/admin/projects", label: "Projects", icon: IconFolders },
+  { href: "/admin/testimonials", label: "Testimonials", icon: IconMessage2Heart },
   { href: "#", label: "Messages", icon: IconMail },
   { href: "#", label: "Settings", icon: IconSettings },
 ];

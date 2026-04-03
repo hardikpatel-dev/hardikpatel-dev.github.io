@@ -1,9 +1,9 @@
 import Link from "next/link";
 import {
   IconArrowUpRight,
-  IconClockHour4,
   IconExternalLink,
   IconFolders,
+  IconMessage2Heart,
   IconPhoto,
   IconSparkles,
 } from "@tabler/icons-react";
@@ -85,12 +85,16 @@ export default async function AdminDashboardPage() {
     publishedProjects,
     featuredProjects,
     liveProjects,
+    totalTestimonials,
+    publishedTestimonials,
     recentProjects,
   ] = await Promise.all([
     prisma.project.count(),
     prisma.project.count({ where: { status: "PUBLISHED" } }),
     prisma.project.count({ where: { featured: true } }),
     prisma.project.count({ where: { liveUrl: { not: null } } }),
+    prisma.testimonial.count(),
+    prisma.testimonial.count({ where: { status: "PUBLISHED" } }),
     prisma.project.findMany({
       orderBy: { updatedAt: "desc" },
       take: 5,
@@ -112,8 +116,6 @@ export default async function AdminDashboardPage() {
   const latestProject = recentProjects[0] || null;
   const todayLabel = formatDate(new Date());
   const publishedRatio = totalProjects ? Math.round((publishedProjects / totalProjects) * 100) : 0;
-  const liveRatio = totalProjects ? Math.round((liveProjects / totalProjects) * 100) : 0;
-  const featuredRatio = totalProjects ? Math.round((featuredProjects / totalProjects) * 100) : 0;
 
   const statCards = [
     {
@@ -143,6 +145,13 @@ export default async function AdminDashboardPage() {
       tone: "bg-[#f3f1ff] text-text-heading",
       icon: IconSparkles,
       iconClassName: "text-[#6447cc]/12",
+    },
+    {
+      label: "Testimonials",
+      value: totalTestimonials,
+      tone: "bg-[#fff6ea] text-text-heading",
+      icon: IconMessage2Heart,
+      iconClassName: "text-[#af6b00]/12",
     },
   ];
 
@@ -315,6 +324,13 @@ export default async function AdminDashboardPage() {
                   <IconExternalLink size={16} stroke={1.8} />
                 </a>
               ) : null}
+              <Link
+                href="/admin/testimonials"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/14"
+              >
+                Manage testimonials
+                <IconArrowUpRight size={16} stroke={1.8} />
+              </Link>
             </div>
           </div>
 
@@ -354,6 +370,12 @@ export default async function AdminDashboardPage() {
                   <span>Freshness</span>
                   <span className="text-white">
                     {latestProject?.updatedAt ? getFreshnessLabel(latestProject.updatedAt) : "-"}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between rounded-2xl bg-black/18 px-3 py-2 text-sm text-white/72">
+                  <span>Testimonials</span>
+                  <span className="text-white">
+                    {publishedTestimonials}/{totalTestimonials}
                   </span>
                 </div>
               </div>
