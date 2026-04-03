@@ -54,6 +54,137 @@ npm run build && npm run export
 - Generates static `out/` folder
 - Limited features (no image optimization, no SSR)
 
+---
+
+## 📊 Database Management (Prisma + Neon PostgreSQL)
+
+### Overview
+This project uses **Prisma** ORM with **Neon** PostgreSQL for database management.
+- **Schema**: `prisma/schema.prisma`
+- **Migrations**: `prisma/migrations/`
+- **Seed Script**: `prisma/seed.cjs`
+- **Database**: Production uses Neon, Local uses PostgreSQL@localhost
+
+### Step-by-Step: Creating Tables & Seeding
+
+#### 1️⃣ **Create New Table in Schema**
+Edit `prisma/schema.prisma` and add your model:
+```prisma
+model YourTable {
+  id        Int     @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+```
+
+#### 2️⃣ **Generate Migration (Local)**
+```bash
+npm run db:migrate
+# This creates a new migration file in prisma/migrations/
+# Name your migration descriptively (e.g., "add_your_table")
+```
+
+#### 3️⃣ **Add Seed Data**
+Edit `prisma/seed.cjs` and add data for your new table:
+```javascript
+const newTableData = [
+  { name: "Item 1" },
+  { name: "Item 2" },
+];
+
+// Add to seed function:
+for (const item of newTableData) {
+  await prisma.yourTable.create({ data: item });
+}
+```
+
+#### 4️⃣ **Test Locally**
+```bash
+# Seed local database
+npm run db:seed
+
+# Verify in your app
+npm run dev
+```
+
+#### 5️⃣ **Push to Production (Vercel/Neon)**
+
+**Option A: Automatic (Recommended)**
+```bash
+# Commit and push to GitHub main branch
+git add .
+git commit -m "feat: add new table and seed data"
+git push origin main
+
+# Vercel automatically:
+# 1. Deploys new code
+# 2. Runs migrations via Prisma
+# 3. Seeds database (if configured)
+```
+
+**Option B: Manual Production Seeding**
+If Vercel doesn't run seeding automatically:
+
+1. Get Neon DATABASE_URL from Vercel Environment Variables
+2. Create `.env.production` (or use temporary .env):
+   ```
+   DATABASE_URL="postgresql://user:password@host/database?schema=public"
+   ```
+3. Run seed against production:
+   ```bash
+   DATABASE_URL="your_neon_url" npm run db:seed
+   ```
+4. Revert `.env` back to local database
+
+#### 6️⃣ **If Migration Fails in Production**
+
+**Issue**: "Type already exists" or duplicate enum errors
+
+**Solution**:
+```bash
+# 1. Update migration SQL file to handle duplicates:
+# In prisma/migrations/{timestamp}_migration_name/migration.sql
+# Wrap CREATE TYPE with:
+DO $$ BEGIN
+  CREATE TYPE "EnumName" AS ENUM (...);
+EXCEPTION
+  WHEN duplicate_object THEN null;
+END $$;
+
+# 2. Push fix:
+git add prisma/migrations/
+git commit -m "fix: handle duplicate enum in production"
+git push origin main
+
+# 3. Redeploy in Vercel (trigger redeployment)
+```
+
+### Useful Commands
+
+```bash
+# Database operations
+npm run db:migrate          # Create migration locally (interactive)
+npm run db:migrate:deploy   # Apply migrations to production
+npm run db:seed             # Seed current database with data
+npm run prisma:generate     # Regenerate Prisma Client
+
+# Check schema
+npx prisma studio          # Launch Prisma Studio (visual DB explorer)
+npx prisma db pull         # Sync schema from existing database
+```
+
+### Environment Variables
+
+**Local** (`.env`):
+```
+DATABASE_URL="postgresql://postgres:password@localhost:5432/portfolio_db?schema=public"
+```
+
+**Production** (Vercel):
+- Set in Vercel Dashboard → Project Settings → Environment Variables
+- Contains Neon PostgreSQL connection string
+- Automatically available during builds
 
 
 # How to Push Changes (Quick Note for README)
