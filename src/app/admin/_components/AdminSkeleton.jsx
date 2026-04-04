@@ -87,6 +87,47 @@ export function TableSkeleton({ rows = 5 }) {
   );
 }
 
+export function GalleryTableSkeleton() {
+  return (
+    <div className="space-y-4 animate-in fade-in duration-300 pt-2">
+      <header className="mb-4 flex items-center justify-between xl:mb-6 px-2">
+        <div className="flex items-center gap-3">
+          <Skeleton className="h-7 w-20 bg-[#d8d9e0]" />
+          <div className="h-4 w-[1px] bg-gray-200"></div>
+          <Skeleton className="h-3 w-40 bg-[#d8d9e0]" />
+        </div>
+        <Skeleton className="h-8 w-24 rounded-md bg-[#d8d9e0]" />
+      </header>
+
+      <div className="flex flex-col overflow-hidden rounded-md border border-gray-200 bg-white" style={{ height: 'calc(100vh - 190px)' }}>
+        <div className="bg-gray-800 p-3 shadow-sm">
+           <div className="grid grid-cols-5 gap-4">
+              <Skeleton className="h-3 w-16 bg-white/20" />
+              <Skeleton className="h-3 w-24 bg-white/20" />
+              <Skeleton className="h-3 w-16 bg-white/20" />
+              <Skeleton className="h-3 w-16 bg-white/20" />
+              <Skeleton className="h-3 w-12 bg-white/20 ml-auto" />
+           </div>
+        </div>
+        <div className="flex-1 space-y-px bg-gray-50/30">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="flex items-center gap-5 bg-white px-5 py-3 border-b border-gray-100 last:border-0">
+               <Skeleton className="h-10 w-16 rounded bg-gray-100" />
+               <Skeleton className="h-3 w-32" />
+               <Skeleton className="h-5 w-16 rounded-full" />
+               <Skeleton className="h-5 w-12" />
+               <div className="ml-auto flex gap-2">
+                  <Skeleton className="h-8 w-8 rounded-full" />
+                  <Skeleton className="h-8 w-8 rounded-full" />
+               </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function AdminPageSkeleton() {
   return (
     <div className="space-y-4 animate-in fade-in duration-300">

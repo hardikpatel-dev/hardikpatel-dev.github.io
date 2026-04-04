@@ -1,1 +1,1 @@
-export { AdminPageSkeleton as default } from "@/app/admin/_components/AdminSkeleton";
+export { GalleryTableSkeleton as default } from "@/app/admin/_components/AdminSkeleton";
