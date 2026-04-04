@@ -9,18 +9,21 @@ const uploadConfig = {
     dir: path.join(process.cwd(), "public", "uploads", "projects", "favicons"),
     publicBase: "/uploads/projects/favicons",
     allowedMimeTypes: ["image/png", "image/jpeg", "image/webp", "image/svg+xml", "image/x-icon"],
+    allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico"],
     maxBytes: 5 * 1024 * 1024,
   },
   thumbnail: {
     dir: path.join(process.cwd(), "public", "uploads", "projects", "thumbnails"),
     publicBase: "/uploads/projects/thumbnails",
     allowedMimeTypes: ["image/png", "image/jpeg", "image/webp", "image/avif"],
+    allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".avif"],
     maxBytes: 10 * 1024 * 1024,
   },
   video: {
     dir: path.join(process.cwd(), "public", "uploads", "projects", "videos"),
     publicBase: "/uploads/projects/videos",
     allowedMimeTypes: ["video/mp4", "video/webm", "video/quicktime"],
+    allowedExtensions: [".mp4", ".webm", ".mov"],
     maxBytes: 100 * 1024 * 1024,
   },
 };
@@ -62,6 +65,16 @@ export async function uploadAdminAsset(request) {
       );
     }
 
+    // Validate file extension independently of MIME type
+    const extension = path.extname(file.name || "").toLowerCase();
+
+    if (!extension || !config.allowedExtensions.includes(extension)) {
+      return NextResponse.json(
+        { error: `File extension "${extension || "(none)"}" is not allowed for ${assetType}.` },
+        { status: 400 }
+      );
+    }
+
     if (file.size > config.maxBytes) {
       return NextResponse.json(
         { error: `${assetType} file is too large.` },
@@ -69,8 +82,7 @@ export async function uploadAdminAsset(request) {
       );
     }
 
-    const extension = path.extname(file.name) || "";
-    const safeName = `${sanitizeFilenamePart(projectSlug)}-${randomUUID()}${extension.toLowerCase()}`;
+    const safeName = `${sanitizeFilenamePart(projectSlug)}-${randomUUID()}${extension}`;
 
     await mkdir(config.dir, { recursive: true });
     const destinationPath = path.join(config.dir, safeName);

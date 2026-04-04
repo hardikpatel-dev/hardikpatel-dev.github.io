@@ -14,7 +14,9 @@ export default function AppChrome({ children }) {
   const isAdminRoute = pathname?.startsWith("/admin");
 
   if (isAdminRoute) {
-    return <Suspense fallback={<Loader />}>{children}</Suspense>;
+    // Disable full-screen loader for admin to make transitions instant.
+    // loading.js files in the admin directory now handle granular skeleton loaders.
+    return <Suspense fallback={null}>{children}</Suspense>;
   }
 
   return (

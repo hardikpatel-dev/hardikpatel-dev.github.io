@@ -22,8 +22,45 @@ export default function AdminShell({ user, children }) {
     };
   }, [isSidebarOpen]);
 
+  // Force-disable all transitions and animations in admin to make it instant
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.id = "admin-no-transitions";
+    style.innerHTML = `
+      * {
+        transition: none !important;
+        animation: none !important;
+        scroll-behavior: auto !important;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      const el = document.getElementById("admin-no-transitions");
+      if (el) el.remove();
+    };
+  }, []);
+
+  // Disable page transitions globally in admin
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = "auto";
+    const style = document.createElement("style");
+    style.innerHTML = `
+      * {
+        transition: none !important;
+        animation-duration: 0s !important;
+        animation-iteration-count: 1 !important;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.documentElement.style.scrollBehavior = "";
+      document.head.removeChild(style);
+    };
+  }, []);
+
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,#f5f5f7_0%,#eceef2_45%,#f9f9fb_100%)] p-3 text-text">
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top,#f5f5f7_0%,#eceef2_45%,#f9f9fb_100%)] p-3 text-text transition-none!">
       <div className="sticky top-3 z-30 mb-3 flex items-center justify-between rounded-2xl bg-[#101010] px-4 py-3 text-white shadow-[0_12px_30px_rgba(17,17,17,0.12)] lg:hidden">
         <div className="flex min-w-0 items-center gap-3">
           <AdminBrandMark size="sm" className="shrink-0" />

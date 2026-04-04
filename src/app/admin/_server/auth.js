@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import {
+  checkRateLimit,
   clearAdminSession,
+  getClientIp,
   hashPassword,
   isAdminSignupEnabled,
   setAdminSession,
@@ -12,8 +14,27 @@ function getErrorDetails(error) {
   return process.env.NODE_ENV !== "production" ? error?.message : undefined;
 }
 
+function rateLimitedResponse(retryAfterSeconds) {
+  return NextResponse.json(
+    {
+      error: `Too many attempts. Please try again after ${Math.ceil(retryAfterSeconds / 60)} minute(s).`,
+    },
+    {
+      status: 429,
+      headers: { "Retry-After": String(retryAfterSeconds) },
+    }
+  );
+}
+
 export async function loginAdmin(request) {
   try {
+    const clientIp = await getClientIp();
+    const rateCheck = await checkRateLimit(clientIp);
+
+    if (!rateCheck.allowed) {
+      return rateLimitedResponse(rateCheck.retryAfterSeconds);
+    }
+
     const payload = await request.json();
     const email = String(payload?.email || "").trim().toLowerCase();
     const password = String(payload?.password || "");
@@ -68,6 +89,13 @@ export async function signupAdmin(request) {
         },
         { status: 403 }
       );
+    }
+
+    const clientIp = await getClientIp();
+    const rateCheck = await checkRateLimit(clientIp);
+
+    if (!rateCheck.allowed) {
+      return rateLimitedResponse(rateCheck.retryAfterSeconds);
     }
 
     const payload = await request.json();

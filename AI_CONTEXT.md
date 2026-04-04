@@ -90,6 +90,10 @@
 - Session helper lives in `src/app/admin/_lib/auth.js`
 - Session cookie name is `hp_admin_session`
 - Auth is enforced server-side with `getAdminSession()` and `requireAdminSession()`
+- Session signing uses `ADMIN_SESSION_SECRET` env var (required in production, throws if missing)
+- Rate limiting is applied to login/signup routes (5 attempts per 15 minutes per IP)
+- Signup is disabled in production unless `ADMIN_ALLOW_SIGNUP=true`
+- Upload route validates both MIME type and file extension independently
 - This project is not currently using Auth.js / NextAuth
 
 ## Project CRUD State

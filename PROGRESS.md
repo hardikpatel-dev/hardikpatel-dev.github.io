@@ -1,7 +1,7 @@
 # Progress
 
 ## Last Updated
-- 2026-04-02
+- 2026-04-04
 
 ## Current Status
 - Frontend portfolio is working
@@ -87,6 +87,9 @@
 - Homepage invalidation after admin writes is handled with `revalidatePath`
 - Production build succeeds with the admin scaffold
 - Testimonial section now reads from PostgreSQL in normal runtime and uses static fallback only for export mode
+- Auth hardening: `ADMIN_SESSION_SECRET` is now enforced (throws in production if missing)
+- Auth hardening: rate limiting added to login/signup (5 attempts per 15 minutes per IP)
+- Auth hardening: upload route now validates file extensions independently of MIME types
 
 ## Recent Structural Changes
 - Admin-only UI components were moved into:
@@ -126,12 +129,12 @@
 - Add a safer production workflow for migrations/seeding
 - Expand dynamic models beyond `projects` and `testimonials`
 - Expand admin beyond the current `projects` and `testimonials` scaffold
-- Harden current authentication flow before broader production rollout
 - Harden validation with a dedicated schema layer such as Zod
 - Move richer admin route logic patterns to future modules as blogs/case studies are added
+- Add CSRF token protection for state-changing admin operations
 
 ## Immediate Next Step
-- Restrict signup flow before exposing admin in production
+- Set `ADMIN_SESSION_SECRET` in Vercel env vars (generate with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`)
 - Verify live Vercel app is reading the production Neon DB correctly
 - Confirm production project ordering/content from DB after admin-side edits
 - Decide the next content model after `projects`

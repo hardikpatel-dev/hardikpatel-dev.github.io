@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -7,15 +8,22 @@ import { initMagneticHover } from "@/lib/initMagneticHover";
 
 export default function Template({ children }) {
   const pathname = usePathname();
+  const isAdminRoute = pathname?.startsWith("/admin");
 
   useEffect(() => {
-    animatePageIn();
+    if (!isAdminRoute) {
+      animatePageIn();
+    }
     const cleanupMagnetic = initMagneticHover();
 
     return () => {
       if (typeof cleanupMagnetic === "function") cleanupMagnetic();
     };
-  }, [pathname]);
+  }, [pathname, isAdminRoute]);
+
+  if (isAdminRoute) {
+    return <>{children}</>;
+  }
 
   return (
     <div>
