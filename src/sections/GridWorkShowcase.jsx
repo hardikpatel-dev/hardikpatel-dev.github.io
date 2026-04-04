@@ -6,8 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// simple array of image sources
-const works = [
+const defaultWorks = [
   "/assets/workGrid/work1.png",
   "/assets/workGrid/work2.png",
   "/assets/workGrid/work3.png",
@@ -23,7 +22,7 @@ const works = [
   "/assets/workGrid/work12.png",
 ];
 
-export default function GridWorkShowcase() {
+export default function GridWorkShowcase({ dynamicImages }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -50,7 +49,6 @@ export default function GridWorkShowcase() {
               start: "30% 80%",
               end: "80% 80%",
               scrub: true,
-              // markers: true,
             },
           }
         );
@@ -61,10 +59,10 @@ export default function GridWorkShowcase() {
     return () => ctx.revert();
   }, []);
 
-  // split works into 4 columns
+  const activeWorks = dynamicImages && dynamicImages.length > 0 ? dynamicImages : defaultWorks;
   const columns = [[], [], [], []];
   const colCount = 4;
-  works.forEach((src, i) => columns[i % colCount].push(src));
+  activeWorks.forEach((src, i) => columns[i % colCount].push(src));
 
   return (
     <div

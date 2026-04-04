@@ -8,6 +8,7 @@ import {
   IconLayoutGrid,
   IconMail,
   IconMessage2Heart,
+  IconPhoto,
   IconSettings,
   IconUserCircle,
 } from "@tabler/icons-react";
@@ -18,6 +19,7 @@ const navItems = [
   { href: "/admin", label: "Overview", icon: IconLayoutGrid },
   { href: "/admin/projects", label: "Projects", icon: IconFolders },
   { href: "/admin/testimonials", label: "Testimonials", icon: IconMessage2Heart },
+  { href: "/admin/gallery", label: "Gallery", icon: IconPhoto },
   { href: "#", label: "Messages", icon: IconMail },
   { href: "#", label: "Settings", icon: IconSettings },
 ];
