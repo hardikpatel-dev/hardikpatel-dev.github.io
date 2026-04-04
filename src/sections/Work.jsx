@@ -27,14 +27,32 @@ const Work = async () => {
           description: project.description,
         }))
     : await (async () => {
-        noStore();
-
-        return prisma.project.findMany({
-          where: {
-            status: "PUBLISHED",
-          },
-          orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
-        });
+        try {
+          noStore();
+          return await prisma.project.findMany({
+            where: {
+              status: "PUBLISHED",
+            },
+            orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+          });
+        } catch (error) {
+          console.error("Prisma error in Work section:", error.message);
+          return fallbackProjects
+            .slice()
+            .sort((a, b) => a.order - b.order)
+            .map((project) => ({
+              id: project.id,
+              sortOrder: project.order,
+              title: project.name,
+              liveUrl: project.link,
+              faviconUrl: project.favicon,
+              thumbnailUrl: project.thumbnail,
+              videoUrl: project.video,
+              industry: project.industry,
+              publishedYear: Number(project.published),
+              description: project.description,
+            }));
+        }
       })();
 
   const sortedProjects = projects.map((project) => ({

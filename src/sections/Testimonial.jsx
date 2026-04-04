@@ -21,14 +21,30 @@ export default async function Testimonial() {
           status: "PUBLISHED",
         }))
     : await (async () => {
-        noStore();
-
-        return prisma.testimonial.findMany({
-          where: {
-            status: "PUBLISHED",
-          },
-          orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
-        });
+        try {
+          noStore();
+          return await prisma.testimonial.findMany({
+            where: {
+              status: "PUBLISHED",
+            },
+            orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+          });
+        } catch (error) {
+          console.error("Prisma error in Testimonial section:", error.message);
+          return fallbackTestimonials
+            .slice()
+            .sort((a, b) => a.id - b.id)
+            .map((testimonial, index) => ({
+              id: testimonial.id,
+              name: testimonial.name,
+              designation: testimonial.designation,
+              imageUrl: testimonial.image,
+              feedback: testimonial.feedback,
+              linkedinUrl: testimonial.linkedin,
+              sortOrder: index + 1,
+              status: "PUBLISHED",
+            }));
+        }
       })();
 
   const mappedTestimonials = testimonials.map((testimonial) => ({

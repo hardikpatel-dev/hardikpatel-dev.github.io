@@ -13,14 +13,17 @@ const GridWorkShowcase = dynamic(
 );
 
 export default async function Home() {
-  // Safe fallback to prevent crashes during Next.js Hot Module Reloads 
-  // before the user restarts the server to pick up the new Prisma client.
-  const galleryDocs = prisma.galleryImage
-    ? await prisma.galleryImage.findMany({
-        where: { isActive: true },
-        orderBy: { sortOrder: "asc" },
-      })
-    : [];
+  let galleryDocs = [];
+  try {
+    galleryDocs = prisma.galleryImage
+      ? await prisma.galleryImage.findMany({
+          where: { isActive: true },
+          orderBy: { sortOrder: "asc" },
+        })
+      : [];
+  } catch (error) {
+    console.error("Prisma error during home page render:", error.message);
+  }
 
   const dbImages = galleryDocs.map((img) => img.imageUrl);
 
