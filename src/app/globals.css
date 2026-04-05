@@ -448,3 +448,37 @@ button:disabled,
     z-index: -1;
   }
 }
+
+/* ── Sonner Toast Refinements (Untitled UI match) ── */
+
+/* Ensure Sonner always animates even inside admin */
+[data-sonner-toaster],
+[data-sonner-toaster] * {
+  transition: all 0.35s cubic-bezier(0.21, 1.02, 0.73, 1) !important;
+}
+[data-sonner-toast] {
+  animation-duration: 0.35s !important;
+}
+
+/* Close button → right side, vertically centered */
+[data-sonner-toast] [data-close-button] {
+  left: unset !important;
+  right: 8px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: transparent !important;
+  border: none !important;
+  color: inherit !important;
+  opacity: 0.4;
+  transition: opacity 0.2s ease !important;
+}
+[data-sonner-toast] [data-close-button]:hover {
+  opacity: 1;
+}
+
+/* Icon container */
+[data-sonner-toast] [data-icon] {
+  width: 22px !important;
+  height: 22px !important;
+  flex-shrink: 0;
+}

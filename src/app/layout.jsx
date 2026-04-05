@@ -2,7 +2,7 @@ import "./globals.css";
 import { WhyteInktrap, poppins, instrumentSerif } from "./fonts";
 import TitleChanger from "@/components/TitleChanger";
 import InitGsapAnimations from "./animations/InitGsapAnimations";
-import { Toaster } from "react-hot-toast";
+import CustomToaster from "@/components/CustomToaster";
 import ClarityProvider from "@/components/ClarityProvider";
 import AppChrome from "@/components/AppChrome";
 
@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         className={`${WhyteInktrap.variable} ${poppins.variable} ${instrumentSerif.variable} antialiased`}
       >
         <ClarityProvider />
-        <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
+        <CustomToaster />
         <InitGsapAnimations />
         <TitleChanger />
         <AppChrome>{children}</AppChrome>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition, useRef } from "react";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 import {
   IconUpload,
   IconX,

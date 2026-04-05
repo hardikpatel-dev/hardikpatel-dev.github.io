@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import AdminBrandMark from "@/app/admin/_components/AdminBrandMark";
 
 export default function AdminAuthForm({

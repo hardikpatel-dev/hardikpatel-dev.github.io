@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
+import { IconLogout } from "@tabler/icons-react";
 
 export default function AdminLogoutButton() {
   const router = useRouter();

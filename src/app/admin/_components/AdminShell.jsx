@@ -27,7 +27,7 @@ export default function AdminShell({ user, children }) {
     const style = document.createElement("style");
     style.id = "admin-no-transitions";
     style.innerHTML = `
-      * {
+      *:not([data-sonner-toaster] *):not([data-sonner-toast]) {
         transition: none !important;
         animation: none !important;
         scroll-behavior: auto !important;
@@ -45,7 +45,7 @@ export default function AdminShell({ user, children }) {
     document.documentElement.style.scrollBehavior = "auto";
     const style = document.createElement("style");
     style.innerHTML = `
-      * {
+      *:not([data-sonner-toaster] *):not([data-sonner-toast]) {
         transition: none !important;
         animation-duration: 0s !important;
         animation-iteration-count: 1 !important;

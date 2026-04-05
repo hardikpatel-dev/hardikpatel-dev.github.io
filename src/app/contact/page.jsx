@@ -14,7 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FadeUpTextScroll from "../animations/FadeUpTextScroll";
 import FlipOnScroll from "../animations/FlipOnScroll";
-import toast from "react-hot-toast"; // For error toasts
+import { toast } from "sonner"; // For error toasts
 import SuccessPopup from "@/components/SuccessPopup"; // Separate popup component
 
 export default function ContactPage() {

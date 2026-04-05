@@ -16,7 +16,7 @@ import {
   IconUserCircle,
   IconX,
 } from "@tabler/icons-react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const emptyForm = {
   name: "",

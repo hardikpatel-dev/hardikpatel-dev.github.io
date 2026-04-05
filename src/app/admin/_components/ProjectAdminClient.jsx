@@ -18,7 +18,7 @@ import {
   IconUpload,
   IconX,
 } from "@tabler/icons-react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { slugify } from "@/app/admin/_lib/projects";
 
 const emptyForm = {
