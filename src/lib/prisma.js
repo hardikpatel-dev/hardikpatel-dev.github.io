@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../generated/prisma";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 
@@ -12,12 +12,11 @@ if (!connectionString) {
 const pool = globalForPrisma.prismaPool || new Pool({ connectionString });
 const adapter = globalForPrisma.prismaAdapter || new PrismaPg(pool);
 
-export const prisma =
-  globalForPrisma.prisma ||
-  new PrismaClient({
-    adapter,
-    log: ["error", "warn"],
-  });
+// Force refresh by bypassing global cache temporarily if needed
+export const prisma = new PrismaClient({
+  adapter,
+  log: ["error", "warn"],
+});
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;

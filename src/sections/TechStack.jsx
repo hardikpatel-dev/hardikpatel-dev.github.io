@@ -6,13 +6,16 @@ import FadeUpTextScroll from "@/app/animations/FadeUpTextScroll";
 import FlipOnScroll from "@/app/animations/FlipOnScroll";
 import techStack from "@/data/tech-stack";
 
-const TechStack = () => {
-  const topRow = techStack.slice(0, 3);
-  const bottomRow = techStack.slice(3);
+const TechStack = ({ items = [] }) => {
+  // Merge or fallback to static data if DB is empty (initial state)
+  const displayItems = items.length > 0 ? items : techStack;
+  
+  const topRow = displayItems.slice(0, 3);
+  const bottomRow = displayItems.slice(3);
 
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
-  const [active, setActive] = useState(techStack[0].id);
+  const [active, setActive] = useState(displayItems[0]?.id || techStack[0].id);
 
   useEffect(() => {
     const activeEl = document.getElementById(`tech-${active}`);
@@ -62,27 +65,36 @@ const TechStack = () => {
               {topRow.map((tech) => (
                 <a
                   key={tech.id}
-                  data-cursor={tech.id}
+                  data-cursor={tech.name || tech.id}
                   id={`tech-${tech.id}`}
-                  href={tech.link}
+                  href={tech.link || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
                   onMouseEnter={() => setActive(tech.id)}
                   className="h-60 flex flex-1 items-center justify-center p-6 border-r border-b border-t-0 border-gray-300 transition first:border-l-0 last:border-r-0"
                 >
                   <FlipOnScroll>
-                    <Image
-                      src={tech.icon}
-                      alt={tech.id}
-                      width={60}
-                      height={60}
-                      sizes="60px"
-                      quality={50}
-                      loading="lazy"
-                      className={`h-18 w-auto object-contain  ${
-                        active === tech.id ? "filter-invert" : "svg-invert"
-                      }`}
-                    />
+                    {tech.iconCode ? (
+                      <div 
+                        className={`h-18 w-18 flex items-center justify-center transition-colors duration-300 ${
+                          active === tech.id ? "filter-invert" : "svg-invert"
+                        }`}
+                        dangerouslySetInnerHTML={{ __html: tech.iconCode }}
+                      />
+                    ) : (
+                      <Image
+                        src={tech.icon}
+                        alt={tech.id}
+                        width={60}
+                        height={60}
+                        sizes="60px"
+                        quality={50}
+                        loading="lazy"
+                        className={`h-18 w-auto object-contain  ${
+                          active === tech.id ? "filter-invert" : "svg-invert"
+                        }`}
+                      />
+                    )}
                   </FlipOnScroll>
                 </a>
               ))}
@@ -94,25 +106,34 @@ const TechStack = () => {
                 <a
                   key={tech.id}
                   id={`tech-${tech.id}`}
-                  href={tech.link}
+                  href={tech.link || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
                   onMouseEnter={() => setActive(tech.id)}
                   className="h-50 flex flex-1 items-center justify-center p-6 border-r border-gray-300 transition first:border-l-0 last:border-r-0"
                 >
                   <FlipOnScroll>
-                    <Image
-                      src={tech.icon}
-                      alt={tech.id}
-                      width={60}
-                      height={60}
-                      sizes="60px"
-                      quality={50}
-                      loading="lazy"
-                      className={`h-12 w-auto object-contain  ${
-                        active === tech.id ? "filter-invert" : "svg-invert"
-                      }`}
-                    />
+                    {tech.iconCode ? (
+                      <div 
+                        className={`h-12 w-12 flex items-center justify-center transition-colors duration-300 ${
+                          active === tech.id ? "filter-invert" : "svg-invert"
+                        }`}
+                        dangerouslySetInnerHTML={{ __html: tech.iconCode }}
+                      />
+                    ) : (
+                      <Image
+                        src={tech.icon}
+                        alt={tech.id}
+                        width={60}
+                        height={60}
+                        sizes="60px"
+                        quality={50}
+                        loading="lazy"
+                        className={`h-12 w-auto object-contain  ${
+                          active === tech.id ? "filter-invert" : "svg-invert"
+                        }`}
+                      />
+                    )}
                   </FlipOnScroll>
                 </a>
               ))}
@@ -121,27 +142,34 @@ const TechStack = () => {
 
           {/* Mobile Layout (2 per row) */}
           <div className="grid grid-cols-2 md:hidden relative z-1">
-            {techStack.map((tech) => (
+            {displayItems.map((tech) => (
               <a
                 key={tech.id}
                 id={`tech-${tech.id}`}
-                href={tech.link}
+                href={tech.link || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => setActive(tech.id)}
                 className="h-30 flex flex-1 items-center justify-center p-4 border-r border-b border-gray-300 transition odd:border-l-0 even:border-r-0 last:border-r-0"
               >
                 <FlipOnScroll>
-                  <Image
-                    src={tech.icon}
-                    alt={tech.id}
-                    width={50}
-                    height={50}
-                    sizes="50px"
-                    quality={50}
-                    loading="lazy"
-                    className={`h-12 w-auto object-contain svg-invert`}
-                  />
+                  {tech.iconCode ? (
+                    <div 
+                      className="h-12 w-12 flex items-center justify-center svg-invert"
+                      dangerouslySetInnerHTML={{ __html: tech.iconCode }}
+                    />
+                  ) : (
+                    <Image
+                      src={tech.icon}
+                      alt={tech.id}
+                      width={50}
+                      height={50}
+                      sizes="50px"
+                      quality={50}
+                      loading="lazy"
+                      className={`h-12 w-auto object-contain svg-invert`}
+                    />
+                  )}
                 </FlipOnScroll>
               </a>
             ))}

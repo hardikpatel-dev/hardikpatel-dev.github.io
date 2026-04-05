@@ -172,6 +172,53 @@ const testimonials = [
 ];
 
 async function main() {
+  const fs = require('fs');
+  const path = require('path');
+  const assetsPath = path.join(process.cwd(), 'public', 'assets', 'tech-stack');
+
+  const techStackData = [
+    { id: "react", order: 1, icon: "react.svg", link: "https://react.dev/" },
+    { id: "nextjs", order: 2, icon: "nextjs.svg", link: "https://nextjs.org/" },
+    { id: "javascript", order: 3, icon: "javascript.svg", link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+    { id: "gsap", order: 4, icon: "gsap.svg", link: "https://gsap.com/" },
+    { id: "tailwindcss", order: 5, icon: "tailwindcss.svg", link: "https://tailwindcss.com/" },
+    { id: "bootstrap", order: 6, icon: "bootstrap.svg", link: "https://getbootstrap.com/" },
+    { id: "css", order: 7, icon: "css.svg", link: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
+    { id: "mui", order: 8, icon: "mui.svg", link: "https://mui.com/" },
+    { id: "electron", order: 9, icon: "electron.svg", link: "https://www.electronjs.org/" },
+    { id: "figma", order: 10, icon: "figma.svg", link: "https://www.figma.com/" },
+  ];
+
+  for (const item of techStackData) {
+    console.log(`Processing tech item: ${item.id}`);
+    const filePath = path.join(assetsPath, item.icon);
+    let iconCode = '';
+    
+    if (fs.existsSync(filePath)) {
+      iconCode = fs.readFileSync(filePath, 'utf8');
+      iconCode = iconCode.replace(/<\?xml.*?\?>/g, '').trim();
+    } else {
+      iconCode = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="2"/></svg>';
+    }
+
+    await prisma.techStackItem.upsert({
+      where: { id: item.order },
+      update: {
+        name: String(item.id).charAt(0).toUpperCase() + String(item.id).slice(1),
+        iconCode: iconCode,
+        link: item.link,
+        sortOrder: item.order,
+      },
+      create: {
+        id: item.order,
+        name: String(item.id).charAt(0).toUpperCase() + String(item.id).slice(1),
+        iconCode: iconCode,
+        link: item.link,
+        sortOrder: item.order,
+      }
+    });
+  }
+
   for (const project of projects) {
     await prisma.project.upsert({
       where: { slug: project.slug },
@@ -216,15 +263,17 @@ async function main() {
 
   const projectCount = await prisma.project.count();
   const testimonialCount = await prisma.testimonial.count();
+  const techCount = await prisma.techStackItem.count();
   const adminCount = await prisma.adminUser.count();
   console.log(
-    `Seed completed. Total projects: ${projectCount}. Total testimonials: ${testimonialCount}. Total admin users: ${adminCount}`
+    `Seed completed. Total projects: ${projectCount}. Total testimonials: ${testimonialCount}. Total tech items: ${techCount}. Total admin users: ${adminCount}`
   );
 }
 
 main()
   .catch((error) => {
     console.error("Seed failed:", error);
+    if (error.stack) console.error(error.stack);
     process.exitCode = 1;
   })
   .finally(async () => {

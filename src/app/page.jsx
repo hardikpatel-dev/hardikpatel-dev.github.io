@@ -14,9 +14,17 @@ const GridWorkShowcase = dynamic(
 
 export default async function Home() {
   let galleryDocs = [];
+  let techStackItems = [];
   try {
     galleryDocs = prisma.galleryImage
       ? await prisma.galleryImage.findMany({
+          where: { isActive: true },
+          orderBy: { sortOrder: "asc" },
+        })
+      : [];
+
+    techStackItems = prisma.techStackItem
+      ? await prisma.techStackItem.findMany({
           where: { isActive: true },
           orderBy: { sortOrder: "asc" },
         })
@@ -32,7 +40,7 @@ export default async function Home() {
       <Hero />
       <Work />
       <GridWorkShowcase dynamicImages={dbImages} />
-      <TechStack />
+      <TechStack items={techStackItems} />
       <About />
       <Testimonial />
     </>
