@@ -65,7 +65,7 @@ export async function addTechItem(data) {
     return item;
   } catch (error) {
     console.error("Error adding tech item:", error);
-    throw error;
+    throw new Error("Failed to add tech item: " + (error?.message || "Unknown"));
   }
 }
 
@@ -92,7 +92,7 @@ export async function updateTechItem(id, data) {
     return item;
   } catch (error) {
     console.error("Error updating tech item:", error);
-    throw error;
+    throw new Error("Failed to update tech item: " + (error?.message || "Unknown"));
   }
 }
 

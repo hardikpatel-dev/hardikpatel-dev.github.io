@@ -70,7 +70,7 @@ export default function TechStackAdminClient({ initialItems }) {
         }
         setIsModalOpen(false);
       } catch (error) {
-        toast.error("Failed to save tech item");
+        toast.error(error.message || "Failed to save tech item");
       }
     });
   };

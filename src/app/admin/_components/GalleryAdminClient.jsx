@@ -46,14 +46,18 @@ export default function GalleryAdminClient({ images: initialImages }) {
       setIsUploading(true);
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("folder", "gallery");
+      formData.append("assetType", "gallery");
+      formData.append("projectSlug", "gallery");
 
-      const res = await fetch("/api/upload", {
+      const res = await fetch("/api/admin/uploads", {
         method: "POST",
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Upload failed");
+      if (!res.ok) {
+        const errObj = await res.json().catch(() => ({}));
+        throw new Error(errObj.error || "Upload failed");
+      }
 
       const data = await res.json();
 

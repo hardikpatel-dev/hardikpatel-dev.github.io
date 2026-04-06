@@ -60,7 +60,7 @@ export async function createAdminTestimonial(request) {
     console.error("Failed to create testimonial:", error);
 
     return NextResponse.json(
-      { error: "Failed to create testimonial." },
+      { error: `Failed to create testimonial: ${error?.message || "Unknown."}` },
       { status: 500 }
     );
   }
@@ -107,7 +107,7 @@ export async function updateAdminTestimonial(request, { params }) {
     console.error("Failed to update testimonial:", error);
 
     return NextResponse.json(
-      { error: "Failed to update testimonial." },
+      { error: `Failed to update testimonial: ${error?.message || "Unknown."}` },
       { status: 500 }
     );
   }

@@ -66,7 +66,7 @@ export async function createAdminProject(request) {
     console.error("Failed to create project:", error);
 
     return NextResponse.json(
-      { error: "Failed to create project." },
+      { error: `Failed to create project: ${error?.message || "Unknown."}` },
       { status: 500 }
     );
   }
@@ -120,7 +120,7 @@ export async function updateAdminProject(request, { params }) {
     console.error("Failed to update project:", error);
 
     return NextResponse.json(
-      { error: "Failed to update project." },
+      { error: `Failed to update project: ${error?.message || "Unknown."}` },
       { status: 500 }
     );
   }

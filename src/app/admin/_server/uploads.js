@@ -3,6 +3,7 @@ import path from "node:path";
 import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { getAdminSession } from "@/app/admin/_lib/auth";
+import { Buffer } from "node:buffer";
 
 const uploadConfig = {
   favicon: {
@@ -26,6 +27,13 @@ const uploadConfig = {
     allowedExtensions: [".mp4", ".webm", ".mov"],
     maxBytes: 100 * 1024 * 1024,
   },
+  gallery: {
+    dir: path.join(process.cwd(), "public", "uploads", "gallery"),
+    publicBase: "/uploads/gallery",
+    allowedMimeTypes: ["image/png", "image/jpeg", "image/webp", "image/svg+xml", "image/avif"],
+    allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif"],
+    maxBytes: 10 * 1024 * 1024,
+  },
 };
 
 function sanitizeFilenamePart(value) {
@@ -45,11 +53,11 @@ export async function uploadAdminAsset(request) {
   try {
     const formData = await request.formData();
     const assetType = String(formData.get("assetType") || "");
-    const projectSlug = String(formData.get("projectSlug") || "");
+    const projectSlug = String(formData.get("projectSlug") || "general");
     const file = formData.get("file");
 
     if (!uploadConfig[assetType]) {
-      return NextResponse.json({ error: "Invalid asset type." }, { status: 400 });
+      return NextResponse.json({ error: "Invalid asset type: " + assetType }, { status: 400 });
     }
 
     if (!(file instanceof File)) {
@@ -60,7 +68,7 @@ export async function uploadAdminAsset(request) {
 
     if (!config.allowedMimeTypes.includes(file.type)) {
       return NextResponse.json(
-        { error: `Unsupported file type for ${assetType}.` },
+        { error: `Unsupported file type (${file.type}) for ${assetType}.` },
         { status: 400 }
       );
     }
@@ -98,6 +106,6 @@ export async function uploadAdminAsset(request) {
     });
   } catch (error) {
     console.error("Asset upload failed:", error);
-    return NextResponse.json({ error: "Asset upload failed." }, { status: 500 });
+    return NextResponse.json({ error: "Asset upload failed: " + (error?.message || "Unknown error") }, { status: 500 });
   }
 }
