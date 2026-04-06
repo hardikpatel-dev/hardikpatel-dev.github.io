@@ -1,35 +1,37 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import path from "node:path";
-import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { getAdminSession } from "@/app/admin/_lib/auth";
 import { Buffer } from "node:buffer";
+import { v2 as cloudinary } from "cloudinary";
+import path from "node:path";
+import { randomUUID } from "node:crypto";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const uploadConfig = {
   favicon: {
-    dir: path.join(process.cwd(), "public", "uploads", "projects", "favicons"),
-    publicBase: "/uploads/projects/favicons",
+    folder: "portfolio/favicons",
     allowedMimeTypes: ["image/png", "image/jpeg", "image/webp", "image/svg+xml", "image/x-icon"],
     allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico"],
     maxBytes: 5 * 1024 * 1024,
   },
   thumbnail: {
-    dir: path.join(process.cwd(), "public", "uploads", "projects", "thumbnails"),
-    publicBase: "/uploads/projects/thumbnails",
+    folder: "portfolio/thumbnails",
     allowedMimeTypes: ["image/png", "image/jpeg", "image/webp", "image/avif"],
     allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".avif"],
     maxBytes: 10 * 1024 * 1024,
   },
   video: {
-    dir: path.join(process.cwd(), "public", "uploads", "projects", "videos"),
-    publicBase: "/uploads/projects/videos",
+    folder: "portfolio/videos",
     allowedMimeTypes: ["video/mp4", "video/webm", "video/quicktime"],
     allowedExtensions: [".mp4", ".webm", ".mov"],
     maxBytes: 100 * 1024 * 1024,
   },
   gallery: {
-    dir: path.join(process.cwd(), "public", "uploads", "gallery"),
-    publicBase: "/uploads/gallery",
+    folder: "portfolio/gallery",
     allowedMimeTypes: ["image/png", "image/jpeg", "image/webp", "image/svg+xml", "image/avif"],
     allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif"],
     maxBytes: 10 * 1024 * 1024,
@@ -73,7 +75,6 @@ export async function uploadAdminAsset(request) {
       );
     }
 
-    // Validate file extension independently of MIME type
     const extension = path.extname(file.name || "").toLowerCase();
 
     if (!extension || !config.allowedExtensions.includes(extension)) {
@@ -90,19 +91,33 @@ export async function uploadAdminAsset(request) {
       );
     }
 
-    const safeName = `${sanitizeFilenamePart(projectSlug)}-${randomUUID()}${extension}`;
-
-    await mkdir(config.dir, { recursive: true });
-    const destinationPath = path.join(config.dir, safeName);
     const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    const safeName = `${sanitizeFilenamePart(projectSlug)}-${randomUUID()}`;
 
-    await writeFile(destinationPath, Buffer.from(bytes));
+    // Upload to Cloudinary directly from memory
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: config.folder,
+          public_id: safeName,
+          resource_type: "auto", // Works for both images and videos
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+      uploadStream.end(buffer);
+    });
 
     return NextResponse.json({
-      url: `${config.publicBase}/${safeName}`,
+      url: uploadResult.secure_url,
       name: file.name,
       size: file.size,
       type: file.type,
+      // Pass the cloudinary public_id if needed for future deleting
+      public_id: uploadResult.public_id,
     });
   } catch (error) {
     console.error("Asset upload failed:", error);
