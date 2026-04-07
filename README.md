@@ -1,7 +1,5 @@
 # 🌐 Hardik Patel - Portfolio
 
-[![Deploy Next.js site to GitHub Pages](https://github.com/hardikpatel-dev/hardikpatel-dev.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/hardikpatel-dev/hardikpatel-dev.github.io/actions/workflows/deploy.yml)
-
 This is my personal portfolio website built using **Next.js**, **TailwindCSS**, and **GSAP animations**.  
 It showcases my projects, skills, and experience, and is automatically deployed with **GitHub Actions** on **GitHub Pages**.
 
@@ -9,7 +7,7 @@ It showcases my projects, skills, and experience, and is automatically deployed 
 
 ## 🚀 Live Demo
 
-🔗 [https://hardikpatel-dev.github.io](https://hardikpatel-dev.github.io)
+🔗 [https://itshardik.vercel.app](https://itshardik.vercel.app)
 
 ---
 
