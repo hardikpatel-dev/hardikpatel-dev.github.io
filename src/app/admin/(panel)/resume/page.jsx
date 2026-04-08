@@ -2,6 +2,8 @@ import ResumeAdminClient from "@/app/admin/_components/ResumeAdminClient";
 import { getResumeItems, getResumeSettings } from "@/app/admin/_server/resume";
 import { requireAdminSession } from "@/app/admin/_lib/auth";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Resume Admin ~ Portfolio",
 };

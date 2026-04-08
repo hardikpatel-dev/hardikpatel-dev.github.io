@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/prisma";
 import { getProjectStatusOptions } from "@/app/admin/_lib/projects";
 import { requireAdminSession } from "@/app/admin/_lib/auth";

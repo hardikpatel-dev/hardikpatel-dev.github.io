@@ -1,6 +1,8 @@
 import About from "@/sections/About";
 import Hero from "@/sections/Hero";
 import TechStack from "@/sections/TechStack";
+
+export const dynamic = "force-dynamic";
 import Testimonial from "@/sections/Testimonial";
 import Loader from "@/components/Loader";
 import Work from "@/sections/Work";

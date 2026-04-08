@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import ResumeClient from "./ResumeClient";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Resume | Hardik Patel",
   description: "Comprehensive professional resume, skills, and experience.",
