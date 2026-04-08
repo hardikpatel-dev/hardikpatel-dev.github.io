@@ -6,10 +6,10 @@ export const dynamic = "force-dynamic";
 import Testimonial from "@/sections/Testimonial";
 import Loader from "@/components/Loader";
 import Work from "@/sections/Work";
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import { prisma } from "@/lib/prisma";
 
-const GridWorkShowcase = dynamic(
+const GridWorkShowcase = nextDynamic(
   () => import("@/sections/GridWorkShowcase"),
   { loading: () => <Loader /> }
 );
