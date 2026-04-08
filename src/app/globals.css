@@ -1,6 +1,5 @@
 @import "tailwindcss";
-
-/* Reset */
+@custom-variant dark (&:where(.dark, .dark *));/* Reset */
 
 /* Scrollbar */
 ::-webkit-scrollbar {

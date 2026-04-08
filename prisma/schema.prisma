@@ -84,3 +84,31 @@ model TechStackItem {
   updatedAt DateTime @updatedAt
 }
 
+enum ResumeSectionType {
+  EXPERIENCE
+  EDUCATION
+  PROJECT
+  SKILL
+  ACHIEVEMENT
+  HOBBY
+}
+
+model ResumeItem {
+  id        Int               @id @default(autoincrement())
+  type      ResumeSectionType
+  title     String            
+  subtitle  String?           
+  dateRange String?           
+  link      String?           
+  bullets   String[]          
+  sortOrder Int               @default(0)
+  isActive  Boolean           @default(true)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+model ResumeSettings {
+  id            Int      @id @default(autoincrement())
+  pdfUrl        String?  
+  updatedAt     DateTime @updatedAt
+}

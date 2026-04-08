@@ -36,6 +36,13 @@ const uploadConfig = {
     allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif"],
     maxBytes: 10 * 1024 * 1024,
   },
+  resume_pdf: {
+    folder: "portfolio/documents",
+    allowedMimeTypes: ["application/pdf"],
+    allowedExtensions: [".pdf"],
+    maxBytes: 15 * 1024 * 1024,
+    resource_type: "raw",
+  },
 };
 
 function sanitizeFilenamePart(value) {
@@ -93,7 +100,10 @@ export async function uploadAdminAsset(request) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const safeName = `${sanitizeFilenamePart(projectSlug)}-${randomUUID()}`;
+    
+    // Professional naming for resume
+    const namePrefix = assetType === "resume_pdf" ? "Hardik_Patel_Resume" : sanitizeFilenamePart(projectSlug);
+    const safeName = `${namePrefix}-${randomUUID()}${extension}`;
 
     // Upload to Cloudinary directly from memory
     const uploadResult = await new Promise((resolve, reject) => {
@@ -101,7 +111,9 @@ export async function uploadAdminAsset(request) {
         {
           folder: config.folder,
           public_id: safeName,
-          resource_type: "auto", // Works for both images and videos
+          resource_type: config.resource_type || "auto",
+          access_mode: "public",
+          type: "upload"
         },
         (error, result) => {
           if (error) reject(error);

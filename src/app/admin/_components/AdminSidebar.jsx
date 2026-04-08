@@ -12,6 +12,7 @@ import {
   IconSettings,
   IconStack2,
   IconUserCircle,
+  IconFileText,
 } from "@tabler/icons-react";
 import AdminLogoutButton from "@/app/admin/_components/AdminLogoutButton";
 import AdminBrandMark from "@/app/admin/_components/AdminBrandMark";
@@ -19,6 +20,7 @@ import AdminBrandMark from "@/app/admin/_components/AdminBrandMark";
 const navItems = [
   { href: "/admin", label: "Overview", icon: IconLayoutGrid },
   { href: "/admin/projects", label: "Projects", icon: IconFolders },
+  { href: "/admin/resume", label: "Resume", icon: IconFileText },
   { href: "/admin/tech-stack", label: "Tech Stack", icon: IconStack2 },
   { href: "/admin/testimonials", label: "Testimonials", icon: IconMessage2Heart },
   { href: "/admin/gallery", label: "Gallery", icon: IconPhoto },
